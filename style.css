@@ -375,7 +375,6 @@ li {
 
 /* ── About Me page ─────────────────────────────────────────────────── */
 .aboutme-page {
-	overflow: hidden;   /* clearfix: keeps the box tall enough to contain the float */
 	padding: 20px 20px 24px 20px;
 }
 
