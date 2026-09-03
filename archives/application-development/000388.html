@@ -1,0 +1,216 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Want to know how many users are on your site right NOW..</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-388">
+  
+                                <h2><a href="/archives/application-development/000388.html" rel="bookmark" title="Permanent link to Want to know how many users are on your site right NOW..">Want to know how many users are on your site right NOW..</a></h2>
+                                
+                                <h3>Posted : July 12, 2004 at 3:53 pm [America/Los_Angeles]</h3>
+                                
+                                <div class="archival-note"><p><em>Not all of the content referenced here, nearly two decades ago, survived the years.</em></p></div>
+<p>
+Came across <a href="http://source.reinvigorate.net/" target="_blank">this</a> SourceForge project over the weekend. In a nutshell, this software solution allows you to see in almost real-time how many users are on your site. </p>
+<p>
+The software consists of two parts:</p>
+<ul>
+<li>Flash movie on the client-side
+<li>Java server on the backend side.
+</ul>
+<p>
+Here are some notes on how I set it up on my server:</p>
+<p>
+<b>Assumptions</b></p>
+<ul>
+<li>You&#8217;ve a web server to host the Flash movie
+<li>You&#8217;ve Java SDK installed
+</ul>
+<p>
+<b>Installation instructions</b></p>
+<ul>
+<li>Download the <a href="http://source.reinvigorate.net/vm/VisitorMonitor.zip">code</a>
+<pre>
+(unix-prompt)&gt;cd /tmp
+(unix-prompt)&gt;wget http://source.reinvigorate.net/vm/VisitorMonitor.zip
+</pre>
+<li>Uncompress it. Look for a file called <span id="code">visitorMonitor.fla</span> and a folder called <span id="code">VisitorMonitor/classes/visitormonitor</span>
+<pre>
+(unix-prompt)&gt;unzip VisitorMonitor.zip
+</pre>
+<li>Move <span id="code">VisitorMonitor/classes/visitormonitor</span> to <span id="code">/usr</span> (or any folder where you generally prefer keeping your installed code)
+<pre>
+(root-prompt)&gt;mv VisitorMonitor/classes/visitormonitor /usr/
+</pre>
+<li>Start the Java server:
+<pre>
+(unix-prompt)&gt;cd /usr
+(root-prompt)&gt;java visitormonitor.VisitorMonitor &#038;
+</pre>
+<li>Setting up the Flash movie is a little more work. If you don&#8217;t know Flash, consult your local Flash expert <img src="/images/wink.gif" align="middle"> In my case, it was my <a href="http://rajesh.induspolis.com" target="_blank">brother</a>.<br/>
+<ul type="square">
+<li>Open the visitorMonitor.fla file in Flash. You can download a 30-day trial version of Flash if you don&#8217;t have one. That&#8217;s what I did.
+<li>Edit the <span id="code">hostname</span> and <span id="code">port</span> settings as shown below:<br/><br />
+<center><img src="/images/editing-flash.gif" border=1></center><br/></p>
+<li>Save the file and then click <span id="code">File | Publish</span>. This will generate two files in the same folder as <span id="code">visitorMonitor.fla</span> - <span id="code">visitorMonitor.swf</span> and <span id="code">visitorMonitor.html</span>
+</ul>
+<p><li>Upload the swf file to a web accessible location on your web server. <i>That&#8217;s it!</i>
+</ul>
+<p>
+Enjoy!</p>
+<div class="note">
+<p><u>Note:</u><br/><br />
+In order to test the real-time behavior, try opening a few windows/tabs and accessing the same URL.
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1076</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		5 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-310">
+            <p>Since you are on javablogs, one would think that you post about java, but I see no articles about Java.</p>
+<p>I&#8217;m glad that javablogs let you delete blogs that have too much off-topic things.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:me@email.com">Me</a> at July 12, 2004 @ <a href="000388.html#comment-310">7:18 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-311">
+            <p>True. It&#8217;s nice that javablogs has that feature..;-)</p>
+<p>
+As for Java stuff on my blogs, I <b>do</b> talk about Java related stuff. I am sure you will find plenty of entries on or related to Java, all neatly stashed under &#8220;Application Development&#8221; category. However, notice that I call the category &#8220;Application development&#8221; and not &#8220;Java&#8221;.
+</p>
+<p>
+Basically, <b>I prefer talking about things that excite me as an IT professional</b>, occasionally peppered with a few personal notes. It&#8217;s really that simple.
+</p>
+<p>
+Apologize if my feeds on javablogs.com have caused you much heartburn, which it apparently has or else you would not have taken the trouble to drop a line <img src="/images/smilies/icon_smile.gif" alt=':-)' class='wp-smiley' /> </p>
+<p>
+I am kinda surprised you don&#8217;t treat even this post as Java related. Hmm..</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 12, 2004 @ <a href="000388.html#comment-311">7:47 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-312">
+            <p>You mean to tell me a flash animation cant detect the server &#038; port that it was downloaded from?</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:skanga@findant.dotcom">SKANGA</a> at July 13, 2004 @ <a href="000388.html#comment-312">1:33 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-313">
+            <p>Skanga:</p>
+<p>
+I am not sure I understand your question. The &#8216;hostname&#8217; and the &#8216;port&#8217; are part of the ActionScript tied to the Flash Animation. By default, it is set to &#8216;reinvigorate.net&#8217; and &#8216;1942&#8242; respectively. Hence the need to change it.
+</p>
+<p>
+If you&#8217;re suggesting that the Flash animation could&#8217;ve been written to automatically detect the &#8216;hostname&#8217; and &#8216;port&#8217;, I must confess that I really don&#8217;t know enough about the capabilities of ActionScript.
+</p>
+<p>
+HTH
+</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 13, 2004 @ <a href="000388.html#comment-313">8:29 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-314">
+            <p>The Flash doesn&#8217;t do any detecting.  It&#8217;s using the data at das.reinvigorate.net which is already calculating hits and users and dumping it into Flash through Java.  </p>
+<p>I know some ActionScript, but not Java and am having a devil of a time getting this to work the way I want.  When the shell is open and I run the app, it works perfectly, but as soon as I close the shell, it dies.  I have appended the &#038; to the command and have tried breaking and running bg, but nothing works!  Is this a problem with Java, Apache, Linux, what?  My ISP isn&#8217;t going to troubleshoot this app with me, so I need to pin down the problem.  What would cause the app to stop when I close the shell, even when told to run in the background?  Thanks for any help you can give.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:flamingasparagus@gmail.com">Timothy Gray</a> at October 30, 2004 @ <a href="000388.html#comment-314">4:43 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

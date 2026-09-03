@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; iBatis SQLMaps and OSCache: Data Access and Manipulation 201</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-213">
+  
+                                <h2><a href="/archives/application-development/000213.html" rel="bookmark" title="Permanent link to iBatis SQLMaps and OSCache: Data Access and Manipulation 201">iBatis SQLMaps and OSCache: Data Access and Manipulation 201</a></h2>
+                                
+                                <h3>Posted : May 26, 2004 at 9:41 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/sqlmaps.jpg"></center></p>
+<p>
+I am not a SQL developer by profession, but I know enough to know that it is an incredibly simple and yet extremely powerful data access and manipulation language. And while I must say that I have been fairly impressed with the plethora of QLs like EQL, HQL, myNeighbor&#8217;s-QL (just kidding) that have sprung up in the last few years, I continue to find Codd&#8217;s SQL (and the myriad flavors of it) far more stable, predictable and powerful for my data access and manipulation needs at this time. However, I am still holding out hope that some day soon I will have my &#8220;Eureka&#8221; moment vis-a-vis Hibernate and some of the other O/R tools and APIs out there <img src="/images/wink.gif" align="middle"></p>
+<p>
+See, here&#8217;s the deal. Pure JDBC code (or the many customized homegrown wrappers) were exciting to use for accessing and manipulating relational data a few years back. However, thanks to <a href="http://www.theserverside.com/articles/article.tss?l=SQLExecutor" target="_blank">SQLExecutor</a>, Spring&#8217;s <a href="http://www.springframework.org/docs/api/org/springframework/jdbc/core/JdbcTemplate.html" target="_blank">JDBCTemplate</a>, iBatis <a href="http://www.ibatis.com/common/example.html" target="_blank">SQLMaps</a> and many such APIs, there are plenty of nice options out there for folks who want to make things somewhat simpler and cleaner. Not to mention add a bunch of functionalities besides data access and manipulation. For example, <i>caching the Result Set</i>, something that would ordinarily take some coding on the part of the programmer if he/she was working purely in the JDBC realm. </p>
+<p>
+Enter <a href="http://www.ibatis.com/common/sqlmaps.html" target="_blank">iBatis SQLMaps</a>. Here are some of the things that I have found so far that makes me like iBatis SQLMaps a whole lot:
+<ul>
+<li>You seem to have the <i>complete</i> power of your favorite flavor of SQL at your finger tips, including Stored Procedures!
+<li>The queries are nicely tucked into separate files (in this case, XML files). See the example configuration file below for a simple example.
+<li>In the iBatis world, the way things are laid out is pretty logical, especially to those coming from a pure JDBC background:
+<ol>
+<li>Actual SQL query
+<li><i>Parameters</i> that gets passed in to the SQL query for binding (if any)
+<li><i>Results</i> that gets returned from the execution of the Query (if any)
+   </ol>
+<li>Parameters can be passed as simple Java primitives, Map (like HashMap) or Java Beans
+<li>Similarly, Results can be retrieved as a Java Bean, Map (like HashMap) or Java primitives or a collection of either of these.
+<li>It integrates nicely with Jakarta&#8217;s DBCP connection pooling API
+<li>You can configure caching of the results on a query-by-query basis <u>without writing one line of code</u>. As if this was not good enough, you can plug in other implementations of the caching algorithms like <a href="http://www.opensymphony.com/oscache/" target="_blank">OSCache</a>.
+</ul>
+<p>
+Just to give you a taste of just how incredibly trivial it is to take a query and cache it&#8217;s results, here&#8217;s the queries.xml file of that I am using in sample web application:</p>
+<p><pre>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+
+&lt;!DOCTYPE sqlMap
+    PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-2.dtd"&gt;
+
+&lt;sqlMap namespace="queries"&gt;
+
+  &lt;cacheModel id="cacheFullname" type="OSCACHE"&gt;
+    &lt;flushInterval hours="1"/&gt;
+    &lt;flushOnExecute statement="updateFullname"/&gt;
+  &lt;/cacheModel&gt;
+
+  &lt;select id="getFullname"
+    parameterClass="java.lang.String"
+    resultClass="java.lang.String"
+    cacheModel="cacheFullname"&gt;
+      SELECT fullname AS value
+      FROM test
+      WHERE userid=#value#
+  &lt;/select&gt;
+
+  &lt;update id="updateFullname"
+    parameterClass="map"&gt;
+      UPDATE test SET fullname = #fullname#
+      WHERE userid=#userid#
+  &lt;/update&gt;
+
+&lt;/sqlMap&gt;
+</pre>
+<p>
+This file defines the two queries that I am using in my sample application: One which does a SELECT and the other which does an UPDATE. Notice how a <i>cacheModel</i> was defined (cacheFullname) and then assigned to the SELECT query (getFullname) by the use of cacheModel attribute in the &lt;select&gt; tag. So, what does this buy us? It ensures that when I invoke the &#8216;getFullname&#8217; query (as part of a web request via Velocity pages, in my case), the result gets cached using OpenSymphony&#8217;s OSCache library. If you wanted to use the default LRU or FIFO caching algorithms that comes as part of iBatis, you would simply replace the type=OSCACHE with type=LRU or type=FIFO. It&#8217;s that easy. </p>
+<p>
+So far so good. But how do I flush the cache, you ask? Well, in this example, there are two ways the cache will get flushed:</p>
+<ol>
+<li>It will get automatically flushed in an hours time or
+<li>It will get flushed when someone invokes the update statement &#8216;updateFullname&#8217;.
+</ol>
+<p>Needless to say, you could have your own little custom way (providing a &#8216;Refresh&#8217; button on the UI screen) of flushing the cache thereby giving your end users the ability to perform a flush, if they felt that the data was stale. </p>
+<p>
+If you think about this for a second, I am sure you will see how simple and extremely powerful this implementation is.</p>
+<p>
+This alone would warrant you to take iBatis for a ride if you haven&#8217;t done it already. If you&#8217;re convinced, <a href="http://indrayam.com/demo/sample-app.zip">download</a> this sample web application, unzip it, read the README.txt and you should be ready in less than 5 mins to see iBatis SQLMaps and OSCache in action. Just for your benefit, here&#8217;s a slightly embellished version of  what the README.txt file looks like:</p>
+<p><pre>
+README<br />
+======</p>
+<p>Assumptions:<br />
+---------------<br />
+1. You've access to a database, preferably MySQL. Of course, PostgreSQL, Oracle or DB2<br />
+    would work just as well.<br />
+2. You've a Tomcat setup<br />
+3. You've some experience with JDBC programming</p>
+<p>Steps:</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3392</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

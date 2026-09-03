@@ -1,0 +1,141 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Does bleeding-edge web application development matter?</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-280">
+  
+                                <h2><a href="/archives/application-development/000280.html" rel="bookmark" title="Permanent link to Does bleeding-edge web application development matter?">Does bleeding-edge web application development matter?</a></h2>
+                                
+                                <h3>Posted : June 15, 2004 at 1:59 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/appdevelopment.gif"></center><br />
+A day of perusing through the most popular entries on <a href="http://www.javablogs.com/Welcome.action" target="_blank">Java.blogs</a> or <a href="http://www.thauvin.net/linkblog/" target="_blank">Erik&#8217;s</a> linkblog or your own RSS feeds of the cr&#232;me de la cr&#232;me tech bloggers, and you will most likely walk away with the <i>i-need-to-learn-so-many-things-it&#8217;s-not-even-funny</i> type feeling.</p>
+<p>
+However, too often I see perfectly capable web application developers building perfectly functioning web-based business applications using Struts 1.0 (for example) and being fairly content about it. Yes, they use <b>MVC</b> or at least they think they do. The <b>M</b> is almost always the place where you see folks being really creative (or not). Forget &#8220;<i>always code to interfaces and not to classes</i>&#8220;. Here, classes are written with nothing but a slew of static methods. These methods are in turn called from Struts Actions and that&#8217;s it. That&#8217;s your <b>M</b>. Yes, they know and use connection pooling. Yes, they hide their DB calls (so to speak) by putting these in a <i>separate static method of a different class</i>. Frankly, you could call this layer <b>N</b> or an <b>O</b> and they could care less. As for using O/R mapping apis like Hibernate or iBatis, well, the argument seems to be something like &#8220;What&#8217;s wrong with my static methods (and my own wrapper APIs hiding DB details) calling Oracle procedures. It&#8217;s fast and it works. And I can use tools like <i>sqlplus</i> to figure out issues much faster&#8221;. As for the <b>V</b>, don&#8217;t even start with Velocity Vs. JSP or SiteMesh vs. Tiles. As far as they are concerned, they could care less.</p>
+<p>
+Which brings me to this:</p>
+<blockquote><p>
+1. How important is it to be on the bleeding edge of web application development? Let&#8217;s break this question down a bit further:</p>
+<ul>
+<li>You can be on the bleeding edge in making your <u>web application development</u> be more streamlined and productive. <a href="http://www.artima.com/intv/testdriven.html" target="_blank">TDD</a>, <a href="http://www.xprogramming.com/" target="_blank">XP</a> programming and things along these lines come to mind
+</p>
+<li>You can be on the bleeding edge in making your <u>web application</u> be more stable, reliable, and maintainable. <a href="http://jakarta.apache.org/tapestry/" target="_blank">New</a> <a href="http://wiki.opensymphony.com/display/XW/XWork">Frameworks</a> and APIs, Design Patterns, AOP, and <a href="http://www.springframework.org/" target="_blank">IoC</a> are some of the things that come to mind
+</ul>
+<p>From a developer&#8217;s perspective, the need to be on top of both of these makes sense. It&#8217;s fun, makes you more productive (theoretically, at least) and more importantly, it keeps you marketable. What&#8217;s in it for the guy who is paying for it? </p>
+<p>
+2. Let&#8217;s say you work in an organization in an IT team comprising of 5 developers, a PM and the rest of the chain that goes way up. Your friend works in a different IT silo, perhaps under the same organizational unit. Your organization has a slew of web apps that your team maintains. Your friend has a slightly different slice of apps to digest. Needless to say, chances of flexing your bleeding edge muscles under these circumstances is pretty much out of question. Any attempts to refactor or rewrite these will probably be met with: &#8220;Why should we? If it ain&#8217;t broken, why fix it?&#8221;. Ok, fair enough. A few new projects come along. Your team gets a crack at one. Your friend&#8217;s team is given some as well. </p>
+<p>
+You&#8217;ve been waiting to unleash your cool geeko ideas upon applications. Let&#8217;s assume that you&#8217;re lucky and your other team members let you drive the show. You finally get to do it your way, the <b>RIGHT</b> way, of course <img src="/images/wink.gif" align="middle">. Your friend is a bit unlucky. He has to follow along as per the directions of his tech lead. Things are not as <i>hip</i> in his backyard, so to speak. You both finish, in time and on budget. Is there any reason why you should be awarded more for taking the pains to implement all this bleeding-edge stuff? I mean, assuming that the other team built the application using the same level of competency, how does it matter that you used WebWork 2.x with Spring and Hibernate while your friend used Struts 1.0 with loads of JDBC calls hidden behind the tech lead&#8217;s own pet DB API. Are you serving your company&#8217;s business needs and ROI any more than the other tech lead. Is their a way to tangibly measure the benefit your efforts and initiative brought to your company?
+</p></blockquote>
+<p>
+Frankly, if you really ask me, here&#8217;s what I would probably do if I had a shot at running my own IT development team within an organization: </p>
+<blockquote><p>
+Form a virtual team of tech lead(s), preferably across our entire organizational unit. Encourage them to come up with our very own avataar of <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuse" target="_blank"><b>Appfuse</b></a> or <b>.APPfuse</b> (if we were a .NET shop) with our own GUIs and any other nuances that is specific to our organization. Give these folks a charter whereby:</p>
+<ol>
+<li>They would be responsible for socializing their <i>Appfuse</i>. Basically, go out there and have brown-bags with the various development groups/silos within your organizational unit. Share and learn.
+</p>
+<li>Make minor updates and fixes throughout the year (hopefully using up less than 25% of their time) and perform major architectural updates to this framework no sooner than a year (or year-and-a-half from the day we started).
+</ol>
+</blockquote>
+<p>
+It might be a very simplistic view of the world and I might be way off. But the idea here is simple: There really is nothing called &#8220;Best Practices&#8221;. It&#8217;s all best in your own <i>context</i> (in this case, your organization). Using the least common denominator approach, assimilate your findings into an &#8220;application&#8221;, and not some stupid &#8220;Best Practices&#8221; MS Word document. This way, you can make the developers (off or onshore) focus on understanding and implementing the <i>business functionality</i>, and not fight the battle that has been won over many many times.</p>
+<p>
+What do you think? In case you totally disagree, no worries. May be that&#8217;s why I don&#8217;t get to run my own IT development team after all <img src="/images/smile.gif" align="middle">. At least, not yet.</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>722</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		2 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-201">
+            <p>Very true. If I find that the requirement from the user can be accomplished by a simple DOS batch file, I would do it rather than be cool and implement it in Perl or Ruby. A Java or a .NET &#8220;guru&#8221; might be a great asset but I would employ someone who is on the lines of a pragmatic programmer - one who accomplishes the job with simple, clear code but has the capability to research and use other complex functionality only if the need arises. As its truly said, &#8220;perfection is achieved not when there&#8217;s nothing more to add, but when there&#8217;s nothing more to take away&#8221;.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:chandrakant_g@yahoo.com">Chandrakant</a> at June 16, 2004 @ <a href="000280.html#comment-201">11:02 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-202">
+            <p>Nice quote Chandu.</p>
+<p>
+Have to make a mental note of memorizing it and throwing it around during geek chats with friends..;-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at June 18, 2004 @ <a href="000280.html#comment-202">2:56 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,166 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Reducing the &#8220;surface area&#8221; of your servers that is exposed to the world: A poor admin&#8217;s look at security</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-285">
+  
+                                <h2><a href="/archives/services-and-software/000285.html" rel="bookmark" title="Permanent link to Reducing the &#8220;surface area&#8221; of your servers that is exposed to the world: A poor admin&#8217;s look at security">Reducing the &#8220;surface area&#8221; of your servers that is exposed to the world: A poor admin&#8217;s look at security</a></h2>
+                                
+                                <h3>Posted : June 16, 2004 at 9:12 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/robber.jpg"></center></p>
+<p>
+I did my Masters at <a href="http://www.asu.edu/" target="_blank">ASU</a>. In fact, I spent more than three years there. A good portion of that time was spent working in <a href="http://is.asu.edu/" target="_blank">labs</a>. If my memory serves me right, around 1997-1998, servers in College of Education started becoming sitting ducks to hackers and script kiddies out there. Not that we were running super secure server setups, mind you. Infact, there was this one time when Henry (Henry Biglin, really pain-in-the-ass but exceptionally smart fella) literally pulled me (and others) in as the whole drama was unfolding.</p>
+<p>
+I was a rookie back then. CGI programming in Perl was my forte at best. I remember feeling all mesmerized and somewhat scared. <i>Wow, these guys must be geniuses, heck super geniuses?</i>. Quite a few years have passed since that time. I have gone from a loud, sometimes-obnoxious-sometimes-sweet <i>kid</i> to loud, mostly-obnoxious, folically challenged <i>adult</i> and I am still trying to get my arms around this <img src="/images/smile.gif" align="middle"></p>
+<p>
+As a poor admin, here&#8217;s my take on security:</p>
+<blockquote>
+<ol>
+<li>Since I know close to nothing about configuring routers and switches (neither do I get to administer the ones at my ISP), I can do jack about DOS attacks. Plain and simple.
+<li>Always think of the server that I am about to set up as my beautiful house that sits in a beautiful yet extremely vulnerable part of the town.
+<li>Try, try and try to expose as little &#8220;surface area&#8221; of my server to the outside world as I possibly <i>know</i> and can. Let&#8217;s break this down further:<br/>
+<ol type="a">
+<li>Try to minimize the ports that are open to the world. They are tantamount to having my beautiful house with wide-open doors (or windows) and <b>with well-paved roads leading straight up to them</b>
+<li>Try to narrow down the innards of my server that is exposed to these public ports (basically, daemons listening in on these <i>public</i> ports). That&#8217;s like saying to myself: <i>&#8220;I have to keep these windows open, but I will lock the indoors up thoroughly so that the only way out for someone who comes in through this public window is <i>my</i> way&#8221;</i>. In other words, I will literally dictate what someone sees and how someone leaves once they&#8217;re in.
+<li>Try to reduce the number of softwares that get installed on the server. If I don&#8217;t need it or plan on using it, I dump it. It&#8217;s like saying to myself: <i>&#8220;Why in the world should I have my lotto money at home when I absolutely and positively have no plans on using the cash today anyways.&#8221;</i>
+  </ol>
+</ol>
+</blockquote>
+<p>
+So, what do I do about 3a, 3b and 3c:</p>
+<blockquote>
+<p>
+<b>3a</b><br/><br />
+iptables, iptables, iptables. You get the idea. I am still really learning this, but it sure is powerful as hell.</p>
+<p>
+<b>3b</b><br/><br />
+If a daemon can run in a chroot jail, do it. Do I do it? No. Why? Cause it takes time to figure it out. The default install is much easier. As I said, I am still learning <img src="/images/wink.gif" align="middle"></p>
+<p>
+<b>3c</b><br/><br />
+I learnt Linux the easy way (or not). Basically, RedHat. Found the installers intuitive. Started getting to like things and got more into it. In fact, it&#8217;s still my preferred distribution. Fedora, that is. What I hate though is this - I have no idea and no control over the crap that gets installed, even if I choose the <u><b>absolute minimum</b></u>. In the absence of Fedora installer giving me such an option, there is really not much I can do? I just try to remove unnecessary stuff as and when I find out about them.
+</p></blockquote>
+<p>
+Frankly, it would be great if there was an easy way to select the <i>absolute minimum</i> set of softwares during a Fedora install. All I need is the bare minimum for a server type setup. No fancy XWindow Managers or MP3 players and stuff that folks crave for on a workstation. Just enough subset so as to be able to install my choice of server softwares using the good old &#8220;configure, make, make install&#8221; <a href="/archives/services-and-software/000262.html" target="_blank">magic</a>. Yes, I have heard about <a href="http://www.knoppix.net/" target="_blank">Knoppix</a>, <a href="http://featherlinux.berlios.de/" target="_blank">Feather Linux</a>, <a href="http://www.damnsmalllinux.org/" target="_blank">Damn Small Linux</a>, <a href="http://lfs.130th.net/lfs/news.html" target="_blank">LFS</a>. <b>Any help will be much appreciated.</b></p>
+<p>
+It&#8217;s safe to say that my adventures and unfortunate episodes vis-a-vis security will continue <img src="/images/wink.gif" align="middle"></p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>796</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		3 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-205">
+            <p>I&#8217;m still a real pain in the ass!!! <img src="/images/smilies/icon_smile.gif" alt=':-)' class='wp-smiley' />  hahahaha&#8230; Amazing what google turns up when you search for yourself.  How&#8217;s the world treating you Anand?</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:hbiglin@hotmail.com">Henry</a> at November 12, 2004 @ <a href="000285.html#comment-205">2:55 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-206">
+            <p>Henry:</p>
+<p>
+You could not have given me a more pleasant surprise on this wonderful Friday afternoon here in the Bay Area. So where are you? In Europe, United States or Mars..;-)
+</p>
+<p>
+FYI, my email address: <a href="mailto: <a href="mailto:anand.sharma@gamil.com"">anand.sharma@gamil.com"</a> rel="nofollow"><a href="mailto:anand.sharma@gmail.com">anand.sharma@gmail.com</a>. Do write when you get a chance.
+</p>
+<p>
+Great to hear from you, Mr. Biglin!
+</p>
+<p>
+- Anand<br />p.s. Are you still using Hotmail or is that account kinda like your email equivalent of the Unix &#8220;/dev/null&#8221; thingie. Anyway, I do have a few Gmail invitations lying around that I would not mind parting company with in case you know someone who is interested..;-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at November 12, 2004 @ <a href="000285.html#comment-206">3:27 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-207">
+            <p>About item &#8220;3a&#8221;&#8230; I strongly suggest you look at Shorewall. I cannot say enough good things about Tom Eastep&#8217;s work on this, but in particular I can say that Shorewall allowed me to use most of the really important features of iptables within the first hour after I found it.</p>
+<p>It&#8217;s been consistently secure, robust, reliable, and easy to configure without fault since I began using it a couple of years ago, and it also continues to improve consistently. Shorewall will allow you to take advantage of the power of iptables while nearly eliminating the learning curve.</p>
+<p><a href="http://www.shorewall.net" rel="nofollow">http://www.shorewall.net</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:rpaiz@simpaticus.com">Rodolfo J. Paiz</a> at May 15, 2005 @ <a href="000285.html#comment-207">9:08 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

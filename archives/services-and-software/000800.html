@@ -1,0 +1,135 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Fighting Comment and Trackback Spam..</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-800">
+  
+                                <h2><a href="/archives/services-and-software/000800.html" rel="bookmark" title="Permanent link to Fighting Comment and Trackback Spam..">Fighting Comment and Trackback Spam..</a></h2>
+                                
+                                <h3>Posted : November 9, 2004 at 5:02 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+Don&#8217;t ask me why I did not do it sooner. I mean, protecting my blog from spammers. If you&#8217;ve no clue what I am talking about it, I am glad you did not notice it <img src="/images/wink.gif" align="middle"></p>
+<p>
+To the uninitiated, as you would imagine, spammers don&#8217;t just &#8220;spam&#8221; emails. They also spam blogs, telephones, cell phones and Lord knows what else. Anyhow, the way these &#8220;creatures&#8221; spam blogs is by exploiting the <b>&#8220;Comment&#8221;</b> and <b>&#8220;Trackback&#8221;</b> feature of a Blog engine. Here&#8217;s how one <a href="http://blam.sourceforge.net/index.php?section=about#the_problem" target="_blank">site</a> describes, and rather well I might add, the &#8220;Comment Spam&#8221; problem:</p>
+<blockquote>
+<p>
+The purpose behind these spam comments isn&#8217;t to be mean to the weblogger &#8212; there is nothing personal in these attacks. The purpose also isn&#8217;t to con weblog post visitors into clicking through to the site &#8212; our traffic isn&#8217;t that heavy.</p>
+<p>
+(No, not even the top sites (10,000 unique visitors a day isn&#8217;t even considered a medium traffic site outside of weblogging circles.))</p>
+<p>
+The Lolita comment spammer&#8217;s only purpose is to get links into weblog posts for that infamous and most cherished little web crawler &#8212; the Google bot. By doing so, the URL that gets put into the weblog post achieves a higher Google PageRank based on the active links in our weblogs, and consequently, the URL is going to show towards the front of search results when searching on a particular keyword. Such as porn. Such as viagra.
+</p>
+</blockquote>
+<p>
+Here&#8217;s an example of what it looks like:</p>
+<p>
+<center><img src="/images/decent_spam_example.gif" border="1"></center></p>
+<p>
+As one would expect, since the &#8220;problem&#8221; is awfully common, it&#8217;s &#8220;solution&#8221; turned out to be even more so. Enter <a href="http://www.jayallen.org/projects/mt-blacklist/" target="_blank"><b>MT-Blacklist</b></a>, a <b>&#8220;&#8230;<a href="http://www.movabletype.org" target="_blank">Movable Type</a> plugin to eradicate comment and trackback spam&#8221;</b>.</p>
+<p>
+Bottomline, if you&#8217;ve been annoyed by the crappy comment spams on this site, you should be getting <i><u>some</u></i> reprieve. Why &#8220;some&#8221;? As it turns out, I am new to MT-Blacklist. And having spent almost a decade in Information Technology, I know it&#8217;s suicidal &#8220;not&#8221; to be humble about a software&#8217;s capabilities (or lack thereof), especially when you&#8217;re a rookie at using it. Also, the technology behind MT-Blacklist is &#8220;reactive&#8221; and claims to mature with time as it learns and adapts to new spammers and their creative (or not) ways of spamming. So, please accept my apologies if a few spams do outsmart MT-Blacklist and find their way on my site. Needless to say, they will be &#8220;harshly dealt with&#8221; as soon as possible.</p>
+<p>
+For the sake of record, here&#8217;s what I did to get MT-Blacklist installed&#8230;</p>
+<p>
+<b>MT-Blacklist: Assumptions</b></p>
+<ul>
+<li>Linux/Unix platform with Movable Type 2.x and Perl 5.x pre-installed
+<li>Perl <a href="http://search.cpan.org/~ams/Storable-2.13/" target="_blank">Storable</a> module already installed
+<li>You MT weblog has been configured to send an email when someone sends a &#8220;Trackback&#8221; ping or enters a new &#8220;Comment&#8221;.
+</ul>
+<p>
+<b>MT-Blacklist: Installation notes</b></p>
+<p>
+1. Download the appropriate MT-Blacklist <a href="http://www.jayallen.org/projects/mt-blacklist/latest/MT-Blacklist.tar.gz" target="_blank">version</a><br/><br />
+2. Gunzip/untar it into <span id="code">/tmp</span><br/><br />
+3. Put the files in the following locations relative to your main Movable Type directory (abbreviated <em>MT_DIR</em> below) where mt.cgi resides.  You may have to create directories if they do not already exist.</p>
+<p><pre>MT_DIR/mt-blacklist.cgi      <em>&lt;&#8212; Should be in the same directory as mt.cgi</em>
+MT_DIR/plugins/Blacklist.pl
+MT_DIR/extlib/jayallen/Blacklist.pm
+MT_DIR/extlib/jayallen/MTBlPing.pm
+MT_DIR/extlib/jayallen/MTBlPost.pm
+</pre>
+<p>
+4. Go to <span id="code">http://&lt;your-website&gt;/mt/mt-blacklist.cgi</span><br/><br />
+5. This is where I tripped up. Make sure that you access the above CGI program as a MT user who has &#8220;Create Blog&#8221; privileges. If you don&#8217;t, you will continue to see &#8220;<b>MT-Blacklist <font color="red">is inactive</font></b>&#8221; when you access the &#8220;Configure&#8221; section of the <span id="code">mt-blacklist.cgi</span> program.<br/><br />
+6. Go to the &#8220;Add&#8221; section and copy the &#8220;entire&#8221; content of the latest <a href="http://www.jayallen.org/comment_spam/blacklist.txt" target="_blank">blacklist</a> file. Check the &#8220;List&#8221; section to make sure that the definitions have indeed been loaded correctly.<br/><br />
+7. Go back to the &#8220;Configure&#8221; section. The changes to made in this section should be self-explanatory. Save it and you should see the &#8220;<b>MT-Blacklist <font color="red">is inactive</font></b>&#8221; header be replaced by a simple &#8220;<b>MT-Blacklist</b>&#8220;.</p>
+<p>
+<b>MT-Blacklist: Test your installation</b></p>
+<p>
+Enter a comment on any blog entry. You should see the comment emailed to you with MT-Blacklist&#8217;s custom footer. If you&#8217;ve a saved spam comment, you can try entering that. Either way, it should be trivial to confirm that your weblog is now MT-Blacklist protected.</p>
+<p>
+<b>Note</b></p>
+<p>
+I would strongly recommend subscribing to Jay Allen&#8217;s (MT-Blacklist Author) RSS feeds (RSS <a href="http://www.jayallen.org/comment_spam/feeds/blacklist-changes.rdf" target="_blank">1.0</a> and <a href="http://www.jayallen.org/comment_spam/feeds/blacklist-changes.xml" target="_blank">2.0</a>) listing the latest Blacklist changes.</p>
+<p>
+Enjoy!</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>734</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

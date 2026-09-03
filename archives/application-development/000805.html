@@ -1,0 +1,250 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Implemented &#8220;Top 25&#8243; feature&#8230;</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-805">
+  
+                                <h2><a href="/archives/application-development/000805.html" rel="bookmark" title="Permanent link to Implemented &#8220;Top 25&#8243; feature&#8230;">Implemented &#8220;Top 25&#8243; feature&#8230;</a></h2>
+                                
+                                <h3>Posted : November 11, 2004 at 6:11 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+<center><img src="/images/top-25.jpg" border="1"></center></p>
+<p>
+Simply put, it displays the <b>&#8220;Top 25 Most Viewed Entries&#8221;</b> on this blog. As I always do, in the spirit of sharing, here&#8217;s the Perl code that pulled off the trick. If you&#8217;ve a PHP solution that you would like to share, let me know:</p>
+<p><pre>
+<font color="#9a1900">#!/usr/bin/perl -w</font>
+
+<font color="#0000ff">use</font> strict;
+
+<font color="#0000ff">my</font>(<font color="#33cc00">$MT_DIR</font>);
+BEGIN <font color="#000000">{</font>
+    <font color="#0000ff">if</font> (<font color="#33cc00">$0</font> =~ <font color="#0000ff">m</font>!(.*[/\])!) <font color="#000000">{</font>
+
+        <font color="#33cc00">$MT_DIR</font> = <font color="#33cc00">$1</font>;
+    <font color="#000000">}</font> <font color="#0000ff">else</font> <font color="#000000">{</font>
+        <font color="#33cc00">$MT_DIR</font> = <font color="#ff0000">&#8216;./&#8217;</font>;
+    <font color="#000000">}</font>
+
+    <font color="#0000ff">unshift</font> <font color="#33cc00">@INC</font>, <font color="#33cc00">$MT_DIR</font> . <font color="#ff0000">&#8216;lib&#8217;</font>;
+    <font color="#0000ff">unshift</font> <font color="#33cc00">@INC</font>, <font color="#33cc00">$MT_DIR</font> . <font color="#ff0000">&#8216;extlib&#8217;</font>;
+
+<font color="#000000">}</font>
+<font color="#0000ff">use</font> DBI;
+<font color="#0000ff">use</font> Template;
+<font color="#0000ff">use</font> CGI;
+<font color="#0000ff">use</font> MT;
+<font color="#0000ff">use</font> MT::Entry;
+
+<font color="#0000ff">use</font> Date::Manip;
+<font color="#0000ff">use</font> vars <font color="#0000ff">qw</font>(<font color="#33cc00">$dbh</font> <font color="#33cc00">$tt</font> <font color="#33cc00">%data</font>);
+
+<font color="#9a1900"># Flush STDOUT</font>
+<font color="#33cc00">$</font>|=<font color="#cc33cc">1</font>;
+
+<font color="#9a1900"># Start the return content-type</font>
+<font color="#0000ff">print</font> <font color="#ff0000">&#8220;Content-type: text/htmlnn&#8221;</font>;
+
+<font color="#9a1900"># Get the CGI instance set up and read in the values</font>
+<font color="#0000ff">my</font> (<font color="#33cc00">$cgi</font>) = new <font color="#000000">CGI</font>();
+<font color="#9a1900">#my ($pids) = $cgi-&gt;param(&#8217;valid_pids&#8217;);</font>
+
+<font color="#9a1900"># Business logic</font>
+&amp;<font color="#000000">initialize</font>(<font color="#33cc00">$MT_DIR</font>);
+<font color="#0000ff">my</font> <font color="#33cc00">$entries_ref</font> = &amp;<font color="#000000">getPopularEntries</font>();
+<font color="#0000ff">my</font> <font color="#33cc00">$body</font>;
+<font color="#0000ff">my</font> <font color="#33cc00">@all</font> = ();
+<font color="#0000ff">my</font> <font color="#33cc00">$index</font> = <font color="#cc33cc">1</font>;
+<font color="#0000ff">foreach</font> <font color="#0000ff">my</font> <font color="#33cc00">$entry</font> (<font color="#33cc00">@</font><font color="#33cc00">$entries_ref</font>) <font color="#000000">{</font>
+
+	<font color="#0000ff">my</font> (<font color="#33cc00">$title</font>, <font color="#33cc00">$created_on</font>, <font color="#33cc00">$category_label</font>, <font color="#33cc00">$permalink</font>) = &amp;<font color="#000000">getBlogDetails</font>(<font color="#33cc00">$entry</font>-&gt;<font color="#000000">{</font><font color="#ff0000">&#8216;id&#8217;</font><font color="#000000">}</font>);
+	<font color="#0000ff">my</font> <font color="#33cc00">$date</font> = &amp;<font color="#000000">ParseDateString</font>(<font color="#33cc00">$created_on</font>);
+        <font color="#0000ff">if</font> (! <font color="#33cc00">$date</font>) <font color="#000000">{</font>
+
+            <font color="#33cc00">$date</font> = <font color="#ff0000">&#8220;N/A&#8221;</font>;
+        <font color="#000000">}</font>
+	<font color="#33cc00">$created_on</font> = &amp;<font color="#000000">UnixDate</font>(<font color="#33cc00">$date</font>, <font color="#ff0000">&#8220;At %T on %b %e, %Y (%Z)&#8221;</font>);
+	<font color="#33cc00">@all</font> = (<font color="#33cc00">@all</font>, <font color="#000000">{</font><font color="#0000ff">index</font> =&gt; <font color="#33cc00">$index</font>,
+			id =&gt; <font color="#33cc00">$entry</font>-&gt;<font color="#000000">{</font><font color="#ff0000">&#8216;id&#8217;</font><font color="#000000">}</font>,
+			title =&gt; <font color="#33cc00">$title</font>,
+			created_on =&gt; <font color="#33cc00">$created_on</font>,
+			category_label =&gt; <font color="#33cc00">$category_label</font>,
+			permalink =&gt; <font color="#33cc00">$permalink</font>,
+			count =&gt; <font color="#33cc00">$entry</font>-&gt;<font color="#000000">{</font><font color="#ff0000">&#8216;count&#8217;</font><font color="#000000">}</font>
+
+		<font color="#000000">}</font>);
+	<font color="#33cc00">$index</font>++;
+<font color="#000000">}</font>
+<font color="#33cc00">$data</font><font color="#000000">{</font><font color="#ff0000">&#8216;all&#8217;</font><font color="#000000">}</font> = <font color="#33cc00">@all</font>;
+
+<font color="#9a1900"># Send the response back to the client</font>
+<font color="#0000ff">my</font> <font color="#33cc00">$tmpl_filename</font> = <font color="#ff0000">&#8220;index.html&#8221;</font>;
+<font color="#33cc00">$tt</font>-&gt;<font color="#000000">process</font>(<font color="#ff0000">&#8220;$tmpl_filename&#8221;</font>, <font color="#33cc00">%data</font>) ||
+        &amp;<font color="#000000">cgiDie</font>(<font color="#ff0000">&#8220;Template process failed: &#8220;</font>, <font color="#33cc00">$tt</font>-&gt;<font color="#000000">error</font>(), <font color="#ff0000">&#8220;n&#8221;</font>);
+
+<font color="#9a1900"># Cleanup</font>
+&amp;<font color="#000000">cleanup</font>();
+
+<font color="#9a1900">######################################################################</font>
+<font color="#9a1900"># Initialize DB</font>
+<font color="#9a1900">#######################################################################</font>
+<font color="#0000ff">sub</font> <font color="#000000">initialize</font>() <font color="#000000">{</font>
+        <font color="#0000ff">my</font>(<font color="#33cc00">$Dir</font>) = <font color="#33cc00">@_</font> <font color="#0000ff">if</font> <font color="#33cc00">@_</font>;
+        <font color="#9a1900"># Get the template instantiated and ready to go</font>
+
+        <font color="#33cc00">$tt</font> = Template-&gt;<font color="#000000">new</font>(<font color="#000000">{</font>
+                INCLUDE_PATH =&gt; <font color="#ff0000">&#8220;$Dir&#8221;</font> . <font color="#ff0000">&#8220;html_templates&#8221;</font>,
+                INTERPOLATE  =&gt; <font color="#cc33cc">0</font>,
+                <font color="#000000">}</font>) || &amp;<font color="#000000">cgiDie</font>(<font color="#ff0000">&#8220;$Template::ERRORn&#8221;</font>);
+        <font color="#33cc00">%data</font> = (title =&gt; <font color="#ff0000">&#8216;Most Viewed Entries&#8217;</font>);
+
+	<font color="#9a1900"># Initialize connection to MySQL&#8217;s mt database</font>
+
+        <font color="#33cc00">$dbh</font> = DBI-&gt;<font color="#000000">connect</font>(<font color="#ff0000">&#8220;DBI:mysql:host=localhost;database=&lt;your-db-name&gt;&#8221;</font>,
+				<font color="#ff0000">&#8220;&lt;your-userid&gt;&#8221;</font>,<font color="#ff0000">&#8220;&lt;your-password&gt;&#8221;</font>,
+				<font color="#000000">{</font>PrintError=&gt;<font color="#cc33cc">0</font>,
+				 RaiseError=&gt;<font color="#cc33cc">1</font>,
+				 AutoCommit=&gt;<font color="#cc33cc">1</font><font color="#000000">}</font>);
+
+<font color="#000000">}</font>
+
+<font color="#9a1900">######################################################################</font>
+<font color="#9a1900"># Get Blog Details given an ID</font>
+<font color="#9a1900">#######################################################################</font>
+<font color="#0000ff">sub</font> <font color="#000000">getBlogDetails</font>() <font color="#000000">{</font>
+	<font color="#0000ff">my</font> (<font color="#33cc00">$blog_id</font>) = <font color="#33cc00">@_</font> <font color="#0000ff">if</font> <font color="#33cc00">@_</font>;
+
+        <font color="#0000ff">my</font> <font color="#33cc00">$mt</font> = MT-&gt;new;
+        <font color="#0000ff">my</font> <font color="#33cc00">$entry</font> = MT::Entry-&gt;<font color="#000000">load</font>(<font color="#33cc00">$blog_id</font>);
+	<font color="#0000ff">my</font> <font color="#33cc00">$category</font> = <font color="#33cc00">$entry</font>-&gt;category;
+	<font color="#0000ff">my</font> (<font color="#33cc00">$title</font>, <font color="#33cc00">$created_on</font>, <font color="#33cc00">$category_label</font>, <font color="#33cc00">$permalink</font>) = (<font color="#33cc00">$entry</font>-&gt;title, <font color="#33cc00">$entry</font>-&gt;created_on,
+	<font color="#33cc00">$category</font>-&gt;label, <font color="#33cc00">$entry</font>-&gt;permalink);
+        <font color="#0000ff">return</font> (<font color="#33cc00">$title</font>, <font color="#33cc00">$created_on</font>, <font color="#33cc00">$category_label</font>, <font color="#33cc00">$permalink</font>);
+
+<font color="#000000">}</font>
+
+<font color="#9a1900">######################################################################</font>
+<font color="#9a1900"># Get top 25 most popular entries</font>
+<font color="#9a1900">#######################################################################</font>
+<font color="#0000ff">sub</font> <font color="#000000">getPopularEntries</font>() <font color="#000000">{</font>
+        <font color="#0000ff">my</font> (<font color="#33cc00">$mysql</font>) = <font color="#ff0000">&#8220;SELECT entry_id, count(entry_id) &#8220;</font>;
+	<font color="#33cc00">$mysql</font> .= <font color="#ff0000">&#8220;FROM mt_entryhits &#8220;</font>;
+        <font color="#33cc00">$mysql</font> .= <font color="#ff0000">&#8220;GROUP BY entry_id &#8220;</font>;
+        <font color="#33cc00">$mysql</font> .= <font color="#ff0000">&#8220;ORDER BY 2 desc &#8220;</font>;
+        <font color="#33cc00">$mysql</font> .= <font color="#ff0000">&#8220;LIMIT 0,24&#8243;</font>;
+
+        <font color="#0000ff">my</font> <font color="#33cc00">$sth</font>;
+	<font color="#33cc00">$sth</font> = <font color="#33cc00">$dbh</font>-&gt;<font color="#000000">prepare</font>(<font color="#ff0000">&#8220;$mysql&#8221;</font>);
+	<font color="#33cc00">$sth</font>-&gt;<font color="#000000">execute</font>();
+
+	<font color="#0000ff">my</font> <font color="#33cc00">@entries</font> = ();
+	<font color="#0000ff">my</font> <font color="#33cc00">@row_rec</font>;
+        <font color="#0000ff">while</font>(<font color="#33cc00">@row_rec</font> = <font color="#33cc00">$sth</font>-&gt;<font color="#000000">fetchrow_array</font>()) <font color="#000000">{</font>
+
+                <font color="#33cc00">@entries</font> = (<font color="#33cc00">@entries</font>, <font color="#000000">{</font> id =&gt; <font color="#33cc00">$row_rec</font>[<font color="#cc33cc">0</font>], count =&gt; <font color="#33cc00">$row_rec</font>[<font color="#cc33cc">1</font>] <font color="#000000">}</font>);
+	<font color="#000000">}</font>
+
+	<font color="#9a1900"># Release the statement handle</font>
+	<font color="#33cc00">$sth</font>-&gt;finish;
+
+        <font color="#0000ff">return</font> <font color="#33cc00">@entries</font>;
+<font color="#000000">}</font>
+
+<font color="#9a1900">#######################################################################################</font>
+
+<font color="#9a1900"># Perform DB cleanups</font>
+<font color="#9a1900">#######################################################################################</font>
+<font color="#0000ff">sub</font> cleanup <font color="#000000">{</font>
+
+	<font color="#0000ff">if</font>(<font color="#0000ff">defined</font>(<font color="#33cc00">$dbh</font>)) <font color="#000000">{</font>
+
+		<font color="#33cc00">$dbh</font>-&gt;<font color="#000000">disconnect</font>();
+	<font color="#000000">}</font>
+<font color="#000000">}</font>
+</pre>
+<p>
+Enjoy!</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1046</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		1 Comment					
+			</h2>
+	
+	          
+           
+           <div class="commententryauthor" id="comment-510">
+            <p>A final test of the new CAPTCHA (spam prevention) feature..</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at November 12, 2004 @ <a href="000805.html#comment-510">12:32 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

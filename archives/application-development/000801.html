@@ -1,0 +1,338 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Implementing Individual Entry Views Feature..</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-801">
+  
+                                <h2><a href="/archives/application-development/000801.html" rel="bookmark" title="Permanent link to Implementing Individual Entry Views Feature..">Implementing Individual Entry Views Feature..</a></h2>
+                                
+                                <h3>Posted : November 10, 2004 at 4:45 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+<center><img src="/images/page-views.jpg" border="1"></center></p>
+<p>
+For quite some <a href="/archives/personal/000405.html" target="_blank">time</a> now, I had been putting off implementing the following nifty little enhancement:
+<blockquote>
+<p>Capture and display the number of times a blog entry is viewed!</p>
+</blockquote>
+<p>
+Well, since I seem to be on some kinda <a href="/archives/services-and-software/000800.html" target="_blank">roll</a>, I decided to knock this one off my to-do list today.</p>
+<p>
+Listed below is my best attempt at sharing what I did to enable this feature. Enjoy.</p>
+<p>
+<b>Assumptions</b></p>
+<ul>
+<li>MT 2.x Blog backended by MySQL running on a Unix/Linux platform
+<li>All MT pages (especially, the main Index page and the Individual Entry pages) are PHP-driven, not static HTML
+<li>Optional: Perl 5.x installed
+<li>Optional: DBI, DBD::MySQL Perl modules available
+<li>Optional: Access to Apache access log file (this article assumes the filename to be <span id="code">access_log</span>). Also, the format of this file must be set in Apache&#8217;s <span id="code">httpd.conf</span> as follows:<br/><br />
+<span id="code">LogFormat &#8220;%h %l %u %t \&#8221;%r\&#8221; %>s %b \&#8221;%{Referer}i\&#8221; \&#8221;%{User-Agent}i\&#8221;" combined</span></p>
+<li>Optional: Your individual blog entry filename looks like <span id="code">000800.php</span> (for example), where &#8220;800&#8243; is MT blog entry ID
+<li>All steps on Unix/Linux were performed in <span id="code">/tmp</span> folder. Substitute <span id="code">/tmp</span> with your own folder location, if necessary
+</ul>
+<p>
+<b>Steps</b></p>
+<p>
+1. Create a MySQL table called <span id="code">mt_entryhits</span> using the script below:</p>
+<p><pre>
+<font color=#3232cd>CREATE TABLE</font> mt_entryhits (
+   entry_id <font color=#3232cd>INT(11) NOT NULL</font>
+    <font color=#3232cd>REFERENCES</font> mt_entry(entry_id)
+    <font color=#3232cd>ON DELETE CASCADE</font>
+    <font color=#3232cd>ON UPDATE CASCADE</font>,
+   referer <font color=#3232cd>VARCHAR(255) NOT NULL</font>,
+   ip_addr <font color=#3232cd>VARCHAR(255) NOT NULL</font>,
+   entry_created_on <font color=#3232cd>DATETIME NOT NULL</font>
+);
+</pre>
+<p>
+2a. If you&#8217;re launching a brand new MT blog, you&#8217;re in for a surprise. You don&#8217;t have to muck around with Perl and Apache access log stuff detailed in steps 2a thru 2c. Skip to Step 3. However, I did not have this luxury since this web site has been live for almost 6 months and has over 500 blog entries! So, my first challenge was to write a &#8220;migration&#8221; script which would populate the <span id="code">mt_entryhits</span> table using the &#8220;hits&#8221; information captured in my Apache&#8217;s (web server) access log file. After a few trial and error, I came up with the following script which worked like a charm on my <b>65 MB</b> access_log file! If you&#8217;re in the same boat as myself, copy and paste this code into a file called <span id="code">run.pl</span> and save it in <span id="code">/tmp</span> folder. <b>Do not forget to update this file with your own MySQL database settings!</b></p>
+<p><pre>
+<font color="#9a1900">#!/usr/bin/perl</font>
+
+<font color="#0000ff">use</font> DBI;
+<font color="#0000ff">use</font> URI::URL;
+<font color="#0000ff">use</font> strict;
+<font color="#0000ff">use</font> vars <font color="#0000ff">qw</font>(<font color="#33cc00">$dbh</font>);
+
+<font color="#9a1900"># Flush STDOUT</font>
+<font color="#33cc00">$</font>|=<font color="#cc33cc">1</font>;
+
+<font color="#9a1900"># Business logic</font>
+&amp;<font color="#000000">initialize</font>();
+<font color="#000000">processApacheLog</font>(<font color="#ff0000">&#8220;input.txt&#8221;</font>);
+
+<font color="#9a1900"># Cleanup</font>
+&amp;<font color="#000000">cleanup</font>();
+
+<font color="#9a1900">######################################################################</font>
+<font color="#9a1900"># Initialize DB</font>
+<font color="#9a1900">#######################################################################</font>
+<font color="#0000ff">sub</font> <font color="#000000">initialize</font>() <font color="#000000">{</font>
+	<font color="#9a1900"># Initialize connection to MySQL&#8217;s mt database</font>
+        <font color="#33cc00">$dbh</font> = DBI-&gt;<font color="#000000">connect</font>(<font color="#ff0000">&#8220;DBI:mysql:host=localhost;database=&lt;your-db-name&gt;&#8221;</font>,
+				<font color="#ff0000">&#8220;&lt;your-user-id&gt;&#8221;</font>,<font color="#ff0000">&#8220;&lt;your-password&gt;&#8221;</font>,
+				<font color="#000000">{</font>PrintError=&gt;<font color="#cc33cc">0</font>,
+				 RaiseError=&gt;<font color="#cc33cc">1</font>,
+				 AutoCommit=&gt;<font color="#cc33cc">1</font><font color="#000000">}</font>);
+
+<font color="#000000">}</font>
+
+<font color="#9a1900">######################################################################</font>
+<font color="#9a1900"># Process Apache Log file</font>
+<font color="#9a1900">#######################################################################</font>
+<font color="#0000ff">sub</font> <font color="#000000">processApacheLog</font>() <font color="#000000">{</font>
+        <font color="#0000ff">my</font> (<font color="#33cc00">$access_log</font>) = <font color="#33cc00">@_</font> <font color="#0000ff">if</font> <font color="#33cc00">@_</font>;
+	<font color="#0000ff">open</font>(HANDLE, <font color="#ff0000">&#8220;$access_log&#8221;</font>) || <font color="#0000ff">die</font> <font color="#ff0000">&#8220;Can&#8217;t open file:$!n&#8221;</font>;
+        <font color="#0000ff">my</font> <font color="#33cc00">@lines</font> = <font color="#ff0000">&lt;HANDLE&gt;</font>;
+        <font color="#0000ff">close</font>(HANDLE);
+        <font color="#0000ff">open</font> (HANDLE, <font color="#ff0000">&#8220;&gt;output.txt&#8221;</font>) || <font color="#0000ff">die</font> <font color="#ff0000">&#8220;Can&#8217;t open file:$!n&#8221;</font>;
+	<font color="#0000ff">my</font> <font color="#33cc00">$hits</font> = <font color="#cc33cc">0</font>;
+	<font color="#0000ff">my</font> <font color="#33cc00">$miss</font> = <font color="#cc33cc">0</font>;
+        <font color="#0000ff">foreach</font> <font color="#0000ff">my</font> <font color="#33cc00">$line</font> (<font color="#33cc00">@lines</font>) <font color="#000000">{</font>
+
+                <font color="#0000ff">chomp</font>(<font color="#33cc00">$line</font>);
+		<font color="#0000ff">my</font> (<font color="#33cc00">$host</font>,<font color="#33cc00">$date</font>,<font color="#33cc00">$url_with_method</font>,<font color="#33cc00">$status</font>,<font color="#33cc00">$size</font>,<font color="#33cc00">$referrer</font>,<font color="#33cc00">$agent</font>) = <font color="#33cc00">$line</font> =~
+		<font color="#0000ff">m</font>/^(S+) - - [(S+ -d<font color="#000000">{</font><font color="#cc33cc">4</font><font color="#000000">}</font>)] <font color="#ff0000">&#8220;(S+ S+ [^&#8221;</font>]+)<font color="#ff0000">&#8221; (d{3}) (d+|-) &#8220;</font>(.*?)<font color="#ff0000">&#8221; &#8220;</font>([^<font color="#ff0000">&#8220;]+)&#8221;</font><font color="#33cc00">$</font>/;
+                <font color="#0000ff">my</font> (<font color="#33cc00">$method</font>, <font color="#33cc00">$url</font>, <font color="#33cc00">$http</font>) = <font color="#0000ff">split</font> /<font color="#0000ff">s</font>+/, <font color="#33cc00">$url_with_method</font>;
+                <font color="#33cc00">$url</font> =~ <font color="#0000ff">s</font>/?(.*)//;
+                <font color="#0000ff">my</font> <font color="#33cc00">$newurl</font> = new URI::<font color="#000000">URL</font>(<font color="#ff0000">&#8220;$url&#8221;</font>);
+		<font color="#0000ff">my</font> <font color="#33cc00">@path</font> = <font color="#33cc00">$newurl</font>-&gt;path_components;
+		<font color="#0000ff">my</font> <font color="#33cc00">$filename</font> = <font color="#33cc00">$path</font>[<font color="#33cc00">$</font><font color="#9a1900">#path];</font>
+
+		<font color="#0000ff">if</font>(<font color="#33cc00">$filename</font> =~ <font color="#0000ff">m</font>/(d+).php/) <font color="#000000">{</font>
+                        <font color="#0000ff">my</font> (<font color="#33cc00">$entry_id</font>) = <font color="#33cc00">$filename</font> =~ <font color="#0000ff">m</font>/(d+).php/;
+			<font color="#0000ff">my</font> <font color="#33cc00">$entry_id</font> = <font color="#000000">scalar</font>(<font color="#33cc00">$entry_id</font>) + <font color="#cc33cc">0</font>;
+			&amp;<font color="#000000">insertEntries</font>(<font color="#33cc00">$entry_id</font>, <font color="#33cc00">$referrer</font>, <font color="#33cc00">$host</font>);
+			<font color="#0000ff">print</font> HANDLE <font color="#ff0000">&#8220;[HIT]: $linen&#8221;</font>;
+                        <font color="#33cc00">$hits</font>++;
+		<font color="#000000">}</font>
+
+		<font color="#0000ff">else</font> <font color="#000000">{</font>
+			<font color="#0000ff">print</font> HANDLE <font color="#ff0000">&#8220;[MISS]: $linen&#8221;</font>;
+			<font color="#33cc00">$miss</font>++;
+		<font color="#000000">}</font>
+	<font color="#000000">}</font>
+
+	<font color="#0000ff">close</font>(HANDLE);
+	<font color="#0000ff">print</font> <font color="#ff0000">&#8220;Hits = $hitsn&#8221;</font>;
+	<font color="#0000ff">print</font> <font color="#ff0000">&#8220;Miss = $missn&#8221;</font>;
+	<font color="#0000ff">print</font> <font color="#ff0000">&#8220;TOTAL = &#8220;</font> . (<font color="#33cc00">$hits</font> + <font color="#33cc00">$miss</font>) . <font color="#ff0000">&#8220;n&#8221;</font>; 
+
+<font color="#000000">}</font>
+
+<font color="#9a1900">######################################################################</font>
+<font color="#9a1900"># Insert into mt_entryhits</font>
+<font color="#9a1900">#######################################################################</font>
+<font color="#0000ff">sub</font> <font color="#000000">insertEntries</font>() <font color="#000000">{</font>
+	<font color="#0000ff">my</font> (<font color="#33cc00">$entry_id</font>, <font color="#33cc00">$referrer</font>, <font color="#33cc00">$ip_address</font>) = <font color="#33cc00">@_</font> <font color="#0000ff">if</font> <font color="#33cc00">@_</font>;
+
+	<font color="#0000ff">my</font> <font color="#33cc00">$sth</font>;
+	<font color="#33cc00">$sth</font> = <font color="#33cc00">$dbh</font>-&gt;<font color="#000000">prepare</font>(<font color="#ff0000">&#8220;insert into mt_entryhits values (?,?,?,NOW())&#8221;</font>);
+	<font color="#0000ff">my</font> <font color="#33cc00">@bindvars</font> = (<font color="#33cc00">$entry_id</font>, <font color="#33cc00">$referrer</font>, <font color="#33cc00">$ip_address</font>);
+	<font color="#33cc00">$sth</font>-&gt;<font color="#000000">execute</font>(<font color="#33cc00">@bindvars</font>);
+
+	<font color="#9a1900"># Release the statement handle</font>
+
+	<font color="#33cc00">$sth</font>-&gt;finish;
+
+<font color="#000000">}</font>
+
+<font color="#9a1900">#######################################################################################</font>
+<font color="#9a1900"># Perform DB cleanups</font>
+<font color="#9a1900">#######################################################################################</font>
+<font color="#0000ff">sub</font> cleanup <font color="#000000">{</font>
+
+	<font color="#0000ff">if</font>(<font color="#0000ff">defined</font>(<font color="#33cc00">$dbh</font>)) <font color="#000000">{</font>
+		<font color="#33cc00">$dbh</font>-&gt;<font color="#000000">disconnect</font>();
+	<font color="#000000">}</font>
+<font color="#000000">}</font>
+</pre>
+<p>2b. Run the following steps:</p>
+<p><pre>
+(unix-prompt)&gt;<b>cp</b> &lt;apache-root&gt;/logs/access_log /tmp/input.txt
+(unix-prompt)&gt;<b>chmod</b> 755 run.pl (see step 2a. above)
+(unix-prompt)&gt;<b>./run.pl</b>
+</pre>
+<p>
+2c. Check the <span id="code">mt_entryhits</span> table (using client tools like <a href="http://dev.mysql.com/downloads/query-browser/index.html" target="_blank">MySQL Query Browser</a> or <a href="http://www.quest.com/ToadMySQL/index.asp" target="_blank">TOAD MySQL</a>) to make sure that appropriate inserts were performed</p>
+<p>
+3. Create a file in your <span id="code">&lt;MT_ROOT_FOLDER&gt;/</span> called <span id="code">variables.php</span> as shown below. <b>Do not forget to update this file with your own MySQL database settings</b>:</p>
+<p><pre>
+&lt;?
+        <font color="#33cc00">$host</font> = <font color="#ff0000">&#8216;yadiyada.com&#8217;</font>; <font color="#9a1900">// database server hostname</font>
+        <font color="#33cc00">$user</font> = <font color="#ff0000">&#8216;foo&#8217;</font>; <font color="#9a1900">// database username</font>
+        <font color="#33cc00">$password</font> = <font color="#ff0000">&#8216;foobar&#8217;</font>; <font color="#9a1900">// database password</font>
+        <font color="#33cc00">$database</font> = <font color="#ff0000">&#8216;blahblah&#8217;</font>; <font color="#9a1900">// MT database</font>
+?&gt;
+</pre>
+<p>
+4. Edit &#8220;Individual Entry Archive&#8221; MT Template as follows:</p>
+<p>
+<i>a. Somewhere at the top of the template:</i><br/></p>
+<pre>
+&lt;?
+    <font color="#9a1900">// include the variables</font>
+    <font color="#0000ff">include</font> <font color="#ff0000">&#8216;&lt;MT_ROOT_FOLDER&gt;/variables.php&#8217;</font>
+
+    <font color="#9a1900">// Hits</font>
+   <font color="#0000ff">mysql_connect</font>( <font color="#33cc00">$host</font>, <font color="#33cc00">$user</font>, <font color="#33cc00">$password</font> );
+   <font color="#0000ff">mysql_select_db</font>( <font color="#33cc00">$database</font> );
+
+   <font color="#9a1900">// insert into mt_entryhits table</font>
+   <font color="#33cc00">$referer</font> = <font color="#ff0000">&#8221;</font>;
+   <font color="#0000ff">if</font> (<font color="#000000">isset</font>(<font color="#33cc00">$_SERVER</font>[<font color="#ff0000">&#8216;HTTP_REFERER&#8217;</font>])) <font color="#000000">{</font>
+
+    <font color="#33cc00">$referer</font> = <font color="#33cc00">$_SERVER</font>[<font color="#ff0000">&#8216;HTTP_REFERER&#8217;</font>];
+   <font color="#000000">}</font>
+   <font color="#0000ff">else</font> <font color="#000000">{</font>
+       <font color="#33cc00">$referer</font> = <font color="#ff0000">&#8216;-&#8217;</font>;
+    <font color="#000000">}</font>
+
+   <font color="#9a1900">// insert into mt_entryhits table</font>
+   <font color="#33cc00">$ip_addr</font> = <font color="#ff0000">&#8221;</font>;
+   <font color="#0000ff">if</font> (<font color="#000000">isset</font>(<font color="#33cc00">$_SERVER</font>[<font color="#ff0000">&#8216;REMOTE_ADDR&#8217;</font>])) <font color="#000000">{</font>
+
+       <font color="#33cc00">$ip_addr</font> = <font color="#33cc00">$_SERVER</font>[<font color="#ff0000">&#8216;REMOTE_ADDR&#8217;</font>];
+   <font color="#000000">}</font>
+   <font color="#0000ff">else</font> <font color="#000000">{</font>
+       <font color="#33cc00">$ip_addr</font> = <font color="#ff0000">&#8216;-&#8217;</font>;
+    <font color="#000000">}</font>
+
+   <font color="#0000ff">mysql_query</font>(<font color="#ff0000">&#8220;INSERT INTO mt_entryhits (entry_id, referer, ip_addr, entry_created_on)</font>
+<font color="#ff0000">     VALUES (&lt;$MTEntryID$&gt;, &#8216;$referer&#8217;, &#8216;$ip_addr&#8217;, NOW())&#8221;</font> );
+
+  <font color="#9a1900">// get the no. of times this entry has been read</font>
+  <font color="#33cc00">$rs</font> = <font color="#0000ff">mysql_query</font>( <font color="#ff0000">&#8220;SELECT COUNT(*) FROM mt_entryhits WHERE   entry_id=&lt;$MTEntryID$&gt;&#8221;</font> );
+  <font color="#33cc00">$row</font> = <font color="#0000ff">mysql_fetch_row</font>( <font color="#33cc00">$rs</font> );
+  <font color="#33cc00">$hits</font> = <font color="#33cc00">$row</font>[<font color="#cc33cc">0</font>];
+
+?&gt;
+</pre>
+<p><i>b. Wherever you want to display the &#8220;Individual Entry Views&#8221; number:</i><br/></p>
+<pre>
+Viewed: <font color="#ff0000">&lt;b&gt;&lt;?=$hits?&gt;&lt;/b&gt;</font> <font color="#0000ff">time</font>&lt;? <font color="#0000ff">if</font>(<font color="#33cc00">$hits</font> != <font color="#cc33cc">1</font>) <font color="#0000ff">echo</font> <font color="#ff0000">&#8217;s&#8217;</font>;?&gt;
+</pre>
+<p>
+5. Edit &#8220;Main Index&#8221; MT Template as follows:</p>
+<p>
+<i>a. Somewhere at the top of the template:</i><br/></p>
+<pre>
+&lt;?
+    <font color="#9a1900">// include the variables</font>
+    <font color="#0000ff">include</font> <font color="#ff0000">&#8216;&lt;MT_ROOT_FOLDER&gt;/variables.php&#8217;</font>
+
+    <font color="#9a1900">// Hits</font>
+   <font color="#0000ff">mysql_connect</font>( <font color="#33cc00">$host</font>, <font color="#33cc00">$user</font>, <font color="#33cc00">$password</font> );
+   <font color="#0000ff">mysql_select_db</font>( <font color="#33cc00">$database</font> );
+?&gt;
+</pre>
+<p><i>b. Immediately after &lt;MTEntries&gt; tag:</i><br/></p>
+<pre>
+&lt;?
+<font color="#9a1900">// get the no. of times this entry has been read</font>
+<font color="#33cc00">$rs</font> = <font color="#0000ff">mysql_query</font>( <font color="#ff0000">&#8220;SELECT COUNT(*) FROM mt_entryhits WHERE entry_id=&lt;$MTEntryID$&gt;&#8221;</font>);
+<font color="#33cc00">$row</font> = <font color="#0000ff">mysql_fetch_row</font>( <font color="#33cc00">$rs</font> );
+<font color="#33cc00">$hits</font> = <font color="#33cc00">$row</font>[<font color="#cc33cc">0</font>];
+?&gt;
+</pre>
+<p><i>c. Wherever you want to display the &#8220;Individual Entry Views&#8221; number:</i><br/></p>
+<pre>
+Viewed: <font color="#ff0000">&lt;b&gt;&lt;?=$hits?&gt;&lt;/b&gt;</font> <font color="#0000ff">time</font>&lt;? <font color="#0000ff">if</font>(<font color="#33cc00">$hits</font> != <font color="#cc33cc">1</font>) <font color="#0000ff">echo</font> <font color="#ff0000">&#8217;s&#8217;</font>;?&gt;
+</pre>
+<p>
+6. Rebuild Movable Type.</p>
+<p>
+7. Enjoy!</p>
+<div class="note">
+<p><u>Note:</u><br/></p>
+<ol>
+<li>I could not have done all this in a day without the help of <a href="http://blog.codefront.net/archives/2003/08/16/tracking-entry-referrers-with-php-in-mt" target="_blank">this</a> extraordinary article at Chu Yeow&#8217;s <a href="http://blog.codefront.net/" target="_blank">Redemption in a blog</a>. Thanks a bunch.
+<li>In case you were wondering, as of today, the most &#8220;viewed&#8221; blog entry across all categories is <a href="/archives/services-and-software/000309.html" target="_blank">&#8220;Do I smell a &#8220;Gmail Hacks&#8221; book here?&#8221;</a> with <b>1381 views!</b>
+<li>In the &#8220;US Politics&#8221; category, the most &#8220;viewed&#8221; blog entry is <a href="/archives/united-or-not-state-of-american-politics-2004/000473.html" target="_blank">&#8220;I challenge every PATRIOTIC American to watch this. <i>NOW!</i></a>&#8221; with <b>334 views!</b> Nice.
+</ol>
+</div>
+<div class="note">
+<p><u>Note (to myself):</u><br/><br />
+Need to create a section on the web site which lists the most &#8220;viewed&#8221; blog entries. Until I do that, here&#8217;s the query that I can use to get the same information:</p>
+<p><pre>
+<font color="black">
+<font color=#3232cd>SELECT</font> a.entry_id, entry_title, category_label, count(a.entry_id)
+<font color=#3232cd>FROM</font> mt_entryhits a, mt_entry b, mt_category c, mt_placement d
+<font color=#3232cd>WHERE</font> a.entry_id = b.entry_id
+<font color=#3232cd>AND</font> b.entry_id = d.placement_entry_id
+<font color=#3232cd>AND</font> c.category_id = d.placement_category_id
+<font color=#3232cd>GROUP BY</font> a.entry_id, entry_title, category_label
+<font color=#3232cd>ORDER BY</font> 4 desc
+</font>
+</pre>
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>926</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

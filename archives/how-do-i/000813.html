@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HOWTO: Capturing still images from Windows Media Player (8.x/9.x)</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-813">
+  
+                                <h2><a href="/archives/how-do-i/000813.html" rel="bookmark" title="Permanent link to HOWTO: Capturing still images from Windows Media Player (8.x/9.x)">HOWTO: Capturing still images from Windows Media Player (8.x/9.x)</a></h2>
+                                
+                                <h3>Posted : November 18, 2004 at 10:08 am [America/Los_Angeles]</h3>
+                                
+                                <p>
+If you&#8217;ve ever tried capturing a still image from a Windows Media Player (WMP), you know it&#8217;s not as simple as pressing <span id="code">&#8216;Print Screen&#8217;</span> or <span id="code">&#8216;Alt+Print Screen&#8217;</span> button while the movie is playing. If you&#8217;ve no clue what I am talking about, here&#8217;s a little test you can run yourself.</p>
+<p>
+<b>Assumptions:</b></p>
+<p>
+1. You&#8217;re on a Windows platform<br/><br />
+2. You&#8217;ve your browser configured with Windows Media Player (8.x/9.x) plugin<br/><br />
+3. You&#8217;re connected to the Internet</p>
+<p>
+<b>Steps to perform the test:</b></p>
+<p>
+1. Open your favorite browser<br/><br />
+2. You can go to your favorite multimedia site (<a href="http://music.msn.com" target="_blank">Music video site</a>, <a href="http://news.com" target="_blank">News.com</a> etc.) and play a movie using your WMP plugin or you can go to <a href="http://cbs.marketwatch.com" target="_blank">CBS MarketWatch</a>. Over to the right-hand side, you will notice a <b>TV &#038; Radio</b> section with a bunch of movies to play. Pick one and when prompted for player preferences, select WMP.<br/><br />
+3. When the movie starts playing, click on <span id="code">&#8216;Print Screen&#8217;</span> or <span id="code">&#8216;Alt+Print Screen&#8217;</span><br/><br />
+4. Open Paint program from the Accessories folder of your Start Menu (<span id="code">&#8216;Start | Programs | Accessories | Paint&#8217;</span>) <br/><br />
+5. Click on <span id="code">&#8216;Edit | Paste&#8217;</span> in the Paint program.</p>
+<p>
+Do you see the problem? It literally embeds the movie (I guess as an OLE object) into the Paint software. <u>Result:</u> <b>You see the movie playing within Paint!</b>. Trying to close WMP or hit the pause button on WMP before taking a screenshot would really delay the inevitable. You would soon notice that the best that you can get is this:</p>
+<p>
+<center><img src="/images/wmp-problem.jpg" border="0"></center></p>
+<p>
+<b>Solution:</b></p>
+<p>
+1. As soon as the Windows Media plugin loads in your browser and starts playing, hit pause, right-click on an empty region of the skin of the Windows Media player. You should see a drop-down menu similar to the one shown below. Even if it&#8217;s not exactly same, as long as you see the <span id="code">&#8216;Options&#8230;&#8217;</span> menu option, you&#8217;ll be fine:</p>
+<p>
+<center><img src="/images/media-menu.png" border="0"></center></p>
+<p>
+2. Click on <span id="code">&#8216;Options&#8230;&#8217;</span> menu option which will open the <span id="code">Options</span> dialog window looking something like this:</p>
+<p>
+<center><img src="/images/media-options-full.jpg" border="0"></center></p>
+<p>
+3. Notice the &#8216;Video Acceleration&#8217; section. It&#8217;s set to <span id="code">&#8216;Full&#8217;</span>. Drag the slider back so that it&#8217;s set to <span id="code">&#8216;None&#8217;</span>. It should look like this:</p>
+<p>
+<center><img src="/images/media-options-zero.jpg" border="0"></center></p>
+<p>
+4. Click on <span id="code">Apply</span>. You may have to close the browser window and do the whole thing again or if you&#8217;re lucky, after churning your CPU cycles for a bit, the Windows Media player plugin will start playing the movie from the beginning with the new settings.</p>
+<p>
+5. With the movie playing, click <span id="code">&#8216;Print Screen&#8217;</span> or <span id="code">&#8216;Alt+Print Screen&#8217;</span> at the point in the movie where you would like to capture a still image</p>
+<p>
+6. Open the Paint program (as explained previously) and paste the content from the clipboard. Voila! The result would be something like:</p>
+<p>
+<center><img src="/images/wmp-result.jpg" border="0"></center></p>
+<p>
+7. When you&#8217;re done capturing your still image, do not forget to reset your WMP <span id="code">&#8216;Video Acceleration&#8217;</span> settings back to <span id="code">&#8216;Full&#8217;</span>. It&#8217;s the recommended mode.</p>
+<div class="note">
+<p><u>Note:</u><br/><br />
+1. Microsoft seems to have fixed this problem in their latest version (Version 10.0) of Windows Media Player. Meaning, pressing the &#8216;Print Screen&#8217; or the &#8216;Alt+Print Screen&#8217; will capture the still image to the clipboard and pasting it in programs like &#8216;Paint&#8217; would not cause the movie object itself to be embedded (or whatever the hell it was doing in 8.x/9.x).<br/><br />
+2. Thanks to Mark Salloway&#8217;s Resource Center for pointing <a href="http://www.mvps.org/marksxp/WindowsXP/wmp.php" target="_blank">this</a> issue (and the solution) out.
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/how-do-i/" title="View all posts in How do I?" rel="category tag">How do I?</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1255</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

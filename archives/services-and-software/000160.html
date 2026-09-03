@@ -1,0 +1,307 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; MySQL vs Oracle: Documenting observations/nuggets as I dive into MySQL</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-160">
+  
+                                <h2><a href="/archives/services-and-software/000160.html" rel="bookmark" title="Permanent link to MySQL vs Oracle: Documenting observations/nuggets as I dive into MySQL">MySQL vs Oracle: Documenting observations/nuggets as I dive into MySQL</a></h2>
+                                
+                                <h3>Posted : May 19, 2004 at 12:08 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/sql-mysql-oracle.jpg"></center></p>
+<p>
+No, I am not here to bash Oracle or MySQL or both. Sorry, biling is almost an <i>art</i> that few <a href="http://www.jroller.com/page/fate" target="_blank">possess</a>. I ain&#8217;t one of them. </p>
+<p>
+So, here&#8217;s the deal. I have worked with Oracle&#8217;s flavor of SQL for most of my professional life so far. During this time, MySQL has gotten my attention more so during installation of open-source softwares (like Movable Type) than as my application&#8217;s RDBMS backend. It all changed yesterday as I literally had to dive into MySQL for my current <a href="http://www.induspolis.com" target="_blank">project</a></p>
+<p>Here are some of my observations/notes:</p>
+<p>1. In Oracle, you use &#8216;SQLPlus&#8217; if you want to run queries. In MySQL, it&#8217;s &#8216;mysql&#8217;. If you like using GUI-based tools to do your SQL, in Oracle, you may be using Quest&#8217;s <a href="http://www.quest.com/toad/" target="_blank">TOAD</a>, <a href="http://www.globecom.se/tora/" target="_blank">TOra</a> or the many commercial products out there. In the case of MySQL, I tend to flip-flop between &#8216;mysql&#8217; client, <a href="http://www.toadsoft.com/maillist.htm" target="_blank">TOAD for MySQL</a> or <a href="http://www.mysql.com/products/mysqlcc/" target="_blank">MySQL Control Center (MySQLCC)</a>.</p>
+<p>2. In Oracle, there is a concept of &#8220;DUAL&#8221; table (it&#8217;s really not a table) which is used too often to do things like:</p>
+<p><pre>
+SQL&gt; SELECT 1+1 FROM DUAL;
+       1+1
+----------
+         2
+SQL&gt; SELECT SQRT(4) FROM DUAL;
+
+   SQRT(4)
+----------
+         2
+SQL&gt;
+</pre>
+<p>
+In MySQL, you don&#8217;t need the &#8220;FROM DUAL&#8221;:</p>
+<p><pre>
+mysql&gt; select 1+1 ;
++-----+
+| 1+1 |
++-----+
+|   2 |
++-----+
+1 row in set (0.03 sec)
+mysql&gt; select sqrt(4);
++----------+
+| sqrt(4)  |
++----------+
+| 2.000000 |
++----------+
+1 row in set (0.89 sec)
+mysql&gt;
+</pre>
+<p>
+3. In SQLPlus, there are a bunch of directives made available which makes it easy to spool, make SQL output look pretty, time queries, etc.</p>
+<pre>
+set timing on
+set feed on
+set echo on
+set term on
+set serveroutput on size 1000000
+col mycurdt format A20
+</pre>
+<p>
+In MySQL, the SQL output is definitely much prettier by default which makes the life of an application developer that much simpler:</p>
+<pre>
+mysql&gt; use mt;
+Database changed
+mysql&gt; select * from ind_sites;
++---------+-------------+----------------------+---------------------+
+| site_id | site_author | site_url             | site_created_on     |
++---------+-------------+----------------------+---------------------+
+|       4 | Jivha       | http://www.jivha.com | 2004-05-18 21:55:29 |
++---------+-------------+----------------------+---------------------+
+1 row in set (3.31 sec)
+mysql&gt;
+mysql&gt; select * from ind_sites G
+*************************** 1. row ***************************
+        site_id: 4
+    site_author: Jivha
+       site_url: http://www.jivha.com
+site_created_on: 2004-05-18 21:55:29
+1 row in set (0.03 sec)
+mysql&gt;
+</pre>
+<p>Notice, the <b>\G</b> option that was used to run the query and how it neatly arranged the columns vertically (as opposed to horizontally). I am pretty sure there is no easy way to do this in SQLPlus. However, SQLPlus is probably much more powerful thanks to the bazillion directives (as shown above) that you can use to configure it to your taste. Personally, I don&#8217;t care too much about the many directives that SQLPLus has. All I really need, and I have not yet figured it out, is how to enable spooling in &#8216;mysql&#8217; client.</p>
+<p>
+4. While using these command-line clients to access Oracle or MySQL is great, it sure is a pain that the prompts by default is:</p>
+<pre>
+SQL&gt; (for Oracle's SQLPlus)
+<br/>
+mysql&gt; (for MySQL)
+</pre>
+<p>
+If you wanted to set your SQL prompt in Oracle, this <a href="http://www.jlcomp.demon.co.uk/faq/sqlplus_prompt.html" target="_blank">site</a> will tell you how to do it. I like the fact that you&#8217;ve an option in Oracle whereby you can have your prompt set as soon as you log in. Here&#8217;s how you can set your prompt in MySQL (in versions &gt; 4.0.x):</p>
+<pre>
+% mysql
+mysql&gt; PROMPT d>_
+PROMPT set to 'd>_'
+(none)&gt; USE mtdb;
+Database changed
+mtdb&gt; USE test;
+Database changed
+test&gt;
+</pre>
+<p>I have not yet found out how to make this thing be run automatically so that I would not have to type &#8216;PROMPT \d>\_&#8217; everytime I log into a MySQL database. If you know, I&#8217;d be interested.</p>
+<p>
+That&#8217;s all for now. I am sure I will have more later.</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>2761</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		9 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-137">
+            <p>For mysql, my favorite tool is phpMyAdmin, but that naturally enough requires having apache and php configured right.  Since most of my databases are for the web anyways, having it deployed on a permanent (&#038; hidden from the world) server works well for me.</p>
+<p>A great book for this sort of thing is the new SQL Pocket Reference from O&#8217;Reilly.  Rather than treat each rdbms (oracle, mysql, db2, microsoft) separately, it groups concepts together, so that (for example) when looking up &#8220;nulls&#8221; it has the details of how all 4 of them support nulls (like what is the mysql equivilant for the oracle nvl() function).</p>
+<p>So if you really know one of them, this is a great book for finding the matching syntax for the same concepts in the other 3 (if it is supported at all), plus which one&#8217;s syntax is the actual ANSI-compliant version.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:acroyear@io.com">Joe Shelby</a> at May 19, 2004 @ <a href="000160.html#comment-137">1:51 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-138">
+            <p>Going from mysql to Oracle can be quite hard if you use the command line. As a tool, sqlplus is quite possibly the worst that could be imagined.</p>
+<p>The mysql [and other db&#8217;s] command line is far more functional with all the usual tricks you&#8217;d expect from a unix command line. Search, completion, previous-line etc.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:bayard@generationjava.com">Henri Yandell</a> at May 19, 2004 @ <a href="000160.html#comment-138">3:31 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-139">
+            <p>Nice. Thanks Joe. Must say I did not know about the SQL Pocket Reference. </p>
+<p>
+As for phpMyAdmin, I did install it once some time back and was pretty impressed by the kind of capabilities it provided. Have not had a chance to revisit it. This might be a good time to do just that..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 19, 2004 @ <a href="000160.html#comment-139">3:32 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-140">
+            <p>What&#8217;s MySQL&#8217;s LOB (CLOB / BLOB) handling like?</p>
+<p>Odds are it couldn&#8217;t be any worse than Oracle&#8217;s (although with any luck they might have finally straightened it out in 10g - I&#8217;m not keeping my hopes up though).</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Oracle Victim</a> at May 19, 2004 @ <a href="000160.html#comment-140">9:23 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-141">
+            <p>Anand,</p>
+<p>> I have not yet found out how to make this thing be run<br />
+> automatically</p>
+<p>&#8211;prompt=<br />
+is runtime option of mysql</p>
+<p>You can either use alias or wrapper script to run mysql or simply put this option in my.cnf file under [mysql] section. If you want it for personalized use ~/.my.cnf i.e. .my.cnf in your home directory (in case of Unix)</p>
+<p>[mysql]<br />
+prompt=&#8221;This is a prompt :)\ &#8220;</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:salle@mysql.com">Alexander Keremidarski</a> at May 20, 2004 @ <a href="000160.html#comment-141">4:17 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-142">
+            <p>Thanks Alexander. Must say I did not know about the stuff you mentioned. Will definitely try it out and let you know.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 20, 2004 @ <a href="000160.html#comment-142">9:10 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-143">
+            <p>Dear &#8216;Oracle victim&#8217;..;-)</p>
+<p>
+I wish I had answers for you, but it will be a while before I have dived far enough into MySQL to know about it&#8217;s CLOB/BLOB handling. I think TEXT is MySQL&#8217;s equivalent of CLOB and using it was as simple as using any VARCHAR. In Oracle, I believe you have to have a special handling of CLOBs vis-a-vis VARCHAR2.
+</p>
+<p>
+Note: Yes, that reminds me. In Oracle, we normally use VARCHAR2 while in MySQL it&#8217;s called VARCHAR. I never quite found out what was the 2 in VARCHAR2. I know Oracle also has a VARCHAR, but I&#8217;ve never used it. Can&#8217;t remember why of the top of my head right now..;-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 20, 2004 @ <a href="000160.html#comment-143">9:15 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-144">
+            <p>
+From Oracle 9i onward, VARCHAR2 and VARCHAR are identical.  I can&#8217;t even remember why they were different in earlier versions, although it may have been something to do with multi-byte support.  I&#8217;m getting old, my memory is fading&#8230;  <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /> </p>
+<p>
+I&#8217;m glad to hear MySQL is &#8220;sensible&#8221; in its implementation of large text fields - sounds like it&#8217;s much more like MS SQL Server in that regard (MSSQL also uses the &#8220;text&#8221; type rather than CLOB, not that that really means anything).
+</p>
+<p>
+&lt;mini rant&gt;<br />
+I still can&#8217;t believe how many hours I&#8217;ve spent over the years cursing Oracle&#8217;s CLOB / BLOB implementation (particularly in the way it&#8217;s surfaced via JDBC).  Every new version seemed to break the code that worked on the previous version!  And don&#8217;t get me started on trying to write database-independent CLOB handling code!!  :-\<br />
+&lt;/mini rant&gt;</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Oracle Victim</a> at May 20, 2004 @ <a href="000160.html#comment-144">5:30 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-145">
+            <p>I thought this site is going to discuss Segmentation fault problem in mysql.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Senthil</a> at February 21, 2006 @ <a href="000160.html#comment-145">11:20 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

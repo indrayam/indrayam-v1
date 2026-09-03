@@ -1,0 +1,114 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Using CAPTCHA to &#8220;reduce&#8221; spam</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-806">
+  
+                                <h2><a href="/archives/services-and-software/000806.html" rel="bookmark" title="Permanent link to Using CAPTCHA to &#8220;reduce&#8221; spam">Using CAPTCHA to &#8220;reduce&#8221; spam</a></h2>
+                                
+                                <h3>Posted : November 12, 2004 at 1:28 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+<center><img src="/images/captcha.jpg" border="1"></center></p>
+<p>
+<a href="http://www.jayallen.org/projects/mt-blacklist/" target="_blank">MT-Blacklist</a> plugin is great tool against &#8220;Comment&#8221; and &#8220;Trackback&#8221; spams, but as I had alluded to in my previous <a href="/archives/services-and-software/000800.html" target="_blank">entry</a>, it&#8217;s pretty <b>reactive</b> in nature. Here&#8217;s how MT-Blacklist tries to fight spam:</p>
+<ul>
+<li>Install MT-Blacklist, a content filter plugin. Set a bunch of filters/rules which defines conditions that, if met, will prevent the comment from being submitted. So far so good.
+<li>An &#8220;unemployed&#8221; and &#8220;catabolic&#8221; spammer figures out a <u>new</u> way to bypass the existing content filters and spams the blog with nonsensical comments.
+<li>MT (along with MT-Blacklist) sends out an email to the blog author once a new comment (legitimate or otherwise) is posted.
+<li>If it&#8217;s a spam, the MT-Blacklist plugin provides a link (as part of the email) that helps the author to delete the spam message and plug the newly found &#8220;spam hole&#8221; with a couple of mouse-clicks. <i>Really neat stuff!</i>
+</ul>
+<p>
+As cool as MT-Blacklist is, there&#8217;s one huge problem. As you can imagine, your site could literally be under a spam attack and you would not have a clue until the next time you open your Inbox or check your blog. Needless to say, I wanted something that would choke these spams at their source - <b>the time when these script kiddies programmatically &#8220;spam&#8221; my blog entries with nonsensical comments.</b></p>
+<p>
+Enter <a href="http://en.wikipedia.org/wiki/Captcha" target="_blank">CAPTCHA</a> (<em><strong>c</strong></em>ompletely <em><strong>a</strong></em>utomated<br />
+<em><strong>p</strong></em>ublic <a href="http://en.wikipedia.org/wiki/Turing_test" target="_blank"><em><strong>T</strong></em>uring test</a> to<br />
+tell <em><strong>c</strong></em>omputers and <em><strong>h</strong></em>umans <em><strong>a</strong></em>part) and James Seng&#8217;s <a href="http://james.seng.cc/archives/000145.html" target="_blank">plugin</a> that implement&#8217;s CAPTCHA Turing Test. The idea is pretty simple: </p>
+<blockquote>
+<p>Display an image with a Security Code and force the user to enter that code manually in a text-field before allowing the posting to go through.</p>
+</blockquote>
+<p>
+The figure above should give readers an idea of what it looks like in action. As you can see, with this plugin in place, programmatically entering a comment becomes somewhat difficult cause the spammer now has to figure out a way to parse the graphic to read the Security Code (or get their hands on the Security Code some other way) to be able to successfully post a spam comment. Ofcourse, if the script kiddies want to manually come to my site and enter a spam, they are more than welcome <img src="/images/wink.gif" align="middle"></p>
+<p>
+<b>So, what&#8217;s the catch?</b></p>
+<p>
+Well, as <a href="http://www.scriptygoddess.com/archives/2003/10/12/anti-comment-spam-tactics/" target="_blank">Scriptygoddess</a> aptly puts it:</p>
+<blockquote>
+<p>
+&#8230;it needs to be said that using a captcha presents some usability issues, as those with graphics disabled or users who have a visual handicap may not be able to comment using the default install. At this time, there is not an enhancement to this plugin to remedy that. This is still an OUTSTANDING solution, just measure the accessibility versus the effectiveness when considering this solution.
+</p>
+</blockquote>
+<p>
+Well, I am willing to wait and deal with the &#8220;accessibility&#8221; challenge for now as I really want to put a serious dent on this &#8220;comment spam&#8221; nonsense. </p>
+<div class="note">
+<p><u>Note to myself:</u><br/><br />
+Hunt (or invent) an accessible solution to this problem without forcing users to register.
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3445</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

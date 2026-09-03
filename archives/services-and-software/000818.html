@@ -1,0 +1,443 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; MySQL Vs. Oracle: Some more observations&#8230;</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-818">
+  
+                                <h2><a href="/archives/services-and-software/000818.html" rel="bookmark" title="Permanent link to MySQL Vs. Oracle: Some more observations&#8230;">MySQL Vs. Oracle: Some more observations&#8230;</a></h2>
+                                
+                                <h3>Posted : November 22, 2004 at 7:09 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+Almost 6 months back, I had written an <a href="/archives/services-and-software/000160.html" target="_blank">entry</a> on some of the differences that I found between Oracle and MySQL as I was getting to know more MySQL. This afternoon, while dabbling with some more MySQL, I found a few more things that I thought I would point out, especially pertaining to using MySQL&#8217;s <span id="code">mysql</span> vs. Oracle&#8217;s <span id="code">sqlplus</span></p>
+<p>
+Let&#8217;s take a simple Oracle SQL script (save it as <span id="code">run.sql</span>):</p>
+<p><pre>
+set echo on;
+
+<strong>drop</strong> <strong>table</strong> customers;
+
+<strong>create</strong> <strong>table</strong> customers
+(
+ customerid <font color="#2040a0"><strong>number</strong></font> <strong>not</strong> <strong>null</strong> <strong>primary</strong> <strong>key</strong>,
+ name <font color="#2040a0"><strong>varchar(11)</strong></font> <strong>not</strong> <strong>null</strong>,
+ address <font color="#2040a0"><strong>varchar(100)</strong></font> <strong>not</strong> <strong>null</strong>,
+ city <font color="#2040a0"><strong>varchar(30)</strong></font> <strong>not</strong> <strong>null</strong>
+
+);
+
+<strong>drop</strong> <strong>table</strong> orders;
+
+<strong>create</strong> <strong>table</strong> orders
+(
+ orderid <font color="#2040a0"><strong>number</strong></font> <strong>not</strong> <strong>null</strong> <strong>primary</strong> <strong>key</strong>,
+ customerid number <strong>not</strong> <strong>null</strong>,
+ amount <font color="#2040a0"><strong>number(6,2)</strong></font>,
+ orderdate <font color="#2040a0"><strong>date</strong></font> <strong>not</strong> <strong>null</strong>
+
+);
+
+<strong>drop</strong> <strong>table</strong> books;
+
+<strong>create</strong> <strong>table</strong> books
+(
+ isbn <font color="#2040a0"><strong>varchar(13)</strong></font> <strong>not</strong> <strong>null</strong> <strong>primary</strong> <strong>key</strong>,
+ author <font color="#2040a0"><strong>varchar(50)</strong></font>
+ title <font color="#2040a0"><strong>varchar(100)</strong></font>,
+ price <font color="#2040a0"><strong>number(6,2)</strong></font>
+);
+</pre>
+<p>
+Upon execution, it gives the following result:</p>
+<p><pre>
+SQL&gt; @E:run.sql;
+SQL&gt;
+SQL&gt; drop table customers;
+drop table customers
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+SQL&gt;
+SQL&gt; create table customers
+  2  (
+  3   customerid number not null primary key,
+  4   name varchar(11) not null,
+  5   address varchar(100) not null,
+  6   city varchar(30) not null
+  7  );
+
+Table created.
+
+SQL&gt;
+SQL&gt; drop table orders;
+drop table orders
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+SQL&gt;
+SQL&gt; create table orders
+  2  (
+  3   orderid number not null primary key,
+  4   customerid number not null,
+  5   amount number(6,2),
+  6   orderdate date not null
+  7  );
+
+Table created.
+
+SQL&gt;
+SQL&gt; drop table books;
+drop table books
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+SQL&gt;
+SQL&gt; create table books
+  2  (
+  3   isbn varchar(13) not null primary key,
+  4   author varchar(50),
+  5   title varchar(100),
+  6   price number(6,2)
+  7  );
+
+Table created.
+
+SQL&gt; 
+</pre>
+<p>
+Anyone who knows a thing or two about SQL can look at this interaction and come to a conclusion about whether the script went well or failed. </p>
+<p>
+A quick-and-dirty translation of the SQL above into MySQL&#8217;s flavor resulted in this (save it as <span id="code">run1.sql</span>):</p>
+<p><pre>
+<strong>drop</strong> <strong>table</strong> customers;
+
+<strong>create</strong> <strong>table</strong> customers
+(
+ customerid <font color="#2040a0"><strong>int unsigned</strong></font> <strong>not</strong> <strong>null</strong> auto_increment <strong>primary</strong> <strong>key</strong>,
+ name <font color="#2040a0"><strong>varchar(11)</strong></font> <strong>not</strong> <strong>null</strong>,
+ address <font color="#2040a0"><strong>varchar(100)</strong></font> <strong>not</strong> <strong>null</strong>,
+ city <font color="#2040a0"><strong>varchar(30)</strong></font> <strong>not</strong> <strong>null</strong>
+
+);
+
+<strong>drop</strong> <strong>table</strong> orders;
+
+<strong>create</strong> <strong>table</strong> orders
+(
+ orderid <font color="#2040a0"><strong>int unsigned</strong></font> <strong>not</strong> <strong>null</strong> auto_increment <strong>primary</strong> <strong>key</strong>,
+ customerid <font color="#2040a0"><strong>int unsigned</strong></font> <strong>not</strong> <strong>null</strong>,
+ amount <font color="#2040a0"><strong>float(6,2)</strong></font>,
+ orderdate <font color="#2040a0"><strong>date</strong></font> <strong>not</strong> <strong>null</strong>
+
+);
+
+<strong>drop</strong> <strong>table</strong> books;
+
+<strong>create</strong> <strong>table</strong> books
+(
+ isbn <font color="#2040a0"><strong>varchar(13)</strong></font> <strong>not</strong> <strong>null</strong> <strong>primary</strong> <strong>key</strong>,
+ author <font color="#2040a0"><strong>varchar(50)</strong></font>,
+ title <font color="#2040a0"><strong>varchar(100)</strong></font>,
+ price <font color="#2040a0"><strong>float(6,2)</strong></font>
+);
+</pre>
+<p>
+So, what&#8217;s different? Well, other than replacing all instances of <span id="code">number</span> and <span id="code">number(x,y)</span> from Oracle&#8217;s SQL script with MySQL&#8217;s <span id="code">int</span> and <span id="code">float</span> respectively and removing <span id="code">sqlplus</span>-centric command like <span id="code">set echo on</span>, it was really not much. So far so good.</p>
+<p>
+However, if you try running this script using <span id="code">mysql</span> (assuming you already have a MySQL user account and database with relevant privileges), your interaction will be perfunctory at best:</p>
+<p><pre>
+E:&gt;mysql -D books -u anand -p &lt; "E:run1.sql"
+Enter password: ****************
+ERROR 1051 (42S02) at line 1: Unknown table 'customers'
+
+E:&gt;
+</pre>
+<p>
+Well, that was dumb. Ofcourse there isin&#8217;t a &#8216;customers&#8217; table. Can&#8217;t you just skip that error and just move on? Turns out, by default, <span id="code">mysql</span> won&#8217;t. However, it has an option <span id="code"><b>&#8211;force, -f</b></span> which will solve our problem. Here&#8217;s what our interaction looks like with <span id="code"><b>-f</b></span> added:</p>
+<p><pre>
+E:&gt;mysql -D books -f -u anand -p &lt; "E:run1.sql"
+Enter password: ********
+ERROR 1051 (42S02) at line 1: Unknown table 'customers'
+ERROR 1051 (42S02) at line 11: Unknown table 'orders'
+ERROR 1051 (42S02) at line 21: Unknown table 'books'
+
+E:&gt;
+</pre>
+<p>
+While it worked, notice that the output is not too user-friendly. How do I know if the script worked or failed? After running my script, I had to login and run <span id="code">show tables</span> to confirm that it had indeed worked. It was far cleaner in Oracle where the transcript of the session (thanks to <span id="code">set echo on</span>) was pretty obvious. </p>
+<p>
+So, after some more monkeying around with <span id="code">mysql&#8217;s</span> command-line options, I was finally able to come up with an interaction which was almost like Oracle&#8217;s:</p>
+<p><pre>
+E:&gt;mysql -D books -f -v -v -u anand -p &lt; "E:run1.sql"
+Enter password: ***********
+--------------
+drop table customers
+--------------
+
+ERROR 1051 (42S02) at line 1: Unknown table 'customers'
+--------------
+create table customers
+(
+ customerid int unsigned not null auto_increment primary key,
+ name varchar(11) not null,
+ address varchar(100) not null,
+ city varchar(30) not null
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+drop table orders
+--------------
+
+ERROR 1051 (42S02) at line 11: Unknown table 'orders'
+--------------
+create table orders
+(
+ orderid int unsigned not null auto_increment primary key,
+ customerid int unsigned not null,
+ amount float(6,2),
+ orderdate date not null
+)
+--------------
+
+Query OK, 0 rows affected
+
+--------------
+drop table books
+--------------
+
+ERROR 1051 (42S02) at line 21: Unknown table 'books'
+--------------
+create table books
+(
+ isbn varchar(13) not null primary key,
+ author varchar(50),
+ title varchar(100),
+ price float(6,2)
+)
+--------------
+
+Query OK, 0 rows affected
+
+Bye
+
+E:&gt;
+</pre>
+<p>
+Much better. Definitely far more informative and user-friendly output. </p>
+<p>
+Now, let&#8217;s zero-in on the various command-line options and what they mean:</p>
+<p><pre>
+<b>E:&gt;mysql -D books -f -v -v -u anand -p &lt; &#8220;E:run1.sql&#8221;</b>
+</pre>
+<p>
+The <span id="code"><b>-D books</b></span> specifies the database that the script will work on<br/><br />
+The <span id="code"><b>-f</b></span> forces <span id="code">mysql</span> to continue executing the SQL script despite errors<br/><br />
+The <span id="code"><b>-v -v</b></span> (double <span id="code"><b>-v</b></span>) is for &#8220;more&#8221; verbose output. Try the command with just one <span id="code"><b>-v</b></span> and you will know why we need two <span id="code"><b>-v</b></span><br/><br />
+The <span id="code"><b>-u anand</b></span> specifies the userid that <span id="code">mysql</span> will attempt logging in as<br/><br />
+The <span id="code"><b>-p</b></span> tells <span id="code">mysql</span> that it should prompt for a password in order to authenticate the user</p>
+<p>
+On a side note, <span id="code">mysql</span> sorta supports <span id="code">sqlplus&#8217;s</span> <span id="code">spool</span> command. During an interactive <span id="code">mysql</span> session, you can use <span id="code"><b>tee &lt;filename&gt;</b></span> and <span id="code"><b>notee</b></span> options and it will work very similar to <span id="code"><b>spool &lt;filename&gt;</b></span> and <span id="code"><b>spool off</b></span> respectively. However, this does not seem to work when you run a batch SQL file <img src="/images/sad.gif" align="middle"></p>
+<p>
+Bottomline, if you&#8217;re a frequent user of MySQL&#8217;s <span id="code">mysql</span> client tool, hope these options taught you something new today. It sure was new to me <img src="/images/smile.gif" align="middle"></p>
+<div class="note">
+<p><u>Note:</u><br/><br />
+MySQL supports DDL statements that look like:</p>
+<p>
+<b>CREATE TABLE IF EXISTS customers;</b>
+</p>
+<p>This would have also solved our problem where &#8216;mysql&#8217; seems to die when trying to run the MySQL sql script (shown above) for the first time. However, using -f (or &#8211;force) seemed somewhat simpler.
+</p></div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3377</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		5 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-512">
+            <p>You should use </p>
+<p>DROP TABLE IF EXISTS `customers`; </p>
+<p>to prevent getting error messages.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Mike</a> at May 25, 2005 @ <a href="000818.html#comment-512">12:13 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-513">
+            <p>The Drop table command you displayed returns results:</p>
+<p>Error:  ORA-00933: SQL command not properly ended.</p>
+<p>You have to do a lot of SQL to &#8220;drop if exists&#8221; in Oracle and it involves a cursor (and a lot of cursing)&#8230;.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">George</a> at March 15, 2006 @ <a href="000818.html#comment-513">2:32 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-514">
+            <p>I just found out how to drop a table in Oracle (if Exists) it&#8217;s ugly, but here goes:</p>
+<p>declare<br />
+cursor c is<br />
+select 1 from all_TABLES where TABLE_name = &#8216;Customers&#8217;;<br />
+l_int integer;<br />
+begin<br />
+open c;<br />
+fetch c into l_int;<br />
+if c%found then<br />
+execute immediate &#8216;drop table Customers purge&#8217;; &#8211;Purge reclaims space, without purge table is moved to recyclebin.<br />
+end if;<br />
+close c;<br />
+exception<br />
+when others then<br />
+if c%isopen then<br />
+close c;<br />
+end if;<br />
+raise;<br />
+end;</p>
+<p>Yech! I hate Oracle. Oracle is to SQL what Netscape was to IE.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:wyzerd@yhti.net">George</a> at March 15, 2006 @ <a href="000818.html#comment-514">3:08 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-515">
+            <p>I was also looking for the same thing but was trying to create a table and a sequence if they did not exist; &#8220;CREATE TABLE IF NOT EXISTS table_name (field varchar2(20));&#8221; in Oracle.<br />
+Here is what I had to code to accomplish this in Oracle (I hope it saves someone some time):<br />
+DECLARE<br />
+   tabl_name   VARCHAR2 (100);<br />
+BEGIN<br />
+   SELECT table_name<br />
+     INTO tabl_name<br />
+     FROM user_tables<br />
+    WHERE UPPER (table_name) = &#8216;TABLE1&#8242;;<br />
+   DBMS_OUTPUT.put_line (&#8217;Table TABLE1 already exists.&#8217;);<br />
+   DBMS_OUTPUT.put_line (&#8217;Sequence TABLE1_SEQ already exists.&#8217;);</p>
+<p>/* When table/sequence does not exist create them. */<br />
+  EXCEPTION<br />
+   WHEN NO_DATA_FOUND<br />
+   THEN<br />
+      DBMS_OUTPUT.put_line (&#8217;NOTE: Creating table TABLE1&#8230;&#8217;);<br />
+      DBMS_OUTPUT.put_line (&#8217;NOTE: Creating sequence TABLE1_SEQ&#8230;&#8217;);<br />
+      EXECUTE IMMEDIATE (   &#8216;  CREATE TABLE table1 ( &#8216;<br />
+                         || &#8216;  field1   number(5), &#8216;<br />
+                         || &#8216;  field2	varchar2(100), &#8216;<br />
+                         || &#8216;  field3	timestamp(2), &#8216;<br />
+                         || &#8216;  field4	varchar2(10), &#8216;<br />
+                         || &#8216;  field5	varchar2(10)) &#8216;<br />
+                        );</p>
+<p>      EXECUTE IMMEDIATE (   &#8216;CREATE SEQUENCE table1_seq &#8216;<br />
+                         || &#8216;INCREMENT BY 1 &#8216;<br />
+                         || &#8216;MINVALUE 0 &#8216;<br />
+                         || &#8216;START WITH 0 &#8216;<br />
+                         || &#8216;MAXVALUE 9999 &#8216;<br />
+                         || &#8216;NOCACHE &#8216;<br />
+                         || &#8216;NOCYCLE &#8216;<br />
+                         );<br />
+		END;<br />
+/</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:kmiller@nwoca.org">Kyle Miller</a> at April 7, 2006 @ <a href="000818.html#comment-515">9:44 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-516">
+            <p>Thank you, very much.  This article really helped me a lot.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:ravi_2349@yahoo.co.uk">ravi</a> at September 17, 2006 @ <a href="000818.html#comment-516">12:00 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

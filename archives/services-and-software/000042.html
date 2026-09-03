@@ -1,0 +1,215 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; My cron framework..;-) How do you do it?</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-42">
+  
+                                <h2><a href="/archives/services-and-software/000042.html" rel="bookmark" title="Permanent link to My cron framework..;-) How do you do it?">My cron framework..;-) How do you do it?</a></h2>
+                                
+                                <h3>Posted : May 4, 2004 at 10:41 am [America/Los_Angeles]</h3>
+                                
+                                <p>Ok, so here&#8217;s <i>Anand&#8217;s</i> Law <img src="/images/wink.gif" align="middle">:<br />
+<blockquote>For every transactional web application out there in businesses, there are atleast twice as many scheduled (cron) jobs propping it up.</p></blockquote>
+<p>Here are some details of how I tend to handle my cron needs:</p>
+<pre>
+Folder (adjust it to your liking):
+-------------------------------------
+/usr/local/allcrons
+
+Sub-folders (feel free to add/subtract):
+-----------------------------------------------
+bin/ etc/ log/ var/
+
+Main cron script (allcrons/bin/run.sh):
+----------------------------------------------
+#!/bin/sh
+
+# Top level folder
+CRON_TOP=/usr/local/allcrons
+export CRON_TOP
+
+#### Log folder
+CRON_LOG=${CRON_TOP}/var/log
+export CRON_LOG
+
+### Capturing the date/time
+CRON_EXEC_TIME=`date +%d-%m-%y_%H.%M.%S`
+export CRON_EXEC_TIME
+
+### Email Address
+EMAIL_ADDRESS=&lt;your-email-address&gt;
+export EMAIL_ADDRESS
+
+#### Environment variables
+export PATH=$PATH:/usr/local/mysql/bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib:/usr/lib
+
+########################################################################
+# Display the end of execution
+########################################################################
+function displayfinalbanner () {
+        echo
+        echo "Execution completed !!!"
+        echo
+}
+
+########################################################################
+# Function to display usage information and exit
+########################################################################
+function displayusagebanner () {
+        echo "usage: ${0} &lt;param&gt;"
+        cat &lt;&lt;EOF
+        where &lt;param&gt; equals one of the following:
+
+        mysqlbk: Execute MySQL backup
+EOF
+}
+
+########################################################################
+# Getting ready to start execution...
+########################################################################
+function init() {
+        echo "Setting the current dir to ${CRON_TOP} ..."
+        echo
+        cd ${CRON_TOP}
+        PRESENT_DIR=`pwd`
+        echo "Changed current dir to ${PRESENT_DIR} ..."
+        echo
+}
+
+########################################################################
+# Execute MySQL Backup
+########################################################################
+function mysqlbk() {
+        echo "Starting mysqldump..." >> ${CRON_TOP}/var/cron-output.txt
+        mysqldump --add-drop-table --extended-insert --lock-tables -u &lt;your-blogdb-id&gt; 
+              --password="&lt;your-blogdb-password&gt;" &lt;your-blogdb&gt; &gt; ${CRON_TOP}/db/mt.dmp
+
+        echo "Compressing the dump using bzip2..." >> ${CRON_TOP}/var/cron-output.txt
+        bzip2 -f ${CRON_TOP}/db/mt.dmp
+}       
+
+########################################################################
+# Function to start email before a run
+########################################################################
+function startmail () {
+        echo "Starting cron run..." > ${CRON_TOP}/var/cron-output.txt
+        echo "-----------------------------" >> ${CRON_TOP}/var/cron-output.txt
+        echo "" >> ${CRON_TOP}/var/cron-output.txt
+}
+
+########################################################################
+# Function to send email after a run
+########################################################################
+function sendmail () {
+        echo ""  >> ${CRON_TOP}/var/cron-output.txt
+        echo "Signed"  >> ${CRON_TOP}/var/cron-output.txt
+        echo "The Ghost who walks, talks and emails...."  >> ${CRON_TOP}/var/cron-output.txt
+        # Send email
+        /usr/lib/sendmail ${EMAIL_ADDRESS} &lt; ${CRON_TOP}/var/cron-output.txt
+}
+
+#### Check for proper usage (mainly number of arguments passed)
+ERROR=1
+ARGS=$#
+if [ $ARGS -lt 1 ]
+then
+  displayusagebanner
+  exit 1
+fi
+
+case ${1} in
+mysqlbk|MYSQLBK)
+        init
+        startmail
+        mysqlbk
+        sendmail
+        ;;
+        *)
+        displayusagebanner
+        exit 1
+    ;;
+esac
+
+echo
+displayfinalbanner
+
+# End
+
+Cron entries (allcrons/etc/cron.txt):
+0 1 * * * /usr/local/allcrons/bin/run.sh mysqlbk > /tmp/cron-mysqlbk.log 2>&#038;1
+
+How to add it to your crontab:
+(unix-prompt)>crontab cron.txt
+</pre>
+<p>So, if I want to add a new cron, all I do is:
+<ol>
+<li>Update my &#8216;displayusagebanner&#8217; banner method, add a new method (&#8217;doblah&#8217;) and then create a new <i>&#8216;case&#8217;</i> entry to call the new method.</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>841</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

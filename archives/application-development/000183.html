@@ -1,0 +1,270 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Attempting to &quot;really&quot; understand the internals of XML-RPC, Blogging APIs and Erik&#8217;s Scratchpad..;-)</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-183">
+  
+                                <h2><a href="/archives/application-development/000183.html" rel="bookmark" title="Permanent link to Attempting to &quot;really&quot; understand the internals of XML-RPC, Blogging APIs and Erik&#8217;s Scratchpad..;-)">Attempting to &quot;really&quot; understand the internals of XML-RPC, Blogging APIs and Erik&#8217;s Scratchpad..;-)</a></h2>
+                                
+                                <h3>Posted : May 20, 2004 at 5:22 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/scratchpad.jpg"></center></p>
+<p>
+I started blogging the easy way - installed Movable Type, tinkered with it for a few hours and I had my blog up. And while I did customize the default MT template, played with and used a <a href="http://www.staggernation.com/mtplugins/#Compare" target="_blank">few</a> <a href="http://bradchoate.com/weblog/2002/07/11/sql-plugin" target="_blank">MT</a> plugins here and there, converted to using PHP (and it&#8217;s include feature) as opposed to plain HTML as my default blog pages and continue to use rich blogging client like <a href="http://wbloggar.com/" target="_blank">w.bloggar</a> to do blog posting (thanks to XML-RPC and support of Blogger API in MT), somehow I never really took a minute to understand some of the internals of the whole process. </p>
+<p>
+In particular, this whole talk of MT supporting Blogger API, metaWeblog API (planning to support Atom API) used to literally make my head spin. In fact, I even remember reading about these APIs a few months back and muttering to myself (ever so silently) <b>&#8220;What <i>are</i> these APIs and what in god&#8217;s name is making this author so excited about it&#8221;.<br />
+</b>
+<p>Well, thanks to my new <a href="http://www.induspolis.com" target="_blank">project</a> and Erik&#8217;s <a href="http://www.thauvin.net/blog/news.jsp?date=2004-05-19#542" target="_blank">&#8220;How do I do it?</a> post, I think I am getting to know more about Blogger/Movable Type API and XML-RPC API than I ever would have cared to know</p>
+<p>
+Ok, this past week, it finally dawned on me that I could use the <a href="http://search.cpan.org/~ascope/Net-Blogger-0.85/lib/Net/Blogger.pm">Net::Blogger</a> API in Perl to do posts using my own CGI interface. Why would I want to do that? Well, that&#8217;s something I plan to talk about more after my <a href="http://ww.induspolis.com">project</a> goes live. Basically, Net::Blogger API makes HTTP calls, talks using XML-RPC protocol with it&#8217;s XML-RPC server-side counterpart, which in my case is my blog engine (basically MT) and invokes Blogger API methods (which MT supports). Plain and simple.</p>
+<p>
+However, Erik&#8217;s <a href="http://www.thauvin.net/blog/news.jsp?date=2004-05-19#542" target="_blank">post</a> confused me a little bit. Especially, the following lines:</p>
+<blockquote><p>
+..I figured I might be able to post directly to my blog, and thus forgo my trusted text editor.</p>
+<p>
+..I grabbed a copy of Apache&#8217;s XML-RPC to handle the remote procedure calls thru a Servlet. And used the jTalk SqlQueryBean and Utility classes to handle all of the database work.</p>
+<p>
+..Less than 15 minutes later, I had successfully made my first blog entry via the NewzCrawler Blog Client.
+</p></blockquote>
+<p>
+From these lines, it seemed like writing an XML-RPC endpoint which was also Blogger API-compatible was really not that big a deal. I don&#8217;t know why, but I was making this thing out to be <i>a really big deal</i>. Something which would probably need a Blogging engine to provide for me <img src="/images/smile.gif" align="middle"></p>
+<p>
+I dumped all my project work, and decided to go figure out what these APIs/Protocol stacks were and how they really worked their magic. After some research, I wrote my first Java based <a href="http://indrayam.com/demo/xmlrpc.zip">standalone application</a> (using Apache&#8217;s XML-RPC) which successfully interacted with my Movable Type&#8217;s XML-RPC end-point (/mt/mt-xmlrpc.cgi, by default). While it felt good, I had already done this with Perl, so it really was no big deal. That&#8217;s when it struck me: </p>
+<blockquote><p>
+What if I created a servlet (my very own HelloXMLRPC servlet), make it an XML-RPC Server end point, add a handler to the servlet which stubs a few of the Blogger API methods (like <i>blogger.newPost</i>) and see if I could make an XML-RPC client talk to it accurately.</p>
+<p>
+If I could, I would have just implemented my very own Blogger API compliant XML-RPC end point which could then be invoked from rich clients like NewzCrawler&#8217;s <i>Blog This!</i> or w.bloggar.
+</p></blockquote>
+<p>Needless to say, I had a few problems. I had never written an XML-RPC Server, let alone a servlet which implemented that. Also, I had no idea how I would simulate a XML-RPC client call. Well, the second problem was solved, thanks to Andre Torrez&#8217;s <a href="http://torrez.net/archives/xmlrpc_request_builder_part_2.php" target="_blank">XMLPad</a>. Thank you Andre! Great job.</p>
+<p>Ok, how do I implement the XML-RPC end point? After almost an hour of digging around, I ended up with two very simple pieces of Java code - a very simple servlet (HelloXMLRPC) and a handler code (MyBlogger):</p>
+<p><pre>
+<tt>
+<font color="#9A1900">/*</font>
+<font color="#9A1900"> * HelloXMLRPC.java</font>
+<font color="#9A1900"> * </font>
+<font color="#9A1900"> */</font>
+<font color="#0000FF">package</font> com.indrayam.xmlrpc;
+<font color="#000080">import</font> javax.servlet.*;
+<font color="#000080">import</font> javax.servlet.http.*;
+<font color="#000080">import</font> java.io.*;
+<font color="#000080">import</font> org.apache.xmlrpc.XmlRpcServer;
+<font color="#9A1900">/**</font>
+<font color="#9A1900"> * Class description goes here.</font>
+<font color="#9A1900"> * </font>
+<font color="#9A1900"> * @author $Author$</font>
+<font color="#9A1900"> * @version $Revision$ $Date$</font>
+<font color="#9A1900"> */</font>
+<font color="#0000FF">public</font> <font color="#0000FF">class</font> HelloXMLRPC <font color="#0000FF">extends</font> HttpServlet <font color="#000000">{</font>
+    <font color="#0000FF">public</font> <font color="#0000FF">static</font> XmlRpcServer xmlrpc = <font color="#0000FF">new</font> <font color="#000000">XmlRpcServer</font>();
+    <font color="#0000FF">public</font> <font color="#33CC00">void</font> <font color="#000000">init</font>(ServletConfig config) <font color="#0000FF">throws</font> ServletException <font color="#000000">{</font>
+        xmlrpc = <font color="#0000FF">new</font> <font color="#000000">XmlRpcServer</font>();
+        xmlrpc.<font color="#000000">addHandler</font>(<font color="#FF0000">&#8220;blogger&#8221;</font>, <font color="#0000FF">new</font> com.indrayam.xmlrpc.<font color="#000000">MyBlogger</font>());
+    <font color="#000000">}</font>
+    <font color="#0000FF">public</font> <font color="#33CC00">void</font> <font color="#000000">doPost</font>(HttpServletRequest req, HttpServletResponse res)
+            <font color="#0000FF">throws</font> ServletException, IOException <font color="#000000">{</font>
+        <font color="#33CC00">byte</font>[] result = xmlrpc.<font color="#000000">execute</font>(req.<font color="#000000">getInputStream</font>(), <font color="#0000FF">null</font>, <font color="#0000FF">null</font>);
+        res.<font color="#000000">setContentType</font>(<font color="#FF0000">&#8220;text/xml&#8221;</font>);
+        res.<font color="#000000">setContentLength</font>(result.length);
+        OutputStream output = res.<font color="#000000">getOutputStream</font>();
+        output.<font color="#000000">write</font>(result);
+        output.<font color="#000000">flush</font>();
+    <font color="#000000">}</font>
+    <font color="#0000FF">public</font> <font color="#33CC00">void</font> <font color="#000000">doGet</font>(HttpServletRequest req, HttpServletResponse res)
+    <font color="#0000FF">throws</font> ServletException, IOException <font color="#000000">{</font>
+        <font color="#000000">doPost</font>(req,res);
+    <font color="#000000">}</font>
+<font color="#000000">}</font></tt>
+</pre>
+<p><pre>
+<tt>
+<font color="#9A1900">/*</font>
+<font color="#9A1900"> * MyBlogger.java</font>
+<font color="#9A1900"> * </font>
+<font color="#9A1900"> */</font>
+<font color="#0000FF">package</font> com.indrayam.xmlrpc;
+<font color="#9A1900">/**</font>
+<font color="#9A1900"> * Class description goes here.</font>
+<font color="#9A1900"> * </font>
+<font color="#9A1900"> * @author $Author$</font>
+<font color="#9A1900"> * @version $Revision$ $Date$</font>
+<font color="#9A1900"> */</font>
+<font color="#0000FF">public</font> <font color="#0000FF">class</font> MyBlogger <font color="#000000">{</font>
+    <font color="#0000FF">public</font> String <font color="#000000">newPost</font>(String appkey, String blogid, String username,
+            	String password, String content, <font color="#33CC00">boolean</font> publish) <font color="#000000">{</font>
+        System.out.<font color="#000000">println</font>(<font color="#FF0000">&#8220;appkey = &#8220;</font> + appkey);
+        System.out.<font color="#000000">println</font>(<font color="#FF0000">&#8220;blogid = &#8220;</font> + blogid);
+        System.out.<font color="#000000">println</font>(<font color="#FF0000">&#8220;username = &#8220;</font> + username);
+        System.out.<font color="#000000">println</font>(<font color="#FF0000">&#8220;password = &#8220;</font> + password);
+        System.out.<font color="#000000">println</font>(<font color="#FF0000">&#8220;content = &#8220;</font> + content);
+        System.out.<font color="#000000">println</font>(<font color="#FF0000">&#8220;publish = &#8220;</font> + publish );
+        <font color="#0000FF">return</font> <font color="#FF0000">&#8220;12345&#8243;</font>;
+    <font color="#000000">}</font>
+<font color="#000000">}</font></tt>
+</pre>
+<p>Also, added Apache&#8217;s XML-RPC <a href="http://ws.apache.org/xmlrpc/">API</a> in &lt;webapp-root&gt;/WEB-INF/lib, and had the following web.xml file:</p>
+<p><pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD
+Web Application 2.2//EN" "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd"&gt;
+
+&lt;web-app&gt;
+&lt;servlet&gt;
+	&lt;servlet-name&gt;xmlrpc&lt;/servlet-name&gt;
+	&lt;servlet-class&gt;com.indrayam.xmlrpc.HelloXMLRPC&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+	&lt;servlet-name&gt;xmlrpc&lt;/servlet-name&gt;
+	&lt;url-pattern&gt;/blogger&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+
+&lt;/web-app&gt;
+</pre>
+<p>
+That&#8217;s it. Deployed the application, fired up Tomcat and pointed XMLPad.exe to the local XML-RPC end point. The results are below for you to see:</p>
+<p>
+<center><img src="/images/xmlpad-input.jpg"></center></p>
+<p>
+<center><img src="/images/xmlpad-output.jpg"></center></p>
+<p>
+<center><img src="/images/xmlpad-dos.jpg"></center></p>
+<p>
+I obviously cannot say for sure if Erik&#8217;s <i>&#8220;&#8230;I grabbed a copy of Apache&#8217;s XML-RPC to handle the remote procedure calls thru a Servlet&#8230;&#8221;</i> is basically a more elaborate version of something like this or it&#8217;s just some blogging engine acting as his &#8220;ScratchPad&#8221; area. </p>
+<p>
+In any case, it sure was fun trying to create your very own servlet acting as an XML-RPC HTTP end point which rich clients like NewzCrawler could directly &#8220;post&#8221; to. And come to think of it, it really was not that bad <img src="/images/wink.gif" align="middle"></p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>8556</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		5 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-149">
+            <p>Hey Anand - Great blog entry and thanks for the tip on XMLPad.  I wish I had that utiltiy a few weeks ago <img src="/images/smilies/icon_smile.gif" alt=':)' class='wp-smiley' />
+<p />
+&#8211;Vinny<br />
+<br />
+<a href="http://www.j2eegeek.com/blog/" rel="nofollow">http://www.j2eegeek.com/blog/</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:vscarpenter@mailblocks.com">Vinny Carpenter</a> at May 20, 2004 @ <a href="000183.html#comment-149">8:05 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-150">
+            <p>Thanks Vinny. Yes, I must say XMLPad saved the day for me today. Needless to say, it&#8217;s now happily perched on my &#8220;Toolapalooza&#8221; (read, tools..;-)) list.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 20, 2004 @ <a href="000183.html#comment-150">8:59 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-151">
+            <p>I pretty much used the same technique.</p>
+<p>I also implemented the MetaWeblog API for my linkblog, in order to easily deal with categories.</p>
+<p>E.<br /><a href="http://www.thauvin.net/erik/" rel="nofollow">The Truth Is Out There!</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:erik@thauvin.net">Erik C. Thauvin</a> at May 21, 2004 @ <a href="000183.html#comment-151">3:04 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-152">
+            <p>Thanks for the validation and the tip about MetaWeblog API, Erik..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 21, 2004 @ <a href="000183.html#comment-152">11:08 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-153">
+            <p>hi Anand, is this any way of doing this without using a servlet,</p>
+<p>what I mean is, can we make a request to some xmlrpc service(not the servlet), which will then call the appropriate xmlrpc method, with provided arguments.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:rahuljoshi04@gmail.com">Rahul</a> at April 21, 2005 @ <a href="000183.html#comment-153">9:29 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

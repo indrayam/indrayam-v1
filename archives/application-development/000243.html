@@ -1,0 +1,176 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; URI HELL: Juggling JSTL Taglib URI settings in JSP pages</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-243">
+  
+                                <h2><a href="/archives/application-development/000243.html" rel="bookmark" title="Permanent link to URI HELL: Juggling JSTL Taglib URI settings in JSP pages">URI HELL: Juggling JSTL Taglib URI settings in JSP pages</a></h2>
+                                
+                                <h3>Posted : June 3, 2004 at 2:13 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/jstl-hell.gif"></center></p>
+<p>
+I read <a href="http://raibledesigns.com/page/rd?anchor=howto_upgrade_your_app_to" target="_blank">Matt&#8217;s</a> tip about JSTL URI settings in JSP 2.0 in haste and ended up paying a couple of hours of my time on what I fondly will henceforth refer to as &#8220;URI Hell&#8221; <img src="/images/wink.gif" align="middle">.</p>
+<p>
+Here&#8217;s a shorter version of my findings:</p>
+<blockquote><p>
+In <i>Tomcat 4.x</i>, you must use <i>jakarta-taglibs 1.0.5</i> and when you want to use JSTL in your JSP pages, use:<br/><br />
+<center><b>&lt;%@ taglib prefix=&#8221;c&#8221; uri=&#8221;http://java.sun.com/jstl/core&#8221; %&gt;</b></center></p>
+<p>
+In <i>Tomcat 5.x</i>, you should use <i>jakarta-taglibs 1.1.0</i> and when you want to use JSTL in your JSP pages, use:<br/><br />
+<center><b>&lt;%@ taglib prefix=&#8221;c&#8221; uri=&#8221;http://java.sun.com/jsp/jstl/core&#8221; %&gt;</b></center></p>
+<p>
+Notice the additonal /jsp/ in the URI when using the taglibs in Tomcat 5.x
+</p></blockquote>
+<p>
+Of course, you could use <i>jakarta-taglibs 1.0.5</i> version with Tomcat 5.x (which is really what Matt&#8217;s tip was all about), and <u>that&#8217;s when<br />
+the can of worms or &#8220;URI Hell&#8221; is really unleashed</u>. I summarize below my findings with the permutations and combinations that I had time to<br />
+test:</p>
+<p><pre>
+Tomcat version:
+<b>4.1.29</b>
+
+JSTL library version:
+<b>1.0.5</b>
+
+Servlet/jsp spec:
+<b>2.3/1.2</b>
+
+Web-app entry in web.xml:
+<b>&lt;!DOCTYPE web-app
+    PUBLIC &#8220;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&#8221;
+    &#8220;http://java.sun.com/dtd/web-app_2_3.dtd&#8221;&gt;
+  &lt;web-app&gt;</b>
+
+Taglib prefix used:
+<b>&lt;%@ taglib prefix=&#8221;c&#8221; uri=&#8221;http://java.sun.com/jstl/core&#8221; %&gt;</b>
+</pre>
+<p><pre>
+Tomcat version:
+<b>5.0.26</b>
+
+JSTL library version:
+<b>1.1.0</b>
+
+servlet/jsp spec:
+<b>2.4/2.0</b>
+
+web-app entry in web.xml:
+<b>&lt;web-app xmlns=&#8221;http://java.sun.com/xml/ns/j2ee&#8221;
+xmlns:xsi=&#8221;http://www.w3.org/2001/XMLSchema-instance&#8221;
+xsi:schemaLocation=&#8221;http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&#8221;
+version=&#8221;2.4&#8243;&gt;</b>
+
+taglib prefix used:
+<b>&lt;%@ taglib prefix=&#8221;c&#8221; uri=&#8221;http://java.sun.com/jsp/jstl/core&#8221; %&gt;</b>
+</pre>
+<p><pre>
+Tomcat version:
+<b>5.0.26</b>
+
+JSTL library version:
+<b>1.0.5</b>
+
+servlet/jsp spec:
+<b>2.3/1.2</b>
+
+web-app entry in web.xml:
+<b>&lt;!DOCTYPE web-app
+PUBLIC &#8220;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&#8221;
+&#8220;http://java.sun.com/dtd/web-app_2_3.dtd&#8221;&gt;
+&lt;web-app&gt;</b>
+
+taglib prefix used:
+<b>&lt;%@ taglib prefix=&#8221;c&#8221; uri=&#8221;http://java.sun.com/jstl/core&#8221; %&gt;</b>
+</pre>
+<p><pre>
+Tomcat version:
+<b>5.0.26</b>
+
+JSTL library version:
+<b>1.0.5</b>
+
+servlet/jsp spec:
+<b>2.4/2.0</b>
+
+web-app entry in web.xml:
+<b>&lt;web-app xmlns=&#8221;http://java.sun.com/xml/ns/j2ee&#8221;
+xmlns:xsi=&#8221;http://www.w3.org/2001/XMLSchema-instance&#8221;
+xsi:schemaLocation=&#8221;http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd&#8221;
+version=&#8221;2.4&#8243;&gt;</b>
+
+taglib prefix used:
+<b>&lt;%@ taglib prefix=&#8221;c&#8221; uri=&#8221;http://java.sun.com/jstl/core_rt&#8221; %&gt;</b>
+</pre>
+<p>
+Did I hear you yell &#8220;Velocity. Duh&#8230;&#8221; <img src="/images/wink.gif" align="middle"></p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3029</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

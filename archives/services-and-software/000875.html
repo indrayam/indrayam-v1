@@ -1,0 +1,197 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Domains moved to GoDaddy!</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-875">
+  
+                                <h2><a href="/archives/services-and-software/000875.html" rel="bookmark" title="Permanent link to Domains moved to GoDaddy!">Domains moved to GoDaddy!</a></h2>
+                                
+                                <h3>Posted : January 3, 2005 at 12:04 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+<center><img src="/images/update-dns.jpg" border="1"></center></p>
+<p>
+This morning I got an email from <a href="http://godaddy.com" target="_blank">GoDaddy</a> confirming that my domains (<a href="http://indrayam.com" target="_blank">indrayam.com</a> and <a href="http://drishtikona.com" target="_blank">drishtikona.com</a>) were transferred to them. In other words, <b>it took less than 48 hrs. for the entire transfer to occur</b>. Not bad. Not bad at all.</p>
+<p>
+Anyway, so here&#8217;s what I plan on doing today:</p>
+<p>
+1. <a href="https://www.godaddy.com/gdshop/faq/faq.asp?se=%2B&#038;app%5Fhdr=&#038;faq%5Fid=119&#038;topic%5Fid=1&#038;topic=Domains" target="_blank">Unlock</a> my domains at GoDaddy. By default, they&#8217;re transferred in a locked status meaning that I cannot update anything on my domains. What do I need to edit? The <i>Primary</i> and <i>Secondary Nameserver</i> entries for my domains since I am also changing my DNS Hosting Provider to <a href="http://zoneedit.com" target="_blank">ZoneEdit</a> (free for first 5 zones) from <a href="http://easydns.com" target="_blank">EasyDNS</a>.<br/><br />
+2. Create 2 new &#8220;zones&#8221; in ZoneEdit for my two domains (<a href="http://indrayam.com" target="_blank">indrayam.com</a> and <a href="http://drishtikona.com" target="_blank">drishtikona.com</a>). ZoneEdit will provide me with two Nameservers for each of my domains. These two will act as the &#8220;new&#8221; Primary and Secondary DNS entries for my domains.<br/><br />
+3. Update GoDaddy with the new ZoneEdit Nameservers for each of the two domains (see figure above).<br/><br />
+4. Wait for 48 hrs (as recommended by GoDaddy, although I think it propogates fairly quickly) and then use the DNS Query Tool <a href="http://docsrv.sco.com/NET_tcpip/dnsC.nslook.html#dnsT.use_dig" target="_blank">dig</a> to make sure that ZoneEdit Nameservers are indeed the new Nameservers for the two domains.<br/><br />
+5. Delete the entries for <a href="http://indrayam.com" target="_blank">indrayam.com</a> and <a href="http://drishtikona.com" target="_blank">drishtikona.com</a> in EasyDNS.<br/><br />
+6. That&#8217;s it!</p>
+<p>
+Now, since I am not changing IP Address of either of the two domains, <font color=#3232cd><b>I have a feeling that the change will be completely transparent to the end users and there will be NO downtime.</b></font> </p>
+<p>
+Starting with Step 2 (as shown above) <i>NOW&#8230;</i></p>
+<div class="note">
+<p><u>Update:</u><br/><br />
+In a few minutes after I updated GoDaddy Nameserver entries, &#8216;indrayam.com&#8217; was unresolvable. Here&#8217;s the error that I got:<br />
+<br/></p>
+<pre>
+[root@zyom common]# nslookup
+Note:  nslookup is deprecated and may be removed from future releases.
+Consider using the `dig' or `host' programs instead.  Run nslookup with
+the `-sil[ent]' option to prevent this message from appearing.
+&gt; indrayam.com
+Server:         69.55.225.225
+Address:        69.55.225.225#53
+
+** server can't find indrayam.com: SERVFAIL
+&gt; exit
+</pre>
+<p>Contrary to what I had anticipated, there was a blip for almost an hour before things stabilized. </p>
+<p>
+<b>Hmm..Wonder where was I wrong? Any ideas?</b>
+</p>
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>866</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		3 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-543">
+            <p>Does ZoneEdit provide a static IP? I have been wanting to host my site on my own server, but I hear that a lot of websites filter dynamic IP&#8217;s to try and cut down on spam and I have DSL that uses dynamic IP. So unless I can find a way to have my mail sent from a static IP, then hosting my site on my own server is out of the question.</p>
+<p>Any ideas?</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:david@davidcentral.net">David M.</a> at January 4, 2005 @ <a href="000875.html#comment-543">7:15 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-544">
+            <p>David:</p>
+<p>
+Apologize for the procrastination in getting back to you David. Frankly, I am having a bit of a difficulty in understanding this line of yours:
+</p>
+<p>
+<i>&#8220;Does ZoneEdit provide a static IP&#8221;</i>
+</p>
+<p>
+ZoneEdit only offers DNS services as far as I know. However, you can get a static IP from your Broadband provider, provided they offer it. SBC (DSL provider) here in CA does, but Comcast (Cable provider) I think does not. You will have to dig this one up.
+</p>
+<p>
+Now, as for &#8220;..wanting to host my site on my own server..&#8221;, well, as you must have seen from my post a few days back, you can use a little DynDNS and Port forwarding magic to host a website at your home (http://indrayam.homeip.net). Now, having said that, I would not recommend that you host a &#8220;production&#8221; quality site on a dynamic IP. So, here&#8217;s what you need to check:
+</p>
+<p>
+1. Check out if your DSL provider offers static IP and that it&#8217;s not too costly<br />
+2. Check your default &#8220;upstream&#8221; speed by going to DSLReports Speed Test site (http://www.dslreports.com/stest) and if your Upstream speed is &gt; 300 kbps range, I think you&#8217;re doing pretty good.
+</p>
+<p>
+That&#8217;s it. If #1 and #2 work out, you&#8217;re ready to start working on hosting a website at home. If not, you can always host non-critical stuff at home using DynDNS approach.
+</p>
+<p>
+HTH
+</p>
+<p>
+- Anand<br />
+p.s.<br />
+Check out Peter Harrison&#8217;s site: <a href="http://www.linuxhomenetworking.com." rel="nofollow">http://www.linuxhomenetworking.com.</a> It&#8217;s a great site and Peter is also launching a book soon (http://tinyurl.com/68u9s)!</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at January 7, 2005 @ <a href="000875.html#comment-544">12:56 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-545">
+            <p>David: </p>
+<p>-Apologize for the procrastination in getting back to you David.</p>
+<p>No need to apologize.</p>
+<p>-Frankly, I am having a bit of a difficulty in understanding this line of yours: </p>
+<p>&#8220;Does ZoneEdit provide a static IP&#8221; </p>
+<p>Some places that offer DNS also offer a permenant IP for E-Mail purposes(at least this is how I understand it) because, more and more companies are filtering dynamic IP&#8217;s to try and stop SPAM.</p>
+<p>I&#8217;m not sure how to explain it. I hope that gave you an idea why I asked the question.</p>
+<p>-Check out if your DSL provider offers static IP and that it&#8217;s not too costly.</p>
+<p>It&#8217;s too costly. I can&#8217;t get Cable Internet out here where I live yet, so I had to settle for DSL. I checked into a static IP from them and it cost 2x more for 1 static IP than what I was paying for Cable with 2 static IP&#8217;s before I moved halfway out in the middle of nowhere.</p>
+<p>I used to host davidcentral.net on my own machine before I moved. I quit doing this because I often reboot over to Winblows to play Command and Conquer. But now I have an extra machine, I was going to set that up as a server and host my site on it.</p>
+<p>-Check your default &#8220;upstream&#8221; speed by going to DSLReports Speed Test site (http://www.dslreports.com/stest) and if your Upstream speed is > 300 kbps range, I think you&#8217;re doing pretty good. </p>
+<p>I like this speed test:</p>
+<p><a href="http://us.mcafee.com/root/speedometer/default.asp" rel="nofollow">http://us.mcafee.com/root/speedometer/default.asp</a><br />
+Your speed  558.037 Mbps<br />
+           (69.755 MBps)</p>
+<p>Thanks for the reply. If you want, we can continue this discussion via E-mail instead of you having to dig in your archives to post responses.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:david@davidcentral.net">David M.</a> at January 8, 2005 @ <a href="000875.html#comment-545">6:18 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

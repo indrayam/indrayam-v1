@@ -1,0 +1,171 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Running your Java-based Web Applications on a Windows platform</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-888">
+  
+                                <h2><a href="/archives/services-and-software/000888.html" rel="bookmark" title="Permanent link to Running your Java-based Web Applications on a Windows platform">Running your Java-based Web Applications on a Windows platform</a></h2>
+                                
+                                <h3>Posted : January 19, 2005 at 2:45 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+<center><img src="/images/java-on-windows.gif"></center>
+</p>
+<p>
+If I had a choice and we were starting from scratch, I don&#8217;t think I would ever recommend a <span id="code">Windows Server + Internet Information Server (IIS) + Jakarta Tomcat</span> as a Web Application Server platform. However, as many of us know, the reality is that we may very well find ourselves working in a company with millions already invested in Microsoft server and application development platform. <b>How do you encourage JSP/Servlets/Struts as a web application development platform in such an environment?</b>
+</p>
+<p>
+Turns out last week, <a href="http://rajesh.induspolis.com" target="_blank">my</a> <a href="http://mati.eas.asu.edu/devesh/" target="_blank">brothers</a> found themselves in a somewhat similar situation with the onus of providing a solution squarely on their very capable shoulders. <a href="http://rajesh.induspolis.com" target="_blank">One</a> had to figure out a way to setup <span id="code">Apache 2.x + SSL + Rotate logs enabled + Tomcat 4.x/5.x </span> on a Windows 2000 server platform. The <a href="http://mati.eas.asu.edu/devesh/" target="_blank">other</a> had to do hack his way and setup <span id="code">Microsoft IIS 5.x + Tomcat 5.x</span>. They did what every developer ought to do in such a situation - Go &#8220;hunting&#8221; (for information that is) on <a href="http://www.google.com" target="_blank">Google</a>. It took them a few trial and errors, but they soon had a working solution and in the process discovered some really useful links on this subject.
+</p>
+<p>
+Here&#8217;s my attempt of having it all listed in one place for future reference purposes:
+</p>
+<ul>
+<li><a href="http://www.shiftomat.com/opensource/" target="_blank">Isapi redirector jk2.04 Installer - Integrating Tomcat with IIS</a>
+<li><a href="http://www.adcworks.com/blog/index.php/archives/2004/12/17/getting-up-and-running-with-tomcat-55/" target="_blank">Getting up and running with Tomcat 5.5 (on Windows with IIS)</a>
+<li><a href="http://www.devside.net/web/server/windows/Tomcat" target="_blank">Tomcat 5.0.28 with mod_jk2 for Windows 2000/XP</a>
+<li><a href="http://cephas.net/blog/2004/06/25/getting_iis_5x_tomcat_5x_to_play_nice.html" target="_blank">Getting IIS 5.x &#038; Tomcat 5.x to play nice</a>
+<li><a href="http://indrayam.com/demo/HowToLinkTomcat5WithIIS6.pdf" target="_blank">How To Link Tomcat 5 with IIS 6 on Windows 2003 Server using the JK2 ajp13 connector</a> (local copy as the original hyperlink does not seem to work)
+<li><a href="http://www.devside.net/web/server/windows" target="_blank">Building a Web Server, a Step-by-Step Instruction Guide Windows 2000/XP Instructions</a>
+</ul>
+<p>
+Have something to add to this list? Feel free to use the comments <img src="/images/smile.gif" align="middle">
+</p>
+<p>
+Enjoy!</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>784</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		3 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-558">
+            <p>Awesome stuff!  I had to do the whole IIS + Tomcat thing a while back.  I think we were using Tomcat 3.something and IIS running on NT4.  The only server available was that NT4 server and corp security didn&#8217;t want to open up any other port than 80 which was already taken by IIS.  So I used some ISAPI redirector code I found in the Tomcat docs and got it working.  It worked pretty well too.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:stuff4ben@earthlink.net">Ben C</a> at January 21, 2005 @ <a href="000888.html#comment-558">7:14 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-559">
+            <p>Hello,,!!</p>
+<p>Until,now  i had searched how to solve my problem about IIs + Tomcat&#8230; so,</p>
+<p>i have to appreciate to you&#8230;.because,,i got it,,,Thanks,</p>
+<p>regard </p>
+<p>Nakamura  from japan</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:mg_nakamura@hotmail.com">nakamura mitsugo</a> at April 21, 2005 @ <a href="000888.html#comment-559">11:27 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-560">
+            <p>Hi,</p>
+<p>I still got a problem such as my servlet cannot been executed. Here i put the result.</p>
+<p>Tomcat Web Server<br />
+&#8211;<br />
+<a href="http://localhost:8080/jsp-examples/jsp2/el/basic-arithmetic.jsp" rel="nofollow">http://localhost:8080/jsp-examples/jsp2/el/basic-arithmetic.jsp</a><br />
+EL Expression Result<br />
+${1} 1 </p>
+<p>Tomcat + IIS<br />
+<a href="http://localhost/jsp-examples/jsp2/el/basic-arithmetic.jsp" rel="nofollow">http://localhost/jsp-examples/jsp2/el/basic-arithmetic.jsp</a></p>
+<p>    JSP 2.0 Expression Language - Basic Arithmetic</p>
+<p>    JSP 2.0 Expression Language - Basic Arithmetic</p>
+<p>    This example illustrates basic Expression Language arithmetic.<br />
+    Addition (+), subtraction (-), multiplication (*), division (/ or div),<br />
+    and modulus (% or mod) are all supported.  Error conditions, like<br />
+    division by zero, are handled gracefully.<br />
+    </p>
+<blockquote>
+<p>	    <b>EL Expression</b><br />
+	    <b>Result</b></p>
+<p>	    \${1}<br />
+	    ${1}</p>
+<p>Please advice<br />
+Regards,<br />
+Kamarul Azhar From Malaysia
+</p></blockquote>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:en.azhar@gmail.com">azhar</a> at August 26, 2005 @ <a href="000888.html#comment-560">1:04 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

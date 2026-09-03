@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HTML container tags with CSS overflow: auto. It rocks! That is, if you&#8217;re not using IE. Ugh..</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-277">
+  
+                                <h2><a href="/archives/application-development/000277.html" rel="bookmark" title="Permanent link to HTML container tags with CSS overflow: auto. It rocks! That is, if you&#8217;re not using IE. Ugh..">HTML container tags with CSS overflow: auto. It rocks! That is, if you&#8217;re not using IE. Ugh..</a></h2>
+                                
+                                <h3>Posted : June 13, 2004 at 7:09 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/in-mozilla.gif"></p>
+<p>
+<img src="/images/in-ie.gif"><br />
+</center></p>
+<p>
+Like many bloggers, I use the PRE tag to post my coding examples. Since I was unaware of the <a href="http://www.w3.org/TR/REC-CSS2/visufx.html#overflow-clipping" target="_blank">overflow: auto</a> CSS property, posting code samples always involved IMing my <a href="http://rajesh.induspolis.com" target="_blank">brother</a> and a colleague and making sure that my code was not falling off the right-hand side edges of my page.</p>
+<p>
+Thanks to overflow: auto, I have just a little bit more freedom to post code samples and not worry too much about its ramifications on the layout of my site. btw, here&#8217;s what my PRE tag now looks like:</p>
+<p><pre>
+pre
+{
+   font: normal 9pt courier, sans-serif;
+   margin-left: 10px;
+   margin-right: 10px;
+   border: 1px solid #e7651a;
+   border-left: 1px solid #e7651a;
+   padding: 5px 5px 5px 10px;
+   background-color: #FFFFCC;
+   <b>overflow: auto;</b>
+}
+</pre>
+<p>
+The reason I used the words &#8220;..just a little bit more freedom..&#8221; in my previous sentence is because my problems are not <b>all</b> solved yet. Turns out, IE <a href="http://www.magpiebrain.com/archives/000233.html" target="_blank">does</a> not know how to handle <i>overflow</i> property on sites which are not fixed-width. In other words, if you want IE&#8217;s implementation of overflow to work for you, you will have to give your container element a fixed width. If that was not enough, it will automagically bring a vertical scroll bar along with a horizontal one unless (yup, you guessed it right) you specify a fixed height as well.</p>
+<p>
+Ugh..%$#%^&</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>784</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		3 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-191">
+            <p>Hi,</p>
+<p>Is there any way to direct the &#8220;pre&#8221; tag to specify<br />
+different background colors in the rows/columns of a table made by &#8220;pre&#8221; tag? </p>
+<p>Example:</p>
+<p>Product         ID #         Cost</p>
+<p>&#8212;-       -       </p>
+<p>Television     154t           10</p>
+<p>Radio          25r            20</p>
+<p>Stereo         345s           30</p>
+<p>Thanks for your time.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Davoud Tohidy</a> at April 7, 2005 @ <a href="000277.html#comment-191">9:44 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-192">
+            <p>Hey Anand,</p>
+<p>I realize this is quite the old blog post, but I&#8217;ve had this problem on my website (coffee-bytes.com) for quite some time as well. It was a hack that took my CSS further from standards compliance, but I did find a solution that was reasonable for me.</p>
+<p>On my pre tags, in addition to the &#8216;overflow: auto&#8217; property, I have put word-wrap: break-word. This is an IE only, non-standard property that causes overly long lines to wrap, rather than causing the PRE to blow out the variable width container, as seen in your screenshot. I have verified this fixes IE, although I haven&#8217;t deployed the fix to my website yet as I work on the next iteration of the backend software.</p>
+<p>Cheers!</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:rjlorimer@coffee-bytes.com">R.J. Lorimer</a> at August 10, 2005 @ <a href="000277.html#comment-192">2:05 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-193">
+            <p>Great stuff!! Will definitely check it out. - Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at August 10, 2005 @ <a href="000277.html#comment-193">2:08 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

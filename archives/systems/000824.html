@@ -1,0 +1,130 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HOWTO: Manually uninstalling WinXP services using command-line tools</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-824">
+  
+                                <h2><a href="/archives/systems/000824.html" rel="bookmark" title="Permanent link to HOWTO: Manually uninstalling WinXP services using command-line tools">HOWTO: Manually uninstalling WinXP services using command-line tools</a></h2>
+                                
+                                <h3>Posted : November 28, 2004 at 4:20 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+Let&#8217;s say you installed a software as a &#8220;service&#8221; in XP. Now, you want to uninstall it. And the software does not come with such an option. What a pain. Isin&#8217;t it? Well, turns out <a href="http://www.tweakxp.com/tweak1976.aspx" target="_blank">there</a> is a fairly elegant and generic solution to this problem. </p>
+<p>
+<b>Warning:</b></p>
+<p>
+As with any Windows Operating system, making changes to the registry should always be done with care otherwise you may end up toasting your OS. Consider yourself warned <img src="/images/wink.gif" align="middle"></p>
+<p>
+<b>Steps:</b></p>
+<p>
+1. First part of the puzzle is to find the &#8220;internal&#8221; name of the service you want to delete. Here are the steps:</p>
+<p>
+a. Open <span id="code">Start | Run | Type services.msc and hit Enter</span>. This should open the &#8220;Services&#8221; panel.<br/><br />
+b. Once open, find the offending service. For the sake of this HOWTO, let&#8217;s assume the service is &#8220;CYGWIN cygserver&#8221; as shown in the figure below.
+<p>
+<center><img src="/images/cygwin-service-panel.png" border="1"></center></p>
+<p>
+c. Click on the service, right-click and select <span id="code">Properties</b></span><br/><br />
+d. Just below the tab titled &#8220;General&#8221;, there should be a property called <span id="code">Service name:</span> with the value to it&#8217;s left. In case of &#8220;CYGWIN cygserver&#8221;, the Service Name is &#8220;cygserver&#8221;<br />
+<br/><br />
+e. Make a note of this name.</p>
+<p>
+2. Now, fire up the DOS-prompt (<span id="code">Start | Run&#8230;| Type &#8216;cmd&#8217; and hit Enter</span>) and type <span id="code">sc delete &#8220;&lt;service-name-from-step-1-above&gt;&#8221;</span> as shown below:
+<pre>
+[anand@MYXP]$<b>sc delete &#8220;cygserver&#8221;</b>
+[SC] DeleteService SUCCESS
+[anand@MYXP]$
+</pre>
+<p>
+That&#8217;s it. Confirm that the service has indeed been deleted by opening the Services panel as described in step 1a above.</p>
+<p>
+HTH</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/systems/" title="View all posts in Systems" rel="category tag">Systems</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1506</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		1 Comment					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-517">
+            <p>Hi Anand,</p>
+<p>I am facing a problem with deleting the cygserver service.<br />
+This service is &#8220;disabled&#8221;. I am not able to delete this service through sc delete &#8220;cygserver&#8221; option.</p>
+<p>Any idea how i can delete a disabled service?</p>
+<p>Thanks,<br />
+Sabari</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:sabarig1978@netscape.net">sabari</a> at October 12, 2005 @ <a href="000824.html#comment-517">11:00 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

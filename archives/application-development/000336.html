@@ -1,0 +1,264 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Setting up an Eclipse-based Java Development Environment on WinXP (Part 2)</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-336">
+  
+                                <h2><a href="/archives/application-development/000336.html" rel="bookmark" title="Permanent link to Setting up an Eclipse-based Java Development Environment on WinXP (Part 2)">Setting up an Eclipse-based Java Development Environment on WinXP (Part 2)</a></h2>
+                                
+                                <h3>Posted : June 30, 2004 at 3:58 pm [America/Los_Angeles]</h3>
+                                
+                                <div class="note">
+<p><u>Version History:</u><br/><br />
+<b>Date:</b> 07/01/2004<br/><br />
+<b>Version:</b> 0.2<br/><br />
+<b>Notes:</b> Updated the creation of custom perspective section. Thanks to <a href="http://www.vasanthdharmaraj.com/" target="_blank">Vasanth Dharmaraj</a> for pointing this out.</p>
+<p>
+<b>Date:</b> 06/30/2004<br/><br />
+<b>Version:</b> 0.1<br/><br />
+<b>Notes:</b> Original post
+</div>
+<p>
+In my last <a href="/archives/application-development/000332.html" target="_blank">post</a> (Part 1) of this series, I had spent some time listing softwares that needed to be installed as part of the Java development environment setup and going over a few installation and post-installation details. In this entry, the focus is on configuring Eclipse. Specifically, on:</p>
+<blockquote>
+<ol>
+<li>Setting up a custom Perspective and making it your default Perspective, and
+<li>Tweaking Eclipse preferences where necessary
+</ol>
+</blockquote>
+<p>
+When Eclipse is launched for the very first time, it brings up a &#8220;Workspace Launcher&#8221; dialog box, essentially asking you to select a &#8220;workspace&#8221;. I prefer setting up a seperate folder ( <span id="code">D:\development-root\tools\eclipse-workspace\1</span>) as my default workspace. Upon selecting the default workspace and clicking <span id="code">OK</span>, Eclipse brings up a &#8220;Welcome to Eclipse 3.0&#8243; page. Feel free to browse its content if you must. Personally, I just click on the arrow at the top-right hand corner (&#8221;Go to the workbench&#8221;) and move along.</p>
+<p>
+<b>Setting up a custom perspective and making it the default:</b></p>
+<p>
+Eclipse, by default, opens up the &#8220;Resource&#8221; perspective. Switch to the &#8220;Java&#8221; perspective by selecting <span id="code">Window | Open Perspective | Java</span>. The default Java perspective looks as shown in the figure below: </p>
+<p>
+<center><img src="/images/eclipse-default-java-perspective.jpg" border=1></center></p>
+<p>
+Eclipse comes with a lot of views (<span id="code">Window | Show View | Other..</span>). After a little trial and error, I decided upon creating a custom &#8220;Java&#8221; perspective with views as shown below:</p>
+<p>
+<center><a href="/images/eclipse-perspective-big.jpg" target="_blank"><img src="/images/eclipse-perspective.jpg" border=1></a><br clear="left"><font size=-2>Click on the image to enlarge</font></center></p>
+<p>
+To set up a custom perspective, here are the steps that I followed:</p>
+<ol>
+<li>Make sure you&#8217;re in Java perspective.
+<li>Open all the views that you would like to add to your custom perspective (<span id="code">Window | Show View | Other..</span>). Once open, move the views around until they are arranged in a way that <i>feels</i> right to you. The figure above shows how I prefer arranging the views in my custom perspective.
+<li>Go to <span id="code">Window | Save Perspective As&#8230;</span> and enter a name for this perspective. Click <span id="code">OK</span>.
+<li>Now, that you&#8217;ve your very own perspective, let&#8217;s make sure Eclipse opens this perspective everytime we open it up. For that, go to <span id="code">Window | Preferences | Workbench &gt; Perspectives</span>. Under <span id="code">Available Perspectives</span>, select your custom perspective and click on the <span id="code">Make Default</span> button. Click <span id="code">Apply</span>, and then <span id="code">OK</span> and you&#8217;re all set!
+</ol>
+<p>
+<b>Tweaking Eclipse preferences:</b></p>
+<p>
+All Eclipse preferences are neatly stacked under <span id="code">Window | Preferences</span> menu option. <i>So, how do I share the tweaks that I made to Eclispe?</i> I could take a whole bunch of screenshots. Or, I could just <u>list</u> out the tweaks that I made in a text document. The first option, although visual and probably easy for the end user to understand, was ruled out as it would be a disk-space hungry solution. I decided to take the second route. However, before I unleash the changes, let&#8217;s try to understand how did I go about documenting it:</p>
+<p>
+<center><img src="/images/eclipse-legend.jpg" border=1></center></p>
+<p>
+Now, suppose I wanted to document the fact that under <span id="code">Java | Editor | Appearance Tab</span>, <i>Show Line Numbers</i> is checked (see figure above). The way I do it in my document is as follows:</p>
+<p><pre>
+Java
+-----
+Java &gt; Editor
+   [Appearance]
+      Checked "Show Line Numbers"
+</pre>
+<p>
+With that said, <a href="http://indrayam.com/demo/eclipse-config.html" target="_blank">here&#8217;s</a> the list of all the tweaks that I made after my default install. Please feel free to add/edit/change my tweaks to suit your needs.</p>
+<p>
+That&#8217;s it. Feel free to reflect on all the things you&#8217;ve done so far and make any changes that you think would make things even easier for you. Frankly, I would strongly encourage you to treat the set up of your development environment as an iterative process which you ought to keep doing as you get more and more into serious Java development. Remember, these are just tools which are there to make your actual task - <i>writing Java applications</i> - simpler. If they do, great. If they don&#8217;t or hinder the process more than help, feel free to re-think your whole development environment set up.</p>
+<p>
+In Part 3, I plan on covering how to set up and write a stand-alone Java application. In Part 4, the discussion would focus on setting up and writing a web-based application.</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>2246</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		7 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-266">
+            <p>Hi!</p>
+<p>My name&#8217;s Carthik Anand Sharma. I got here by means of a link to &#8220;Anand Sharma&#8217;s Blog&#8221; from another website. There is no point to this comment, besides the fact that I found it amusing to find someone who shares 2/3 of my name, and who blogs, and what&#8217;s worse, who develops software too <img src="/images/smilies/icon_smile.gif" alt=':)' class='wp-smiley' /><br />
+My blog is at <a href="http://blog.carthik.net" rel="nofollow">http://blog.carthik.net</a></p>
+<p>See you!</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:mail@carthik.net">Carthik</a> at June 30, 2004 @ <a href="000336.html#comment-266">5:03 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-267">
+            <p> <img src="/images/smilies/icon_smile.gif" alt=':-)' class='wp-smiley' /> Glad you dropped by. Nice blog, btw</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at June 30, 2004 @ <a href="000336.html#comment-267">7:05 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-268">
+            <p>Anand,</p>
+<p>This is a very interesting series. It the first part you mentioned about storing eclipse configurations in eclipse-config folder. How do you do that?</p>
+<p>I noticed that you have customized the &#8216;Resource&#8217; perspective. I think you will miss out on a few java specific features if you are using a non-java perspective. One thing I know of is that the shortcut for &#8216;Open Type&#8217; dialog ((Ctrl + Shift + T) which I use frequently) does not work in it. Maybe there are more.</p>
+<p>You might also be interested to know that you can put all the plugins you install in a separate folder and link to it. This makes upgrading easier. I have blogged about it <a href="http://www.vasanthdharmaraj.com/PermaLink,guid,ed866f73-5ca4-4b7b-bb72-acefd5a8d075.aspx" rel="nofollow">here</a>. </p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:vasanthd@gmail.com">Vasanth Dharmaraj</a> at July 1, 2004 @ <a href="000336.html#comment-268">12:19 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-269">
+            <p>Interesting, very very interesting point Vasanth! Frankly, I have always used (Ctrl + Shift + R) for everything and never really missed out on anything. At least, not yet..:-)</p>
+<p>
+However, I do see your point. So, let me ask you this: What do you do? Do you pick the &#8220;Java&#8221; Perspective, customize the way you want it (by adding/removing views) and then overwrite the Perspective definition, as opposed to saving it as a custom Perspective.
+</p>
+<p>
+The reason I ask is, if Ctrl + Shift + T and potentially other Java related features are actually tied to the Perspective definition, why would someone create a custom Perspective, since a custom perspective would never be able to capture the definitons tied to Java (or other) Perspectives.
+</p>
+<p>
+To be really honest, up until I read your post, I was treating Perspectives as nothing more than a dumb <i>JPanel</i> or <i>JCanvas</i> in Java Swing API, something on which other objects (in this case, Views) reside. I really was not attributing any special behavior, like availability of extra Menu options etc. to a Perspective. Come to think of it, that was dumb of me.
+</p>
+<p>
+Anyway, would luv to hear how do you customize (if at all) your perspective and preserve the intrinsic capabilities of the perspectives at the same time.
+</p>
+<p>
+Thanks for the comment!
+</p>
+<p>
+- Anand </p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 1, 2004 @ <a href="000336.html#comment-269">1:28 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-270">
+            <p>Anand,</p>
+<p>I just read the comments in part 1 of the series. That explains the eclipse configuration. And you already know about seperating the plugins. <img src="/images/smilies/icon_smile.gif" alt=':-)' class='wp-smiley' /> </p>
+<p>I take the Java perspective customize it and save it as a custom perspective. It retains the features specific to Java perspective.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:vasanthd@gmail.com">Vasanth Dharmaraj</a> at July 1, 2004 @ <a href="000336.html#comment-270">1:43 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-271">
+            <p>Somehow, when I did a quick try last night before commenting on your post (customizing Java perspective and saving it as &#8216;xyz&#8217;), it seemed to have no effect.</p>
+<p>
+Will test it out, and if it works, I will update the blog entry
+</p>
+<p>
+Thanks Vasanth!
+</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 1, 2004 @ <a href="000336.html#comment-271">5:41 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-272">
+            <p>Yup, works like a charm. Updated the entry to reflect the creation of a custom &#8220;Java&#8221; perspective, with a little version history added at the top of the entry.</p>
+<p>
+<i>Thanks Vasanth!</i>
+</p>
+<p>
+- Anand<br />
+<br />
+p.s. I need to update Part 1 of this series to reflect using Rolf and your idea of seperating the Eclipse plugins out of ECLIPSE_HOME. May be later tonight or early tomorrow morning.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 1, 2004 @ <a href="000336.html#comment-272">12:18 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

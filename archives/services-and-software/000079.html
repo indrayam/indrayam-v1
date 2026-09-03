@@ -1,0 +1,259 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Syntax coloring your code samples in the blog entries</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-79">
+  
+                                <h2><a href="/archives/services-and-software/000079.html" rel="bookmark" title="Permanent link to Syntax coloring your code samples in the blog entries">Syntax coloring your code samples in the blog entries</a></h2>
+                                
+                                <h3>Posted : May 13, 2004 at 12:58 pm [America/Los_Angeles]</h3>
+                                
+                                <p>Here&#8217;s the style that I apply to my &lt;pre&gt; tags to display code samples:</p>
+<p><pre>
+pre
+{
+font: normal 9pt courier, sans-serif;
+margin-left: 50px;
+margin-right: 50px;
+border: 1px solid #e7651a;
+border-left: 1px solid #e7651a;
+padding: 5px 5px 5px 10px;
+background-color: #FFFFCC;
+}
+</pre>
+<p>
+However, putting code samples within &lt;pre&gt; tags was not helping too much from a readability standpoint as the sample below shows:</p>
+<p><pre>
+/*
+* $RCSfile: Main.java,v $
+*/
+package com.cisco.helloworld;
+
+/**
+ * Class description goes here.
+ *
+ * @author $Author: anasharm $
+ * @version $Revision: 1.1 $ $Date: 2004/04/08 01:35:35 $
+ */
+public class Main {
+    public static void main(String[] args) {
+        HelloProvider hp = new HelloProvider();
+        WorldProvider wp = new WorldProvider();
+        String hello = hp.getHello();
+        String world = wp.getWorld();
+        System.out.println(hello + ", " + world);
+    }
+}
+</pre>
+<p>
+Thanks to <a href="http://www.palfrader.org/code2html/code2html.html" target="_blank">this</a> site, the output is much prettier now:</p>
+<p><pre>
+<font color="#444444">/*
+* $RCSfile: Main.java,v $
+*/</font>
+<font color="0000ff"><strong>package com.cisco.helloworld;</strong></font>
+
+<font color="#444444"><i>/**
+ * Class description goes here.
+ *
+ * @author $Author: anasharm $
+ * @version $Revision: 1.1 $ $Date: 2004/04/08 01:35:35 $
+ */</i></font>
+<strong>public</strong> <strong>class</strong> <font color="#2040a0">Main</font> <font color="4444FF"><strong>{</strong></font>
+
+    <strong>public</strong> <strong>static</strong> <strong>void</strong> <font color="#2040a0">main</font><font color="4444FF"><strong>(</strong></font><font color="#2040a0">String</font><font color="4444FF"><strong>[</strong></font><font color="4444FF"><strong>]</strong></font> <font color="#2040a0">args</font><font color="4444FF"><strong>)</strong></font> <font color="4444FF"><strong>{</strong></font>
+
+        <font color="#2040a0">HelloProvider</font> <font color="#2040a0">hp</font> <font color="4444FF">=</font> <strong>new</strong> <font color="#2040a0">HelloProvider</font><font color="4444FF"><strong>(</strong></font><font color="4444FF"><strong>)</strong></font><font color="4444FF">;</font>
+        <font color="#2040a0">WorldProvider</font> <font color="#2040a0">wp</font> <font color="4444FF">=</font> <strong>new</strong> <font color="#2040a0">WorldProvider</font><font color="4444FF"><strong>(</strong></font><font color="4444FF"><strong>)</strong></font><font color="4444FF">;</font>
+
+        <font color="#2040a0">String</font> <font color="#2040a0">hello</font> <font color="4444FF">=</font> <font color="#2040a0">hp</font>.<font color="#2040a0">getHello</font><font color="4444FF"><strong>(</strong></font><font color="4444FF"><strong>)</strong></font><font color="4444FF">;</font>
+        <font color="#2040a0">String</font> <font color="#2040a0">world</font> <font color="4444FF">=</font> <font color="#2040a0">wp</font>.<font color="#2040a0">getWorld</font><font color="4444FF"><strong>(</strong></font><font color="4444FF"><strong>)</strong></font><font color="4444FF">;</font>
+
+        <font color="#2040a0">System</font>.<font color="#2040a0">out</font>.<font color="#2040a0">println</font><font color="4444FF"><strong>(</strong></font><font color="#2040a0">hello</font> <font color="4444FF">+</font> <font color="#008000">&quot;, &quot;</font> <font color="4444FF">+</font> <font color="#2040a0">world</font><font color="4444FF"><strong>)</strong></font><font color="4444FF">;</font>
+
+    <font color="4444FF"><strong>}</strong></font>
+<font color="4444FF"><strong>}</strong></font>
+</pre>
+<p>
+I know of another open-source software called <a href="http://www.gnu.org/software/src-highlite/source-highlight.html" target="_blank">GNU source highlight</a> which does the same, although they do not have an online tool that one could use to do an on-the-fly conversion. However, it&#8217;s output is much better and it even has support for Python! Here&#8217;s the same code converted into HTML using source-highlight:</p>
+<pre>
+<tt>
+<i><font color=#9A1900>/*</font></i>
+<i><font color=#9A1900>* $RCSfile: Main.java,v $</font></i>
+<i><font color=#9A1900>*/</font></i>
+<b><font color=#0000FF>package</font></b> com<font color=#990000>.</font>cisco<font color=#990000>.</font>helloworld<font color=#990000>;</font>
+
+<i><font color=#9A1900>/**</font></i>
+<i><font color=#9A1900> * Class description goes here.</font></i>
+<i><font color=#9A1900> *</font></i>
+<i><font color=#9A1900> * @author $Author: anasharm $</font></i>
+<i><font color=#9A1900> * @version $Revision: 1.1 $ $Date: 2004/04/08 01:35:35 $</font></i>
+<i><font color=#9A1900> */</font></i>
+
+<b><font color=#0000FF>public</font></b> <b><font color=#0000FF>class</font></b> Main <font color=#FF0000>{</font>
+    <b><font color=#0000FF>public</font></b> <b><font color=#0000FF>static</font></b> <font color=#009900>void</font> <b><font color=#000000>main</font></b><font color=#990000>(</font>String<font color=#990000>[</font><font color=#990000>]</font> args<font color=#990000>)</font> <font color=#FF0000>{</font>
+
+        HelloProvider hp <font color=#990000>=</font> <b><font color=#0000FF>new</font></b> <b><font color=#000000>HelloProvider</font></b><font color=#990000>(</font><font color=#990000>)</font><font color=#990000>;</font>
+        WorldProvider wp <font color=#990000>=</font> <b><font color=#0000FF>new</font></b> <b><font color=#000000>WorldProvider</font></b><font color=#990000>(</font><font color=#990000>)</font><font color=#990000>;</font>
+
+        String hello <font color=#990000>=</font> hp<font color=#990000>.</font><b><font color=#000000>getHello</font></b><font color=#990000>(</font><font color=#990000>)</font><font color=#990000>;</font>
+        String world <font color=#990000>=</font> wp<font color=#990000>.</font><b><font color=#000000>getWorld</font></b><font color=#990000>(</font><font color=#990000>)</font><font color=#990000>;</font>
+
+        System<font color=#990000>.</font>out<font color=#990000>.</font><b><font color=#000000>println</font></b><font color=#990000>(</font>hello <font color=#990000>+</font> <font color=#FF0000>&#8220;, &#8220;</font> <font color=#990000>+</font> world<font color=#990000>)</font><font color=#990000>;</font>
+
+    <font color=#FF0000>}</font>
+<font color=#FF0000>}</font>
+</tt>
+</pre>
+<p>
+Do you know a better way of doing this? How about support for PLSQL?</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>947</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		6 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-125">
+            <p>I don&#8217;t know how you feel about Emacs, or if it&#8217;s a part of your blogging setup, but htmlize.el (<a href="http://fly.srk.fer.hr/~hniksic/emacs/htmlize.el" rel="nofollow">http://fly.srk.fer.hr/~hniksic/emacs/htmlize.el</a>) will take a font-lock coloured buffer in Emacs and generate HTML from it.</p>
+<p>However, I have no idea how Emacs handles PL/SQL. SQL mode is kind of bad.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand@dodgeit.com">Gustaf Erikson</a> at May 13, 2004 @ <a href="000079.html#comment-125">4:20 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-126">
+            <p>Well, the only thing that I know about Emacs is that it&#8217;s an editor and quite a few friends of mine swear by it..:-)</p>
+<p>
+So I am sure I can work with someone here (who is an emacs person) and check this out. Thx for the tip Gustaf. </p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 13, 2004 @ <a href="000079.html#comment-126">4:57 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-127">
+            <p>Source highlight claims to do this already, look for source-highlight-cgi here: <a href="http://www.gnu.org/software/src-highlite/source-highlight.html" rel="nofollow">http://www.gnu.org/software/src-highlite/source-highlight.html</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:puter@puter.com">puter</a> at May 13, 2004 @ <a href="000079.html#comment-127">6:40 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-128">
+            <p>Yup. Came across this little fact after I had published the post. However, since I do most of my blogging on WinXP, I was pretty excited to see that they also have a <a href="http://gnuwin32.sourceforge.net/" rel="nofollow">Windows</a> port as well. Downloaded it, tried it and it sure worked like a charm. Another little utility for my toolbox..;-)</p>
+<p>
+Anyway, thanks for pointing that out puter. I am not sure setting up a CGI for this is a better idea (it sure could be of service to others) or just using the Windows port. We&#8217;ll see..:-)
+</p>
+<p>Unfortunately, source-highlite does not seem to support SQL or PSLQL. Any pointers for that? </p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 13, 2004 @ <a href="000079.html#comment-128">7:04 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-129">
+            <p>how about this?<br />
+<a href="http://www.java2html.de/" rel="nofollow">http://www.java2html.de/</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:aaa@aaa.aaa">aaa</a> at May 16, 2004 @ <a href="000079.html#comment-129">1:55 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-130">
+            <p>Thanks &#8216;aaa&#8217;..;-) I actually did know about it, but this tool only supports Java and I tend to post code samples which not necessarily always Java. Anyway, thanks for the pointer.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 16, 2004 @ <a href="000079.html#comment-130">9:23 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

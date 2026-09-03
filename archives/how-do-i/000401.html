@@ -1,0 +1,131 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HOWTO: Renaming a group of files on your Linux machine</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-401">
+  
+                                <h2><a href="/archives/how-do-i/000401.html" rel="bookmark" title="Permanent link to HOWTO: Renaming a group of files on your Linux machine">HOWTO: Renaming a group of files on your Linux machine</a></h2>
+                                
+                                <h3>Posted : July 15, 2004 at 1:45 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+Found myself confronted with another pesky problem this morning.</p>
+<p>
+<b>Goal:</b></p>
+<blockquote><p>
+<b>Rename a group of files in a folder (and possibly sub-folders)</b>
+</p></blockquote>
+<p>
+<b>Example:</b></p>
+<p>
+You&#8217;ve a folder which has files looking like this:</p>
+<pre>
+[user@myhost tmp]&gt; ls
+test1.txt  test2.txt  test3.txt readme.txt
+</pre>
+<p>Let&#8217;s say you want to rename the files starting with <span id="code">test</span> as <span id="code">blah1.txt</span>, <span id="code">blah2.txt</span> and <span id="code">blah3.txt</span> respectively.</p>
+<p>
+<b>Solution:</b></p>
+<p>
+<u>Approach 1: Using &#8216;rename&#8217; command</u></p>
+<p>
+In RedHat distribution, there is a utility called <span id="code">rename</span>. You can use it as follows:</p>
+<pre>
+[user@host tmp]&gt; ls
+test1.txt  test2.txt  test3.txt readme.txt
+[user@host tmp]&gt; <b>rename test blah test*.txt</b>
+[user@host tmp]&gt; ls
+blah1.txt  blah2.txt  blah3.txt readme.txt
+</pre>
+<p>Basically, <span id="code">rename</span> will rename the specified files (<span id="code">test*.txt</span>) by replacing the <i>first occurrence</i> (and first occurence only) of <span id="code">test</span> in their name by <span id="code">blah</span>. In other words, the command-line parameters of <span id="code">rename</span> are:</p>
+<ol>
+<li>pattern of the filename that needs to be replaced/changed (in our example, <span id="code">test</span>)
+<li>pattern that #1 (found above) will be replaced with (in our example, <span id="code">blah</span>)
+<li>all files that need to be considered for such renaming (in our example, files matching the pattern <span id="code">test*.txt</span>)
+</ol>
+<div class="note">
+<p><u>Note:</u><br/><br />
+I am not sure if there is a way for <span id="codeflow">&#8216;rename&#8217;</span> to traverse sub-folders as well. However, the shell script option below handles this limitation.
+</div>
+<p>
+<u>Approach 2: Using a shell script</u></p>
+<p>
+In case you don&#8217;t have the <span id="code">rename</span> utility on your flavor of Linux/Unix, you can use this simple bash script:</p>
+<pre>
+#!/bin/bash
+
+for cur in $(find . -name 'test*.txt'); do
+   new=`echo $cur | sed 's/test/blah/'`
+   mv $cur $new
+done
+</pre>
+<p>
+The advantage here is that this will traverse the sub-folders as well (unlike <span id="code">rename</span>).</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/how-do-i/" title="View all posts in How do I?" rel="category tag">How do I?</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1175</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

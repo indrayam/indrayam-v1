@@ -1,0 +1,188 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HOWTO: Starting Groovy development</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-50">
+  
+                                <h2><a href="/archives/application-development/000050.html" rel="bookmark" title="Permanent link to HOWTO: Starting Groovy development">HOWTO: Starting Groovy development</a></h2>
+                                
+                                <h3>Posted : May 6, 2004 at 10:11 am [America/Los_Angeles]</h3>
+                                
+                                <p>Well, as I try to take baby steps towards learning Groovy, I decided that the first step towards being successful with Groovy (or any language for that matter) is to get a development environment setup so that I can focus more on learning the syntax and less on the environment gotchas. If Groovy is &#8220;really&#8221; a good dynamic language (and I think it is), I should be able to use it without necessarily relying on IDEs. I understand there are plugins for Eclipse (and IntelliJ as well), but I decided to stay away from those while I try to learn the language.</p>
+<p>
+Here are the details:</p>
+<pre>
+My folder structure (D:development-rootgroovy):
+--------------------------------------------------------------
+src/
+lib/
+build.properties
+build.xml 
+
+My src/ folder:
+------------------
+Main.groovy
+HelloProvider.groovy
+GroovyProvider.groovy
+
+My lib/ folder:
+----------------
+asm-1.4.1.jar (core groovy lib)
+asm-attrs-1.4.1.jar (core groovy lib)
+asm-util-1.4.1.jar (core groovy lib)
+groovy-1.0-beta-4.jar (core groovy lib)
+mysql-connector-3.0.11.jar (java apis you want to use in your groovy code)
+...
+
+My build.properties file:
+----------------------------
+# core folders
+src.dir=${basedir}/src
+lib.dir=${basedir}/lib
+
+# folders to be used during build
+build.dir=${basedir}/build
+build.classes.dir=${build.dir}/classes
+
+My build.xml file:
+-------------------
+&lt;?xml version="1.0"?&gt;
+
+&lt;project name="helloworld" basedir="." default="all"&gt;
+
+	&lt;!-- Load user overrides --&gt;
+	&lt;property file="${user.home}/.build.properties"/&gt;
+	&lt;property file="${basedir}/build.properties"/&gt;
+
+	&lt;path id="compile.classpath"&gt;
+	    	&lt;pathelement location="${build.classes.dir}"/&gt;
+		&lt;fileset dir="${lib.dir}"&gt;
+			&lt;include name="**/*.jar" /&gt;
+		&lt;/fileset&gt;
+	&lt;/path&gt;
+
+	&lt;path id="runtime.classpath"&gt;
+	    	&lt;pathelement location="${build.classes.dir}"/&gt;
+		&lt;fileset dir="${lib.dir}"&gt;
+			&lt;include name="**/*.jar" /&gt;
+		&lt;/fileset&gt;
+	&lt;/path&gt;
+
+	&lt;!-- Task definition for groovy compiler --&gt;
+	&lt;taskdef name="groovyc" classname="org.codehaus.groovy.ant.Groovyc"
+	classpathref="compile.classpath"/&gt;
+
+	&lt;!-- TARGETS --&gt;
+    	&lt;target name="init" description="Prepare build and dist directories"&gt;
+		&lt;mkdir dir="${build.dir}" /&gt;
+		&lt;mkdir dir="${build.classes.dir}" /&gt;
+	&lt;/target&gt;
+
+        &lt;target name="compile" depends="init" description="Compile source"&gt;
+        &lt;groovyc destdir="${build.classes.dir}" srcdir="${src.dir}" listfiles="true"&gt;
+           &lt;classpath refid="compile.classpath"/&gt;
+        &lt;/groovyc&gt;
+        &lt;/target&gt;
+
+	&lt;target name="run" depends="compile" description="Execute the app"&gt;
+	&lt;java classname="Main" fork="true"&gt;
+          &lt;classpath&gt;
+	    &lt;path refid="runtime.classpath" /&gt;
+	  &lt;/classpath&gt;
+	&lt;/java&gt;
+	&lt;/target&gt;
+
+	&lt;target name="clean" description="cleans the output directories"&gt;
+	  &lt;delete dir="${build.dir}"/&gt;
+	&lt;/target&gt;
+
+  	&lt;target name="all" depends="run" description="Clean and compile all components"/&gt;
+
+&lt;/project&gt;
+</pre>
+<p>
+To write Groovy code, I just do the following:</p>
+<blockquote><p>
+1. Add groovy code into the <i>src/</i> folder<br/><br />
+2. Run (prompt)&gt;<b>ant clean</b><br/><br />
+3. Run (prompt)&gt;<b>ant</b><br/><br />
+4. Make changes/fixes and run (prompt)&gt;<b>ant again</b>
+</p></blockquote>
+<p>
+You can <a href="http://indrayam.com/demo/sample.zip">download</a> (size: 510 KB) the code (along with libs, so you really would not need any groovy libs either) and get started right away.</p>
+<p>
+Hope this helps.</p>
+<p>
+<b>Links that will help you get started with Groovy:</b>
+<ul>
+<li><a href="http://www.ociweb.com/jnb/jnbFeb2004.html">Groovy - Scripting for Java</a></p>
+<li><a href="http://www.theserverside.com/blogs/showblog.tss?id=GroovyReview">Groovy: First Contact</a>
+<li><a href="http://www.ftponline.com/javapro/2004_05/magazine/columns/proshop/page2.aspx">Java Scripting Gets Groovy</a></ul>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1443</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

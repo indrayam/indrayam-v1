@@ -1,0 +1,182 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HOWTO: Searching for a text pattern in all files under a folder</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-30">
+  
+                                <h2><a href="/archives/how-do-i/000030.html" rel="bookmark" title="Permanent link to HOWTO: Searching for a text pattern in all files under a folder">HOWTO: Searching for a text pattern in all files under a folder</a></h2>
+                                
+                                <h3>Posted : May 1, 2004 at 10:26 pm [America/Los_Angeles]</h3>
+                                
+                                <p>As someone who prefers spending more time firing commands on a bash shell prompt than interacting with pretty GUIs via a mouse, I too rely on &#8216;aliases&#8217; to make myself productive. The following <i>alias</i> is one of my favorites that I religiously setup everytime I get a Unix account:</p>
+<blockquote><p>alias wgrep=&#8217;find . -type f -print|xargs grep -i $1&#8242;</p></blockquote>
+<p>So, if I want to search for a certain pattern in all files under the current folder, I just type:</p>
+<blockquote><p>(bash-prompt)&gt;wgrep test</p></blockquote>
+<p>Notice that the alias only supports searching for a pattern in the current folder. How would you change the alias to support something like:</p>
+<blockquote><p>(bash-prompt)&gt;wgrep &lt;folder-name&gt; &lt;pattern-name&gt;</p></blockquote>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/how-do-i/" title="View all posts in How do I?" rel="category tag">How do I?</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1329</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		7 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-29">
+            <p>No need to use find: &#8220;grep -r&#8221; recurses through directories already.</p>
+<p>Combine it with &#8220;-H&#8221;, and grep will print filenames along with each match.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:cmiller@pastiche.org">Charles Miller</a> at May 2, 2004 @ <a href="000030.html#comment-29">2:21 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-30">
+            <p>find . -name &#8220;*.java&#8221; -exec grep &#8220;test&#8221; &#8220;;&#8221; -print</p>
+<p>This is from a MS-DOS command line, the escape rules are a bit different in UNIX.  If memory serves, something like :</p>
+<p>find . -name &#8216;*.java&#8217; -exec grep test \; -print</p>
+<p>&#8211;<br />
+Cedric<br />
+<a href="http://beust.com/weblog" rel="nofollow">http://beust.com/weblog</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Cedric</a> at May 2, 2004 @ <a href="000030.html#comment-30">8:12 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-31">
+            <p>Cool. I just tested it and it works great. Thanks Charles.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 2, 2004 @ <a href="000030.html#comment-31">8:15 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-32">
+            <p>Thanks for the MS-DOS version as well Cedric. I will test it out and update my post, if possible.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 2, 2004 @ <a href="000030.html#comment-32">8:18 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-33">
+            <p>Oops, forgot the {}:</p>
+<p>Windows:<br />
+find . -name &#8220;*.java&#8221; -exec grep &#8220;test&#8221; &#8220;{}&#8221; &#8220;;&#8221; -print</p>
+<p>UNIX:<br />
+find . -name &#8216;*.java&#8217; -exec grep test {} \; -print</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Cedric</a> at May 2, 2004 @ <a href="000030.html#comment-33">9:08 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-34">
+            <p>I find find -exec grep can get a bit slow compared to grep -R, because of all the processes started (just as well most versions of grep aren&#8217;t using Sun&#8217;s JRE). So that got me thinking why not use:</p>
+<p>grep myPublicStaticVar $(find . -name &#8220;*.java&#8221;)</p>
+<p>-print is implicit for the local GNU implementation of find. No idea about the compatibility of $() vs &#8220;. Windows users will have fun with their command line limit, presumably (is that still in place?).</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:tackline@claranet.com">Tom Hawtin</a> at May 3, 2004 @ <a href="000030.html#comment-34">4:22 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-35">
+            <p>Can&#8217;t say I know much about the $() syntax. Will have to check this one out. Thx Tom.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 3, 2004 @ <a href="000030.html#comment-35">6:41 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

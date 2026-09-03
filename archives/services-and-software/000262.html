@@ -1,0 +1,197 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Installing softwares on Unix systems from source</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-262">
+  
+                                <h2><a href="/archives/services-and-software/000262.html" rel="bookmark" title="Permanent link to Installing softwares on Unix systems from source">Installing softwares on Unix systems from source</a></h2>
+                                
+                                <h3>Posted : June 8, 2004 at 10:33 pm [America/Los_Angeles]</h3>
+                                
+                                <p>Installing and uninstalling softwares from source has been a ritual I have been performing for some time now. Yes, package managers are incredibly user-friendly and their ability to download and install softwares by running one liners is indeed impressive. I do use it and have even <a href="/archives/application-development/000235.html" target="_blank">blogged</a> about it.</p>
+<p>
+However, installing software using source code has its advantages. <i>You&#8217;ve the power</i> to tweak settings for greater security, performance optimizations, not to mention the ability to customize the source code itself. On a similar token, if you dabble too much with the code without knowing nearly enough, you&#8217;ve the power to royally mess yourself up as well <img src="/images/wink.gif" align="middle"></p>
+<p>
+Basically, installing a software from source involves the following standard steps most of the time. Refer to the README or INSTALL file that come with the source. There is a good chance it will say something along these lines. I will assume that all these commands are run in <i>/downloads</i> folder and that your unix account has full permissions on this folder.</p>
+<blockquote><p>
+(prompt)&gt;<b>cd</b> /downloads<br/><br />
+(prompt)&gt;<b>wget</b> &lt;url-to-download-tar-gzipped-file&gt;<br/><br />
+(prompt)&gt; <b>tar -xvzf</b> &lt;downloaded-tar-gzipped-file&gt;<br/><br />
+(prompt)&gt; <b>./configure &#8211;help</b><br/> (This will list all the options that you can pass to <i>configure</i>)<br/><br />
+(prompt)&gt;<b>./configure</b> [<i>&#8211;prefix=/usr/local/&lt;install-folder-root&gt; along with other configure options</i>]<br/><br />
+(prompt)&gt;<b>make</b> <br/><br />
+(prompt)&gt;<b>make test</b> (if such a target exists)<br/><br />
+(root-prompt)#<b>make install</b> (run this last command as root)<br />
+</i></p></blockquote>
+<p>
+Except the last command (hence the root-prompt next to it), all the steps can be performed as a regular unix user. However, soon I realized that it was this last step which would at times give me the anxiety attacks, especially when I was using the default <i>&#8211;prefix</i> settings (usually <i>&#8211;prefix=/usr/local</i>). <i>What in the world did &#8216;make install&#8217; do? Where did it install all the goodies? Did they really go where they were supposed to?</i> </p>
+<p>
+I decided to build a little tool by myself to remove this uncertainity. It can be downloaded from <a href="http://indrayam.com/demo/tracker.txt">this</a> location. Just put it in your path, make it an executable and run it without any command-line paramters.</p>
+<p>
+Instead of regurgitating the way the tool works, I will just show you the output of this tool when you run the executable without any command-line parameters:</p>
+<p><pre>
+[root@morebytes]/home/anand$./tracker
+Tracker, version 0.1-release (i386-redhat-linux-gnu)
+Source: indrayam.com
+Usage: ./tracker -{(s)tart|(f)inish|(v)ersion|(h)elp}
+where:
+-s|start =>gt; start capturing the current state of the filesystem
+-f|finish =>gt; complete tracking
+-v|version =>gt; version
+-h|help =>gt; spit out this information
+
+ASSUMPTIONS:
+1. You've cat, sed and awk in your PATH
+2. /bin/sh is a soft link to bash (version &gt; 2.x). If not, change /bin/sh "
+   to /bin/bash (after downloading the latest version). Check the version "
+   of bash by running (unix-prompt)&gt;bash --version
+3. You're running this command with root privs (which is normally the case
+   when you run commands like 'make install' 
+
+AN EXAMPLE:
+You're about to run 'make install' or any command that will install files
+across the filesystem. While you know where the files will be installed,
+you want to be sure 
+
+Here's how you use it:
+(root-prompt)&gt;tracker -s
+(root-prompt)&gt;make install (or whatever you plan to execute)
+(root-prompt)&gt;tracker -f 
+
+That's it!!
+</pre>
+<p>
+The difference in the filesystems before and after running the <i>make install</i> (or any command) will be stored in a text file under <i>/downloads/install-files/&lt;filename&gt;.txt</i>. This should take most of the guess work out of installing software from source code on a unix system. For example, what&#8217;s the worst you can do. Install with wrong config settings. No problem. Use the <i>diff</i> output to figure out the things that got added during the install. Remove it and you&#8217;re ready to start all over again.</p>
+<div class="note">
+<p>Update:<br/><br />
+Thanks to my anonymous friend who left a comment, I spent some time this morning trying to check out <a href="http://freshmeat.net/projects/checkinstall/" target="_blank">Checkinstall</a>. It is an incredible tool and much much more powerful than what my utility offers. Go ahead, give it a try. I promise you&#8217;ll luv it.
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1203</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		3 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-178">
+            <p>Check out Checkinstall at <a href="http://freshmeat.net/projects/checkinstall/" rel="nofollow">http://freshmeat.net/projects/checkinstall/</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Anonymous</a> at June 9, 2004 @ <a href="000262.html#comment-178">5:41 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-179">
+            <p>Yup, checkinstall is great. It is a 1000 times more powerful than my util. Thank you Mr. or Ms. Anonymous..;-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at June 9, 2004 @ <a href="000262.html#comment-179">10:12 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-180">
+            <p>#include</p>
+<p>struct record{<br />
+int cust_id;<br />
+char cust_type;<br />
+int cust_age;<br />
+char cust_name[20];<br />
+}</p>
+<p>struct record r[10];<br />
+void main(){<br />
+FILE *fp,*fopen();<br />
+char filename[20];<br />
+int c,i;<br />
+printf(&#8221;enter the filename to be written to:\n&#8221;);<br />
+gets(filename);<br />
+fp=fopen(filename,&#8221;w&#8221;)<br />
+if(fp==NULL){<br />
+	printf(&#8221;the %s file couldnt be written to&#8221;,filename);<br />
+	exit(1);<br />
+}<br />
+else{<br />
+c=getc(fp);<br />
+while(c!=EOF){<br />
+for(i=0;i</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:abhishekraja@yahoo.com">abhishek</a> at June 6, 2006 @ <a href="000262.html#comment-180">5:15 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

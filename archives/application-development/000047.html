@@ -1,0 +1,362 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; My first Groovy CGI implementation</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-47">
+  
+                                <h2><a href="/archives/application-development/000047.html" rel="bookmark" title="Permanent link to My first Groovy CGI implementation">My first Groovy CGI implementation</a></h2>
+                                
+                                <h3>Posted : May 5, 2004 at 1:39 pm [America/Los_Angeles]</h3>
+                                
+                                <p>While writing the actual code was a whole lot of <i>fun</i>, configuring Apache to actually respond to Groovy as CGI programs involved a few hacks (details below). I also wrote a Perl and Python version (along with the Groovy implementation) just to enable folks to get a very high-level comparitive overview. Needless to say, this exercise is purely to get a feel of how &#8220;scripty&#8221; Groovy is. I have no desire to build Groovy/CGI applications (as the speed difference in the demo links above will show) <img src="/images/wink.gif" align="middle"></p>
+<p>So here we go:</p>
+<p>
+<b>Groovy Implementation:</b></p>
+<pre>
+#!/usr/bin/env groovy
+
+stuff = "Hello, Groovy"
+
+# Spitting out standard HTTP Header
+println "Content-type: text/htmlnn"
+
+# Using here-docs to generated HTML content
+html = &lt;&lt;&lt;OUTPUT
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Hello, Groovy&lt;/title&gt;
+&lt;/head>
+&lt;body background="/images/blue-dash.gif"&gt;
+&lt;h3>${stuff}&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+OUTPUT
+
+# Spitting out standard Hello, Groovy
+println html
+</pre>
+<p>
+<b>Python Implementation:</b></p>
+<p><pre>
+#!/usr/bin/env python
+
+stuff = "Hello, Python"
+
+# Spitting out standard HTTP Header
+print "Content-type: text/htmlnn"
+
+# Using here-docs to generated HTML content
+# Thanks to James for clarifying how to use
+# here-docs in Python..:-)
+html = """
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Hello, Python&lt;/title&gt;
+&lt;/head&gt;
+&lt;body background="/images/blue-dash.gif"&gt;
+&lt;h3&gt;%s&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;""" % stuff
+
+# Spitting out standard Hello, Python
+print html
+</pre>
+<p>
+<b>Perl Implementation:</b></p>
+<p><pre>
+#!/usr/bin/env perl
+
+$stuff = "Hello, Perl";
+
+# Spitting out standard HTTP Header
+print "Content-type: text/htmlnn" ;
+
+# Using here-docs to generated HTML content
+$html = &lt;&lt;OUTPUT;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Hello, Perl&lt;/title&gt;
+&lt;/head&gt;
+&lt;body background="/images/blue-dash.gif"&gt;
+&lt;h3&gt;$stuff&lt;/h3&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+OUTPUT
+
+# Spitting out standard Hello, Perl
+print $html;
+</pre>
+<p>In order to make Groovy CGI Applications work, I had to make two changes:<br />
+1. Update the envvars file (in APACHE_HOME/bin) as follows:</p>
+<blockquote><p>
+# Set JAVA_HOME<br />
+JAVA_HOME=&#8221;/usr/local/j2sdk1.4.2&#8243;<br />
+export JAVA_HOME<br />
+# Set GROOVY HOME<br />
+GROOVY_HOME=&#8221;/usr/local/groovy-1.0-beta-4&#8243;<br />
+export GROOVY_HOME<br />
+# PATH<br />
+PATH=$PATH:${GROOVY_HOME}/bin:${JAVA_HOME}/bin<br />
+export PATH
+</p></blockquote>
+<p>2. Update the httpd.conf as follows:</p>
+<blockquote><p>
+PassEnv GROOVY_HOME<br />
+PassEnv JAVA_HOME<br />
+PassEnv PATH
+</p></blockquote>
+<p>Enjoy.</p>
+<p>
+<b>Update:</b><br />
+<br />
+Decided to remove the links to my CGI as it was &#8216;killing&#8217; my machine <img src="/images/wink.gif" align="middle"></p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>8806</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		13 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-71">
+            <p>groovy will perform like a dog as CGI &#8212; it will require a full JVM load to run each time =(</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:brianm@apache.org">Brian McCallister</a> at May 5, 2004 @ <a href="000047.html#comment-71">4:05 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-72">
+            <p>Tell me about it..;-) - Thx</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 5, 2004 @ <a href="000047.html#comment-72">5:25 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-73">
+            <p>Can Apache&#8217;s mod_groovy be far away?  <img src="/images/smilies/icon_smile.gif" alt=':)' class='wp-smiley' />
+<p>
+&#8211;<a href="http://www.j2eegeek.com/blog/" rel="nofollow">Vinny</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:vscarpenter@nospam.mailblocks.com">Vinny Carpenter</a> at May 5, 2004 @ <a href="000047.html#comment-73">8:17 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-74">
+            <p>Uh, what&#8217;s the &tt;/h3> for?</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:first.last@sun.com">Tim Bray</a> at May 5, 2004 @ <a href="000047.html#comment-74">10:10 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-75">
+            <p>Good catch. Pleased to have someone &#8220;actually&#8221; peruse the code <img src="/images/smilies/icon_smile.gif" alt=':-)' class='wp-smiley' /> Actually, I wanted to type &#038;-l-t-; and ended by typing &#038;-t-t-; Should be fixed now.</p>
+<p>
+- Thx Anand<br />
+p.s. The hyphens above are just for illustration. Still looking for a good tool/way to post my HTML code in my blog entries.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 5, 2004 @ <a href="000047.html#comment-75">10:52 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-76">
+            <p>mod_groovy sounds like a plan to me. Or, I guess we could just all go write Groovlets. Thx for the post. - Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 5, 2004 @ <a href="000047.html#comment-76">10:55 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-77">
+            <p>It sounds like a cool stuff~<br />
+Waiting for your next release.<br />
+I have write an post about your implmenention in my blog~<br />
+but do not find the trackback url~</p>
+<p>see here: <a href="http://icecloud.51.net/blog/archives/000081.html" rel="nofollow">http://icecloud.51.net/blog/archives/000081.html</a><br />
+I&#8217;ve write it in chinese :P</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:icecloud@sina.com">Li Mo</a> at May 6, 2004 @ <a href="000047.html#comment-77">8:06 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-78">
+            <p>What are &#8216;here-docs&#8217;? Perhaps I can tell you how to do them in Python if I know what they are!</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:simon@brunningonline.net">Simon Brunning</a> at May 6, 2004 @ <a href="000047.html#comment-78">9:14 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-79">
+            <p>here-doc is the ability to define a variable like this:
+<pre>
+s = &lt;&lt;&lt;EOS
+ This string
+ spans three "lines"
+ and contains two newlines.
+EOS
+</pre>
+</p>
+<p>
+I know Python supports &#8220;&#8221;" to print multiple lines. I just don&#8217;t know if it supports it in the following context:</p>
+<p><pre>
+blah = """
+This is a multiple-line
+varible """
+</pre></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 6, 2004 @ <a href="000047.html#comment-79">7:52 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-80">
+            <p>Thanks for showing interest, Li. Well, I am sure my next implementation will not be another Groovy/CGI. I am trying to get to the point where I can learn the language well enough to start doing web application development on Tomcat using servlets (not groovlets) written in Groovy. </p>
+<p>I am not sure I am impressed with Groovlets that much. Maybe my impressions will change as I get to know more. </p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 6, 2004 @ <a href="000047.html#comment-80">7:56 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-81">
+            <p>You can indeed do:</p>
+<p>blah = &#8220;&#8221;"<br />
+This is a multiple-line<br />
+varible &#8220;&#8221;"</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:simon@brunningonline.net">Simon Brunning</a> at May 7, 2004 @ <a href="000047.html#comment-81">1:31 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-82">
+            <p>Thanks Simon. I updated the sample code in the post (for Python). One new thing learnt on a &#8220;Friday&#8221;. Not a bad start at all..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 7, 2004 @ <a href="000047.html#comment-82">9:28 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-2994">
+            <p>I know this is an old post, but give <a href="http://www.easygsp.com" rel="nofollow">http://www.easygsp.com</a> a look</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:dsmith03@gmail.com">David</a> at November 25, 2009 @ <a href="000047.html#comment-2994">8:20 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+

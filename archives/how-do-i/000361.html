@@ -1,0 +1,335 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HOWTO: Performing global search and replace across files on your Linux machine</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-361">
+  
+                                <h2><a href="/archives/how-do-i/000361.html" rel="bookmark" title="Permanent link to HOWTO: Performing global search and replace across files on your Linux machine">HOWTO: Performing global search and replace across files on your Linux machine</a></h2>
+                                
+                                <h3>Posted : July 6, 2004 at 1:40 pm [America/Los_Angeles]</h3>
+                                
+                                <div class="note">
+<p><u>Version History:</u><br/><br />
+<b>Date:</b> 07/06/2004<br/><br />
+<b>Version:</b> 0.3<br/><br />
+<b>Notes:</b> Edited the entry to add a version showing how to parse files in sub-folders as well. Thanks to Wei (see comments below) for pointing this out.</p>
+<p>
+<u>Version History:</u><br/><br />
+<b>Date:</b> 07/06/2004<br/><br />
+<b>Version:</b> 0.2<br/><br />
+<b>Notes:</b> Edited the entry to seperate out two solutions - Bash/Sed based and Perl based. Thanks to MS (see comments below) for pointing this out.</p>
+<p>
+<b>Date:</b> 07/06/2004<br/><br />
+<b>Version:</b> 0.1<br/><br />
+<b>Notes:</b> Original post
+</div>
+<p>
+Was assigned a simple task this morning: </p>
+<p><pre>
+...
+&lt;a href="http://indrayam.com"&gt;Back to Home&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+<p>There are lots of files in a directory that have a pattern similar to the one shown above. My assignment was to replace the URL in the <span id="code">href</span> entries with a new one.</p>
+<p>
+Sounds like a fairly common and simple problem. However, I soon realized that I did not have a canned utility or shell script that I could quickly use. After some googling around, here&#8217;s what I came up with:</p>
+<p>
+<b>Bash/Sed version:</b></p>
+<p><pre>
+#!/bin/bash
+
+for i in $( ls *.html ); do
+   sed "s/\"http://indrayam.com\"/\"http://indrayam.com/it/\"/g" $i &gt; $i.new
+   mv -f $i.new $i
+done
+</pre>
+<p>
+If you want to peruse through content a few levels deep, try this:</p>
+<pre>
+#!/bin/bash
+
+for i in $( find . -name '*.html' ); do
+   sed "s/\"http://indrayam.com\"/\"http://indrayam.com/it/\"/g" $i &gt; $i.new
+   mv -f $i.new $i
+done
+</pre>
+<p>
+Here are a few pointers, in case you do decide on using the script:</p>
+<ol>
+<li>For starters, restrict the <span id="code">$(ls *.&lt;file-extension&gt;)</span> section of the shell script to a single file by replacing it with <span id="code">$(ls &lt;filename&gt;)</span>. In other words, test the script out on a single file first.
+</p>
+<li>Always run the <i>&#8220;double-whammy&#8221;</i> test - <b>Run the shell script once and then run the script again without any modifications!</b>. If the targetted file looks ok after this double execution, you have wisely selected your <span id="code">initial-pattern</span> and <span id="code">new-pattern</span> in sed&#8217;s <span id="code">s/&lt;initial-pattern&gt;/&lt;new-pattern&gt;/g</span> expression.
+<p>
+For example, let&#8217;s say the <i>sed</i> expression in the shell script shown above looked something like this instead:</p>
+<p><pre>
+sed "s/http://indrayam.com/http://indrayam.com/it//g" $i &gt; $i.new
+</pre>
+<p>
+Do you see a problem here? Since our <span id="code">initial-pattern</span> is now <span id="code">http://indrayam.com</span> (as opposed to <span id="code">&#8220;http://indrayam.com&#8221;</span> in the shell script above), executing the script against the same file twice will result in <span id="code">href</span> looking something like:</p>
+<p><pre>
+&lt;a href="http://indrayam.com/it//it/"&gt;Back to Home&lt;/a&gt;
+</pre>
+<p>
+Of course, this <i>double-whammy</i> problem will bite you primarily if your <span id="code">initial-pattern</span> is a subset of the <span id="code">new-pattern</span></p>
+<li>Only after you&#8217;ve tested for these two things should you consider opening up the spigot by resetting <span id="code">$(ls &lt;filename&gt;)</span> to <span id="code">$(ls *.&lt;file-extension&gt;)</span>
+</ol>
+<div class="note">
+<p><u>Note:</u><br/><br />
+If you&#8217;re looking for a backup of the original file, you might want to tweak the shell script above as follows:<br/></p>
+<pre>
+#!/bin/bash
+
+for i in $( ls *.html ); do
+   cp $i $i.bak
+   sed "s/\"http://indrayam.com\"/\"http://indrayam.com/it/\"/g" $i &gt; $i.new
+   mv -f $i.new $i
+done
+</pre>
+</ul>
+</div>
+<p>
+<b>Perl One-liner:</b></p>
+<p>
+If you like Perl, here&#8217;s a <i>really, really</i> neat one-liner:</p>
+<pre>
+(unix prompt)&gt;perl -i.bak -p -e 's#"http://indrayam.com"#"http://indrayam.com/it/"#ig' *.html
+</pre>
+<p>
+If you want to peruse through content a few levels deep, try this:</p>
+<pre>
+(unix prompt)&gt;perl -i.bak -p -e 's#"http://indrayam.com"#"http://indrayam.com/it/"#ig' {.,*,*/*,*/*/*}/*.html
+</pre>
+<p><i>Nice!</i> </p>
+<p>
+For more information, check out this <a href="http://www.rice.edu/web/perl-edit.html" target="_blank">site</a> Thanks to MS (see comments below) for pointing this out.</p>
+<div class="note">
+<p><u>Note:</u><br/><br />
+The last perl one-liner example shown above will parse files in current dir and all subdirs <u>three</u> levels deep. I am not sure what would be the easiest way to parse files at an undefined depth level using perl one-liner without making it insanely cryptic. Any ideas?
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/how-do-i/" title="View all posts in How do I?" rel="category tag">How do I?</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>2460</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		11 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-285">
+            <p>What&#8217;s the difference between &#8220;for i in $( ls *.html ); &#8230;&#8221; and &#8220;for i in *.html;&#8221;? Wouldn&#8217;t that work too?</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Janek Schwarz</a> at July 6, 2004 @ <a href="000361.html#comment-285">2:47 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-286">
+            <p>try searching on &#8220;perl -eip&#8221; and look at pages like:</p>
+<p><a href="http://www.rice.edu/web/perl-edit.html" rel="nofollow">http://www.rice.edu/web/perl-edit.html</a></p>
+<p>It assumes you ahve perl but well I assume that most unix installs do these days.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:foo@bar.com">MS</a> at July 6, 2004 @ <a href="000361.html#comment-286">2:49 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-287">
+            <p>Another utility you might find quite useful is supersed (http://queen.rett.polimi.it/~paolob/seders/ssed/). With its -R option, it allows you to use Perl-like regular expressions. Not as quirky as sed&#8217;s <img src="/images/smilies/icon_wink.gif" alt=';)' class='wp-smiley' /></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Maik</a> at July 6, 2004 @ <a href="000361.html#comment-287">3:03 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-288">
+            <p>Whoops, make that <a href="http://sed.sourceforge.net/grabbag/ssed/" rel="nofollow">http://sed.sourceforge.net/grabbag/ssed/</a> &#8212; I guess Gentoo has an outdated URL there :-/</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Maik</a> at July 6, 2004 @ <a href="000361.html#comment-288">3:05 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-289">
+            <p>MS:</p>
+<p>
+I checked out the Perl site at Rice. Super stuff and thank you for sharing! Considering that I am a huge Perl fan myself, I could not have asked for anything better.
+</p>
+<p>
+Now, I just have to remember the command-line arguments..;-)
+</p>
+<p>
+Thanks again!</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 6, 2004 @ <a href="000361.html#comment-289">3:13 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-290">
+            <p>Janek:</p>
+<p>
+Clarity is one reason I would go with a $() construct. But then again, that&#8217;s just me..:-)
+</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 6, 2004 @ <a href="000361.html#comment-290">3:14 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-291">
+            <p>Thanks Maik. Will check it out.</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 6, 2004 @ <a href="000361.html#comment-291">3:16 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-292">
+            <p>Heck! This article is a day late! I was looking yesterday some pointers for sed (I am still weak in regex)&#8230;<br />
+Finally, I just got down a few hours hacking searchnreplace.java this morning!</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">hishammk</a> at July 6, 2004 @ <a href="000361.html#comment-292">7:41 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-293">
+            <p>To recursively go through all directories and its sub-directories, you probably will do something like:</p>
+<p>for i in ( find . -name &#8216;*.html&#8217; ); do<br />
+&#8230;<br />
+done</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">wei</a> at July 6, 2004 @ <a href="000361.html#comment-293">8:04 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-294">
+            <p>Very good point, Wei. I will make sure I add that to the entry.</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 6, 2004 @ <a href="000361.html#comment-294">8:27 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-295">
+            <p>#!/bin/bash<br />
+replace &#8220;domain.com&#8221; &#8220;new-domain.com&#8221; &#8212; /path/to/your/files/*.ext</p>
+<p>Might help <img src="/images/smilies/icon_smile.gif" alt=':)' class='wp-smiley' /> </p>
+<p>Thanks all</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:admin@yawsh.ae">Mohamed</a> at January 3, 2007 @ <a href="000361.html#comment-295">9:20 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,247 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Setting up an Eclipse-based Java Development Environment on WinXP (Part 1)</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-332">
+  
+                                <h2><a href="/archives/application-development/000332.html" rel="bookmark" title="Permanent link to Setting up an Eclipse-based Java Development Environment on WinXP (Part 1)">Setting up an Eclipse-based Java Development Environment on WinXP (Part 1)</a></h2>
+                                
+                                <h3>Posted : June 29, 2004 at 7:48 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/devroot-folder.jpg" border=1></center></p>
+<p>
+<b>Goal:</b></p>
+<blockquote>
+<ol>
+<li>To set up an Eclipse-based development environment in order to facilitate Java development of standalone applications and/or web-based applications<br/>
+<li>Focus on getting the development environment set up with the right tools once, thereby freeing the developer to focus on his/her real challenge - writing code <img src="/images/wink.gif" align="middle">
+</ol>
+</blockquote>
+<p>
+<b>Assumption:</b></p>
+<p>
+The goal here is not to present the &#8220;one-and-only perfect&#8221; way there is of setting up a development environment on WinXP. It&#8217;s just &#8220;a&#8221; way of doing it.</p>
+<p>
+<b>Folder structure</b>:</p>
+<p>
+I tend to keep my OS on <span id="code">C:\</span> and my applications on <span id="code">D:\</span>. If you just have a single <span id="code">C:\</span> drive on your PC, replace <span id="code">D:\</span> with <span id="code">C:\</span> everywhere in the rest of this blog entry:</p>
+<ul>
+<li>Top-level folder containing all your development code and softwares - <span id="code">D:\development-root</span>
+<li>Folder containing all your development tools (Java or non-Java related)- <span id="code">D:\development-root\tools</span>
+<li>Folder containing Java development code, APIs - <span id="code">D:\development-root\java</span>
+<li>Folder containing Java development APIs - <span id="code">D:\development-root\java\apis</span> (I like to keep a local copy of the APIs I normally use for development. These APIs are <u>not</u> added to any CLASSPATH. They&#8217;re just downloaded for the convenience of copying and pasting jars whenever I want to use them in a project)
+<li>Folder containing Java application development code - <span id="code">D:\development-root\java\myapps</span>
+<li>Folder containing Java application development code - <span id="code">D:\development-root\java\mywebapps</span>
+</ul>
+<p>
+<b>Software Requirements:</b></p>
+<div class="note">
+<p><u>Note:</u><br/><br />
+Install all these softwares in <span id="codeflow">D:\development-root\tools</span> (and not the usual <span id="codeflow">D:\Program Files\</span>) in order to make it visually easier for you to know which softwares/tools are installed for development purposes.
+</div>
+<ol>
+<li><a href="http://java.sun.com/j2se/1.4.2/download.html" target="_blank">JSDK</a> (latest stable version: 1.4.2_04)
+<li><a href="http://ant.apache.org/bindownload.cgi" target="_blank">Ant</a> (latest stable version: 1.6.1)
+<li><i>(Optional)</i> Ant plugins - <a href="http://sourceforge.net/project/showfiles.php?group_id=29721" target="_blank">Checkstyle</a> (latest stable version: 3.4), <a href="http://www.java2html.de/java2html_41.zip" target="_blank">Java2Html</a> (latest stable version: 4.1), <a href="http://sourceforge.net/project/showfiles.php?group_id=56262" target="_blank">PMD</a> (latest stable version: 1.8)  and <a href="http://prdownloads.sourceforge.net/junit/junit3.8.1.zip?download" target="_blank">JUnit</a> (latest stable version: 3.8.1)
+<li><a href="http://eclipse.org/downloads/index.php" target="_blank">Eclipse</a> (latest stable version: 3.0)
+<li>Eclipse plugins:
+<ul>
+<li><a href="http://www.myeclipseide.com" target="_blank">MyEclipse</a> (commercial, latest stable version: 3.8 beta1) For J2EE development. <i>Note: I primarily use it as a JSP, Javascript, CSS, TLD, DTD editor</i>
+<li><a href="http://xmlbuddy.com/2.0/d.php" target="_blank">XMLBuddy</a> For XML file editing.
+<li><a href="http://prdownloads.sourceforge.net/colorer/EclipseColorer-take5_0.6.0.zip?download" target="_blank">Colorer</a> Basically a general-purpose syntax highlighter (supporting bazillion formats and languages)
+<li><a href="http://download.eclipse.org/tools/gef/downloads/drops/R-3.0-200406251257/GEF-SDK-3.0.zip" target="_blank">GEF</a> (Graphical Editing Framework). Pre-requisite for Spring UI plugin (see the next entry).
+<li>Spring UI plugin. Install it if you&#8217;re planning on using Spring API in your development. Install using Eclipse&#8217;s Update Manager:<br/><br />
+Help -> Software Updates -> Find and Install&#8230; -> Search for new features to install -> Add Update Site&#8230;<br/><br />
+Name : Spring IDE<br/><br />
+URL: <a href="http://www.springframework.org/spring-ide/eclipse/" target="_blank">http://www.springframework.org/spring-ide/eclipse/</a><br/></p>
+<li>Easy Explorer. For quick access to Windows explorer from within Eclipse. Install it using Eclipse&#8217;s Update Manager:<br />
+Help -> Software Updates -> Find and Install&#8230; -> Search for new features to install -> Add Update Site&#8230;<br/><br />
+Name : Easy Explorer<br/><br />
+URL: <a href="http://easystruts.sourceforge.net/eclipse/updates/site.xml" target="_blank">http://easystruts.sourceforge.net/eclipse/updates/site.xml</a><br/></p>
+<li><a href="http://www.triemax.com/download/" target="_blank">Jalopy</a> (commercial, latest stable version: 1.2)
+<li>VeloEclipse. Install it if you&#8217;re planning on using Velocity templates in your development.  Install using Eclipse&#8217;s Update Manager:<br/><br />
+Help -> Software Updates -> Find and Install&#8230; -> Search for new features to install -> Add Update Site&#8230;<br/><br />
+Name : VeloEclipse<br/><br />
+URL: <a href="http://propsorter.sourceforge.net/veloeclipse" target="_blank">http://propsorter.sourceforge.net/veloeclipse</a><br/></p>
+<li><a href="http://brosinski.com/stephan/archives/000028.html" target="_blank">RegEx Tester</a> Install it if you&#8217;re planning on using Regular expressions a lot in your development.
+ </ul>
+<li>Tomcat</a> (latest stable version: <a href="http://apache.secsup.org/dist/jakarta/tomcat-4/v4.1.30/bin/" target="_blank">4.1.30</a> or <a href="http://apache.secsup.org/dist/jakarta/tomcat-5/v5.0.25/bin/" target="_blank">5.0.25</a>)
+<li><a href="http://www.tortoisecvs.org/download.shtml" target="_blank">Tortoise CVS</a> (latest stable version: 1.6.14)
+</ol>
+<p>
+<b>Installation notes:</b></p>
+<p>
+Instead of boring you with obvious details about how to install JSDK or Eclipse, I will just make a few points in general:</p>
+<ul>
+<li>The list above lists all the plugins that I tend to use. If you would like to use a few more or less than the ones listed above, be my guest.
+<li>Installation of Eclipse is really simple. Download Eclipse in <span id="code">D:\temp</span>, unzip it and then move the unzipped folder into <span id="code">D:\development-root\tools</span>. <i>That&#8217;s it!</i> Let&#8217;s say, you install it in <span id="code">D:\development-root\eclipse-3.0</span>. I tend to create 2 extra folders besides the default eclipse-3.0: <span id="code">eclipse-workspace</span> and <span id="code">eclipse-config</span>. <span id="code">eclipse-workspace</span> has 2 sub-folders - <span id="code">1</span> and <span id="code">2</span>. I use these folders as my workspaces. Of course, I mainly use <span id="code">D:\development-root\tools\eclipse-workspace\1</span> as my primary workspace and keep <span id="code">2</span> for cases when I want to have more than one Eclipse projects opened at the same time. <span id="code">eclipse-config</span> is created to store my eclipse configurations.
+<li>Installing Eclipse plugins is equally straightforward. Most of the time, it&#8217;s as simple as - Download the plugin, unzip it, copy the contents of &#8216;plugins&#8217; folder into <span id="code">D:\development-root\tools\eclipse-3.0\plugins</span> and the contents of &#8216;features&#8217; folder (if any) into <span id="code">D:\development-root\tools\eclipse-3.0\features</span>. If no <span id="code">plugins</span> or <span id="code">features</span> folder exists on unzipping, just take the unzipped content and put it into <span id="code">D:\development-root\tools\eclipse-3.0\plugins</span> folder. Of course, you could also use the Eclipse Update Manager.
+<li>While installing Tomcat, I tend to de-select the &#8220;Install it as a Service&#8221; option. I think by default it is de-selected. Since this is a development workstation, I don&#8217;t prefer installing it as a service as you&#8217;ll see why a bit later. Yes, I do install Tomcat in <span id="code">D:\development-root\tools</span>.
+<li>While installing a few these softwares, I get prompted to enter the path where the software should be installed. Besides making sure that they&#8217;re all in <span id="code">D:\development-root\tools</span>, I also tend to name the folder as <name>-<version>. So, for example, Eclipse is installed in a folder called <span id="code">D:\development-root\eclipse-3.0</span>. Look at the screenshot above for an example. This makes it easy for me to know what version of a software I am currently running. <b>Avoid spaces in names of the folders as much as possible!</b>
+<li>After installing JSDK and Ant, make sure that you set up the following two environment variables - JAVA_HOME and ANT_HOME, each pointing to the respective top-level install folder. For example, in my case:<br/><br />
+JAVA_HOME=<span id="code">D:\development-root\tools\j2sdk1.4.2_04</span><br/><br />
+ANT_HOME=<span id="code">D:\development-root\tools\apache-ant-1.6.1</span></p>
+<li>Installing Ant plugins usually involves copying the plugin&#8217;s jar into Ant&#8217;s lib folder. For example, to install CheckStyle as an Ant plugin, copy <span id="code">checkstyle-all-3.4.jar</span> to <span id="code">D:\development-root\tools\apache-ant-1.6.1\lib</span> and you&#8217;re all set.
+</ul>
+<p>
+<b>Post installation notes:</b></p>
+<p>
+At this point, you should have all the softwares downloaded and installed. There&#8217;s just two more things that I often do which I think you&#8217;ll find useful as well. However, before I proceed, let me warn you - I am a huge fan of Windows <i>Quick Launch Bar</i>. If you don&#8217;t use it at all, tweak the explanations given below accordingly to make it work with your desktop shortcuts or whatever other mechanism you use to invoke a software on Windows.</p>
+<ol>
+<li>Create a Quick Launch Bar shortcut for <span id="code">D:\development-root\tools\eclipse-3.0\eclipse.exe</span>. Right-click on the Eclipse icon on the Quick Launch Bar, select Properties and you will see the following in your <i>Target:</i> textfield:<br/><br />
+<span id="code">D:\development-root\tools\eclipse-3.0\eclipse.exe</span><br/><br />
+Replace it with:<br/><br />
+<span id="code">D:\development-root\tools\eclipse-3.0\eclipse.exe -vm &#8220;C:\Program Files\Java\j2re1.4.2_04\bin\javaw.exe&#8221; -vmargs -Xverify:none -XX:+UseParallelGC -XX:PermSize=20M</span><br />
+<br/><br />
+Of course, if your JVM path is different, tweak is accordingly in the entry above. I got this tip from <a href="http://raibledesigns.com/page/rd" target="_blank">Matt&#8217;s</a> blog. However, I can&#8217;t seem to get the exact entry as his search seems to be messed up. Oh well..</p>
+<li>Create a Quick Launch Bar shortcut for <span id="code">D:\development-root\tools\Tomcat-4.1.30\bin\startup.bat</span> and <span id="code">D:\development-root\tools\Tomcat-4.1.30\bin\shutdown.bat</span>. This allows me to quickly start and stop Tomcat instance. This is why I don&#8217;t prefer installing Tomcat as a service.
+</ol>
+<p>
+That&#8217;s it for Part 1 of this entry. In Part 2, I will talk about configuring Eclipse and setting up two Eclipse projects: a standalone Java application and a Struts-based (<i>struts-example</i>, part of Struts download) application.</p>
+<p>
+<i>Enjoy!</i></p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3379</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		4 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-261">
+            <p>I find this verry interesting. what i also try to do is to seperate the extra plugins from the eclipse directory and in that directory I have two subdirs. One for the eclipseplatform itself (VEP, EMF etc.) and one for custom plugins (Jfacedbc, etc.).</p>
+<p>I was wonderingin though. How do you let eclipse know where the config dir is if it is not in a sub directory of eclipse?</p>
+<p>cheers Rolf</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:rolfst@spymac.com">Rolf</a> at June 30, 2004 @ <a href="000332.html#comment-261">10:36 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-262">
+            <p>Rolf:</p>
+<p>
+Interesting point about seperating out the plugins.
+</p>
+<p>
+As for storing the Eclipse config, I guess my entry was not very clear. I did not mean that I store the config outside of the ECLIPSE_HOME (D:\development-root\tools\eclipse-3.0) and make Eclipse read it from there. What I really meant was that I store a backup/export of my Eclipse config in &#8216;eclipse-config&#8217; directory so that I can use it for other Eclispe install. Apologize for the confusion. Will update the entry soon to reflect that.
+</p>
+<p>
+Also, I would really like to know how you seperate out the plugins that you install and keep them outside of ECLIPSE_HOME.
+</p>
+<p>
+Thanks for the comment.
+</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at June 30, 2004 @ <a href="000332.html#comment-262">11:53 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-263">
+            <p>Anand,</p>
+<p>
+It is quite simple with one issue I&#8217;m still trying to fix but it works if you do it like this.</p>
+<p>
+Create in the eclipse_home dir a new directory called links. In here you can create as many files as you want to link different plugin directories. mine are called eclipse-platform.plugins and eclipse-addon.plugins.<br />
+In those files I set the following text: <br />path=&lt;pathwithforwardslashestospecificplugindir&gt;<br />
+This is handy when you do an upgrade an do not want to remove the plugins you are using (If the plugins still work for that version of eclipse that is).</p>
+<p>The issue is that i must install the plugin by hand before i can use update. Otherwise the new plugin will be installed in the default plugindir under eclipse_home.</p>
+<p>Rolf</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:rolfst@spymac.com">Rolf</a> at July 1, 2004 @ <a href="000332.html#comment-263">12:21 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-264">
+            <p>Thanks Rolf. Will check it out and let you know if it works out well.</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 1, 2004 @ <a href="000332.html#comment-264">1:16 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

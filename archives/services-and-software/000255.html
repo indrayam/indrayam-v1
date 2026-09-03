@@ -1,0 +1,131 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Internals of an Advanced Mail Platform using Postfix: A bird&#8217;s-eye view (Part 1)</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-255">
+  
+                                <h2><a href="/archives/services-and-software/000255.html" rel="bookmark" title="Permanent link to Internals of an Advanced Mail Platform using Postfix: A bird&#8217;s-eye view (Part 1)">Internals of an Advanced Mail Platform using Postfix: A bird&#8217;s-eye view (Part 1)</a></h2>
+                                
+                                <h3>Posted : June 7, 2004 at 4:07 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><a href="/images/AdvancedMailServer.gif" target="_blank"><img src="/images/AdvancedMailServer-Small.gif" border=1></a><br/></p>
+<div class="note"><p>Click on the image to see an enlarged view</p></div>
+<p></center></p>
+<p>
+If you&#8217;ve ever attempted to set up an &#8220;Advanced Email platform&#8221; using open-source software, you would know that it can get extremely frustrating in a hurry. Many of these documentations are outdated. Most use a certain permutation and combination of softwares that would probably not be your top picks. The complexity is compounded by the fact that they <u>rarely ever</u> start their documentation by saying:<br />
+<br/></p>
+<blockquote><p>
+Btw, before you jump into installing these bazillion open-source softwares to achieve <i>email nirvana</i>, here&#8217;s:<br/><br />
+a) what you&#8217;re attempting to do and why<br/><br />
+b) the list of all the softwares that you will be using and<br/><br />
+c) a bird&#8217;s-eye view of what the end-result would look like if everything goes per the plan<br/>
+</p></blockquote>
+<p>
+To be fair, there <a href="http://www.marlow.dk/tech/postfix.php" target="_blank">are</a> <a href="http://www.gentoo.org/doc/en/virt-mail-howto.xml" target="_blank">a</a> <a href="http://workaround.org/articles/ispmail-sarge/" target="_blank">few</a> which do a superlative job of presenting this information. </p>
+<p>
+<i>So, what&#8217;s my definition of an Advanced Mail Server:</i></p>
+<blockquote>
+<ol>
+<li>The email platform should be <i>stable</i>, <i>reliable</i> and <i>easy to manage</i>
+<li>Handle emails for lots of users all on same or different domains. In other words, this platform should be able to handle <i>virtual domains</i> in a way that keeps each domain <i>independent</i> of each other
+<li>Email accounts should not require unix shell accounts
+<li>At no point should a user&#8217;s password be flying over the wire in clear text. However, if the email accounts are not Unix shell accounts, this restriction could be relaxed depending upon your security needs. Basically, utilize SSL/TLS for transport layer security
+<li>A single data store (containing user information) should be used to authenticate SMTP(S), IMAP(S), POP(S) and Web clients
+<li>Act as SMTP clients for users without knowing their IP addresses upfront. Basically, allow users on dial-up or a dynamic IP address arrangement to be able to use this platform for their relaying needs. No, you cannot use <i>open relaying</i> to achieve this goal <img src="/images/smile.gif" align="middle">
+<li>Scan emails for virus and/or spams
+<li>Support mailing lists for any of the virtual domains hosted on the platform
+</ol>
+</blockquote>
+<p>
+<i>My (planned) list of softwares:</i></p>
+<blockquote>
+<ol>
+<li><a href="http://www.postfix.org/" target="_blank">Postfix 2.x</a> (SMTP server)
+<li><a href="http://asg.web.cmu.edu/sasl/" target="_blank">Cyrus SASL</a> over TLS (to support SMTP AUTH)
+<li><a href="https://sourceforge.net/projects/pam-mysql/" target="_blank">pam_mysql</a> (to support authentication against MySQL database)
+<li><a href="http://www.inter7.com/courierimap.html" target="_blank">Courier</a> IMAP/IMAP-SSL, POP3/POP3-SSL (IMAP/POP3 servers)
+<li><a href="http://www.squirrelmail.org/" target="_blank">Squirrel Mail</a> (web-based access to mailboxes)
+<li><a href="http://www.list.org/" target="_blank">Mailman</a> (Mailing list manager)
+<li><a href="http://www.ijs.si/software/amavisd/" target="_blank">Amavisd-New</a> (A wrapper software that in turn invokes the Virus and SPAM scanners
+<ul>
+<li><a href="http://www.clamav.net/" target="_blank">ClamAV</a> or <a href="http://www.f-prot.com/products/home_use/linux/">F-Prot</a> (command-line scanners for viruses)
+<li><a href="http://spamassassin.org/index.html" target="_blank">SpamAssassin</a> (filtering SPAM)
+   </ul>
+<li><a href="http://dev.mysql.com/" target="_blank">MySQL</a> (relational database storing user credentials and even Postfix details)
+<li><a href="http://httpd.apache.org/" target="_blank">Apache</a> 2.x with <a href="http://us2.php.net/" target="_blank">PHP</a> (4.3.x) (Web server for hosting Squirrel Mail)
+</p></blockquote>
+<p>
+<i>So what will all these softwares look like when I am done:</i></p>
+<blockquote><p>
+The schematic shown <a href="/images/AdvancedMailServer.gif" target="_blank">here</a> is my attempt at putting a <i>picture</i> that hopefully tells the bird&#8217;s-eye view story that I was alluding to earlier in this post. If the schematic above opens more questions than answers them, hang in there. The follow-up posts (hence the Part 1 in the entry title) in the days to come should make things clearer.
+</p></blockquote>
+<p>
+Wish me luck <img src="/images/wink.gif" align="middle"> If you&#8217;ve a suggestion or advice, I would luv to hear it as my implementation starts tomorrow (06/08/2004).</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>737</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

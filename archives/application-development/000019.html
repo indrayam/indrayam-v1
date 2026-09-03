@@ -1,0 +1,133 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Standalone Scripting Application Servers running PHP/Perl/Python/Ruby webapps</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-19">
+  
+                                <h2><a href="/archives/application-development/000019.html" rel="bookmark" title="Permanent link to Standalone Scripting Application Servers running PHP/Perl/Python/Ruby webapps">Standalone Scripting Application Servers running PHP/Perl/Python/Ruby webapps</a></h2>
+                                
+                                <h3>Posted : April 29, 2004 at 1:41 am [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/php-tomcat.gif" border="0"></center><br />
+The success of PHP as a web applications aware scripting language and platform needs no further elaboration. Python, Perl or Ruby have all equally excelled as a scripting language of choice for many. They are easy to learn, understand, can do just about anything (thanks to their rich API set) and spare the programmer&#8217;s life even without a decent IDE..;-). Ok, good IDEs do a great job, but they&#8217;re not a MUST while whipping up code in these languages. Just open your favorite editor, slap around your changes, save and test. No build tools, no IDEs, no Code generation tools - <i>No Problem</i> <img src="/images/smile.gif" align="middle"></p>
+<p>However, what has surprised me all these years is the  lack of a <b>standalone</b> web application server supporting these platforms. For example, how about a &#8220;Standalone PHP Application Server&#8221; as follows:<br />
+<blockquote>Apache instance(s) + PHP Connector (like mod_jk) + PHP Engine/AppServer(s) + Backend Data Sources</p></blockquote>
+<p>Such a platform would basically have all the benefits of a Tomcat/JBoss J2EE stack behind Apache, except it would involve writing code using a simple yet powerful scripting language like PHP. It would also be extremely <u>server-farm</u> friendly and easy to host business critical applications in Enterprises by offering logically <u>separate</u> instances to the various IT sub-teams. After all, in an Enterprise setting, you better have an infrastructure capable of &#8220;isolating&#8221; a single team&#8217;s &#8220;rotten code&#8221; to the extent that the damage is &#8220;localized&#8221;.</p>
+<p>Is it the complexity of detaching an engine (in PHP&#8217;s case, I think it&#8217;s called &#8216;Zend&#8217;) from it&#8217;s Apache-like ecosystem and turning it into a standalone daemon (with Apache-2-PHP connector and maybe an optional HTTP listener in-built) that keeps folks from developing this?</p>
+<p>With all the excitement around <b>Groovy</b> and reading an article the other day about using Jython/Velocity and Spring to whip up web apps using &#8220;scripting&#8221; java, one cannot help but wonder why this has not been done with well established scripting languages that have withstood the test of time and, dare I say, are more mature than Groovy can ever claim to be in the next few months, if not years. In fact, I would probably like to see something like:<br />
+<blockquote>Apache instance(s) + Universal connector + PHP Or Perl Or Python Or Ruby Pluggable Engine(s)/Application Server(s) + Backend Data Sources</p></blockquote>
+<p>I <b>know</b> this would go a long way in building <i>simple solutions</i> to <i>simple problems</i> and complementing (if not <u>implementing</u>) <i>complex solutions</i> to <i>complex problems</i> ably.</p>
+<p>And no, I don&#8217;t see this as the next killer app. Just a viable alternative for building apps which just don&#8217;t need the capabilities that MVC, IoC and AoP bring to the table. Trust me, you will be surprised how many &#8220;fall&#8221; in this category in a typical Fortune 500 company.</p>
+<p>And in case you were expecting me to end this by picking sides (if I haven&#8217;t already <img src="/images/wink.gif" align="middle">), it can be summed up a follows:<br />
+<blockquote>I <b>build</b> applications in Java, but I <b>do</b> things in Perl|Python|PHP</p></blockquote>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>650</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		3 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-5">
+            <p>What you are describing sounds a lot like <a href='http://www.zope.org/' rel="nofollow">Zope</a>, to me. If you are comfortable with Python, I&#8217;m surprised that you are not already using it for this sort of application.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Frank Carver</a> at April 29, 2004 @ <a href="000019.html#comment-5">3:04 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-6">
+            <p>Yes, Zope (and quite frankly Python) has been on my radar screen for some time, but I have really not gotten around to it. Unfortunately, for someone who still considers himself pretty new to Python, I must confess that the sheer <b>number</b> of such web frameworks in Python does not make it easy for someone to decide which one to pick. In other words, in Python&#8217;s case, I think it&#8217;s a case of having <i>too many</i> as opposed to having none at all.
+<p>
+However, wouldn&#8217;t it be cool to have an open-source initiative which built a &#8220;generic&#8221; Application Server framework allowing an end-user to &#8220;plug&#8221; scripting engines of choice.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at April 29, 2004 @ <a href="000019.html#comment-6">6:20 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-7">
+            <p>in my opinion python is just a crap.., ugly. May be i sound a bit too far. PHP is very good. But even then groovy is very nice idea. I like the whole philosophy behind groovy, getting the compactness of code, elegantness of code in j2ee platform. Wow!<br />
+Just see this<br />
+ <a href="http://viva.sourceforge.net/talk/jug-mar-2004/slides.html" rel="nofollow">http://viva.sourceforge.net/talk/jug-mar-2004/slides.html</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:ashishwave@yahoo.com">Ashish Ranjan</a> at April 1, 2005 @ <a href="000019.html#comment-7">1:58 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

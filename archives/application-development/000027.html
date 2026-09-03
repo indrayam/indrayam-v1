@@ -1,0 +1,271 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Wish there was an Appfuse Lite|Decaf|101 version</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-27">
+  
+                                <h2><a href="/archives/application-development/000027.html" rel="bookmark" title="Permanent link to Wish there was an Appfuse Lite|Decaf|101 version">Wish there was an Appfuse Lite|Decaf|101 version</a></h2>
+                                
+                                <h3>Posted : April 30, 2004 at 6:21 pm [America/Los_Angeles]</h3>
+                                
+                                <p>Matt&#8217;s <a href="http://www.raibledesigns.com/wiki/Wiki.jsp?page=AppFuse">Appfuse</a> is indeed an extremely impressive way for individuals to get up-to-speed with many of the buzzwords in Java landscape. I think I will be fairly accurate if I said that the majority of Appfuse users (and there are quite a few) today use it to learn from a <i>working application</i> which uses <a href="http://struts.apache.org">Struts/Tiles</a>, <a href="http://www.springframework.org">Spring</a>, <a href="http://www.hibernate.org/">Hibernate</a> or <a href="http://www.ibatis.com/">iBATIS</a> and <i>many many</i> more new and cutting-edge APIs and Tools. Ironically, the very things that attracts users like myself might sometimes hinder its adoption in some circles of java programming community.</p>
+<p>Before I comment on my title, let&#8217;s take a look at the list of APIs and tools Matt brilliantly pulls together in Appfuse:</p>
+<blockquote>
+<h3><b>Standards, APIs/Frameworks (code that is used by the Appfuse during runtime):</b></h3>
+<ol>
+<li>Struts/Tiles
+<li>JSP 1.2/2.x and JSTL
+<li>Spring
+<li>iBATIS or Hibernate
+<li>Clickstream
+<li>Country Tag
+<li>State Tag
+<li>Display Tag
+<li>Struts Menu
+<li>MySQL or PostgreSQL JDBC drivers
+</ol>
+<h3><b>Code generation, TDD and Build tools:</b></h3>
+<ol>
+<li>Ant-contrib
+<li>Canoo Webtest
+<li>Checkstyle
+<li>DBUnit
+<li>Jakarta Cactus
+<li>JUnit &#038; JUnitDoclet
+<li>Java2Html
+<li>PMD
+<li>StrutsTestCase
+<li>XDoclet
+<li>Maven (I think)</ol>
+</blockquote>
+<p>If you have been on the sidelines &#8220;reading&#8221; more than &#8220;implementing&#8221; or &#8220;using&#8221; some of these tools or APIs, this would appear to a pretty daunting list to work with and can get overwhelming in a hurry.
+<p>And that brings me to this idea of a &#8220;decaf&#8221; Appfuse. Ideally, it would be nice to do have a new ant task in Appfuse which works as follows:</p>
+<blockquote><p>ant new -Dapp.flavor=decaf or 101 or lite|all -Dapp.name=yourApp -Ddb.name=database</p></blockquote>
+<p>This will output a folder called &#8216;yourApp&#8217; (or whatever name you chose) which will do all the necessary code generation (via xdoclet) along with the usual dose of Ant &#8216;magic&#8217;. The result will be a directory structure with nothing but the runtime code necessary for core application functionality ready to &#8216;ant war&#8217; up. No white-box or black-box testing or additional tools <u>not</u> directly related to the runtime functionality of the application will be enabled in the decaf option. I worked through Appfuse the hard way and now that I have done it, I realize that it is indeed a nice little implementation to use as a baseline for you next project. Just start with the &#8216;decaf&#8217; version, and then as you get comfortable with Canoo or StrutsTestCase, keep adding them to your portfolio. I am sure Matt must have did it this way himself <img src="/images/smile.gif" align="middle"></p>
+<p>Matt, hope you&#8217;re tuned in and listening <img src="/images/wink.gif"align="middle"> If so, what do you think?</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3254</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		9 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-20">
+            <p>Heh, there <em>is</em> an AppFuse Lite - I just haven&#8217;t released it yet.  Stay tuned. <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:matt@raibledesigns.com">Matt Raible</a> at April 30, 2004 @ <a href="000027.html#comment-20">8:54 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-21">
+            <p>Nice..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 1, 2004 @ <a href="000027.html#comment-21">9:02 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-22">
+            <p>I appreciate the work he has done on his project.</p>
+<p>But, I would like appFuse minus -</p>
+<p># Country Tag<br />
+# State Tag<br />
+# Display Tag<br />
+# Struts Menu<br />
+# Struts/Tiles<br />
+# JSP 1.2/2.x and JSTL<br />
+# StrutsTestCase</p>
+<p>but plus </p>
+<p>Webwork/XWork<br />
+Velocity<br />
+Sitemesh</p>
+<p>I guess its hard to make everyone happy <img src="/images/smilies/icon_smile.gif" alt=':)' class='wp-smiley' /></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:matthew.payne@sutternow.com">Matthew Payne</a> at July 9, 2004 @ <a href="000027.html#comment-22">7:48 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-23">
+            <p>Here you go: <a href="http://raibledesigns.com/page/rd/20040709#ann_appfuse_light_1_0" rel="nofollow">AppFuse Light</a>.</p>
+<p>Matthew - the Country/State Tags will be gone in the next release b/c they require a $75 license for production use.  The WebWork version will remove Struts/Tiles and StrutsTestCase.  It will also use SiteMesh - but I&#8217;ll probably stick with JSPs and my two favorite tags: DisplayTag and Struts Menu.  It&#8217;s simply not possible to get this same functionality (yet) using a Velocity-only solution.  BTW, here&#8217;s a <a href="http://raibledesigns.com/wiki/Wiki.jsp?page=AppFuseVelocity" rel="nofollow">here howto for replacing JSPs with Velocity</a>.  </p>
+<p>I&#8217;ll definitely be doing a Velocity version of MyUsers for Spring Live, but it&#8217;s unlikely for AppFuse.  Unless I could figure out how to make the DisplayTag and Struts Menu work natively with Velocity - then I&#8217;d be more than happy to do a Velocity-only version! <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:matt@raibledesigns.com">Matt Raible</a> at July 9, 2004 @ <a href="000027.html#comment-23">8:19 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-24">
+            <p>Matt/Matthew:</p>
+<p>
+Thanks for your comments. Frankly, I too would like a WW2/Velocity based AppFuse Light and looks like Matt has already done it. Nice!
+</p>
+<p>
+Will definitely check out AppFuse Light early next week and share my findings.
+</p>
+<p>
+Thanks for all the good work that you&#8217;ve done Matt with AppFuse and cannot wait to get my hands on your Spring Live book. I sure hope you don&#8217;t get too carried away in the book with using Spring as a full-blown MVC framework. I&#8217;d rather see a bunch of examples of how to use Spring in the context of another MVC such as WW2.
+</p>
+<p>
+Either way, I am sure you will do a great job with the book!!
+</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 10, 2004 @ <a href="000027.html#comment-24">12:46 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-25">
+            <p>Unfortunately, AppFuse Light does not have WW2 or Velocity integration (yet).  My goal with MVC frameworks and <a href="http://sourcebeat.com/TitleAction.do?id=7" rel="nofollow">Spring Live</a> is as follows:</p>
+<p>1.  Show how to use Spring with Struts (Chapter 2).<br />
+<br />
+2.  Show how to use Spring MVC with Spring (Chapter 4).<br />
+<br />
+3.  Show how to do page decoration, validation, e-mail and file-upload with Spring (Chapter 5).</p>
+<p>All of this is in the current ERP (Chapters 1-5).  In Chapter 6, I&#8217;ll demonstrate how to use Velocity and FreeMarker with Spring MVC.  <em>Sidenote: Even though I think these are great technologies, I wish there was a simple way to do paging and sorting of lists (like the <a href="http://displaytag.org" rel="nofollow">displaytag</a>).  </em>The <a href="http://sourcebeat.com/docs/Spring%20Live/Rev_1/Spring%20Live_TOC.pdf?aid=7" rel="nofollow">rest of the chapters</a> cover other things, but not WW integration.  I&#8217;ll probably won&#8217;t do a chapter on that until after 1.0 is released.</p>
+<p>Here&#8217;s a preliminary summary for that chapter (not in the current TOC):</p>
+<p><strong>Integrating Spring with WebWork, Tapestry and JSF</strong><br /><em><br />
+This chapter explains how to hook Spring&#8217;s middle tier into WebWork, Tapestry and JSF.  It will be similar to Chapter 4 (where Struts is converted to Spring).  You will learn how to do page decoration, validation and exception handling in each framework as well.</em>  </p>
+<p>Hopefully this chapter will end up as a tutorial on how to use each framework with Spring.  Of course, each framework might deserve their own chapter too. If you purchase a subscription, you can easily influence what I cover in this chapter (and others). <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:matt@raibledesigns.com">Matt Raible</a> at July 10, 2004 @ <a href="000027.html#comment-25">9:35 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-26">
+            <p>Subscribed and blogged about it this morning <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' />
+<p>
+<a href="/archives/application-development/000374.html" rel="nofollow">http://indrayam.com/archives/application_development/000374.php</a>
+</p>
+<p>
+Thanks and keep up the good work Matt!
+</p>
+<p>
+- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at July 10, 2004 @ <a href="000027.html#comment-26">9:47 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-27">
+            <p>can you try and demonstrate the use of &#8220;MAVEN&#8221; + &#8220;JUNIT&#8221; + &#8220;JUNITDOCLET&#8221; against a simple java program &#8212; i need an example and maven.xml + project.xml to show me how it is done.</p>
+<p>i need it to make the test but not from inside an ide, but outside for example win2000/dos &#8212;> cmd&#8230;</p>
+<p>thank you</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:meirab@bigfoot.com">meir abramson</a> at October 1, 2004 @ <a href="000027.html#comment-27">2:39 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-28">
+            <p>i miss u</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:pokiry@iliana.com">pokiri</a> at July 13, 2006 @ <a href="000027.html#comment-28">4:11 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

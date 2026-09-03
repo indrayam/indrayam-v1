@@ -1,0 +1,438 @@
+/*  
+Theme Name: Emma
+Theme URI: http://indrayam.com/
+Description: A simple theme with lots of orange.
+Version: 1.0
+Author: Anand Sharma
+Author URI: http://indrayam.com/
+
+*/
+
+
+
+body {
+	margin: 0px 0px 5px 0px;
+	color: #333333;
+	font-family: 'trebuchet ms', arial, helvetica, sans-serif; 
+	background-image: url("/images/blue-dash.gif");
+	border-top: 10px solid #e7651a;
+}
+
+h1{
+	font-weight: normal;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	padding-top: 1pt;
+}
+
+h2{
+	font-weight: normal;
+	margin-top: 0pt;
+	margin-bottom: 5pt;
+	padding-top: 0pt;
+	border-style: none none dashed none;
+	border-color: #CCCCCC;
+	border-width: 0 0 1px 0;
+}
+
+h2 a  {
+	color: #333333;
+	text-decoration: none;
+}
+
+h2 a:hover {
+	color: #333333;
+	text-decoration: none;
+}
+
+h3{
+	font-weight: normal;
+	color: #808080;
+	margin-top: 0pt;
+	padding-top: 0pt;
+}
+
+h4{
+	font-weight: bold;
+	color: #808080;
+	margin-top: 0pt;
+	margin-bottom: 0pt;
+	padding-top: 0pt;
+}
+
+a {
+       color:#900;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+blockquote
+{
+	font: normal 12pt Georgia, "Times New Roman", Times, serif;
+	margin: 1.2em 45px 1.4em 45px;
+	border: 1px solid #EBD4C8;
+	border-left: 4px solid #e7651a;
+	padding: 12px 16px 10px 16px;
+	background-color: #FCF7F4;
+	line-height: 1.55;
+}
+
+blockquote p {
+	margin: 0;
+}
+
+blockquote cite {
+	display: block;
+	margin-top: 10px;
+	font: italic 10pt Georgia, "Times New Roman", Times, serif;
+	color: #666;
+	text-align: right;
+}
+
+blockquote cite a {
+	color: #900;
+}
+
+.archival-note {
+	font: italic 11pt Georgia, "Times New Roman", Times, serif;
+	line-height: 1.55;
+	text-align: left;
+	margin: 1.2em 45px 1.4em 45px;
+	border: 1px solid #cbd5d8;
+	border-left: 4px solid #8fa6ad;
+	padding: 12px 16px 10px 16px;
+	background-color: #f4f7f7;
+	color: #59666a;
+}
+
+.archival-note p {
+	margin: 0;
+}
+
+pre
+{
+	font: normal 9pt courier, sans-serif;
+	margin-left: 10px; 
+	margin-right: 10px; 
+	border: 1px solid #e7651a; 
+	border-left: 1px solid #e7651a; 
+	padding: 5px 5px 5px 10px;
+        background-color: #FFFFCC;
+        overflow: auto;
+}
+
+/* Classes for items used more than once */
+
+.post{
+	margin-top: 24pt;
+	margin-bottom: 10pt;
+	margin-left: 72pt;
+	margin-right: 72pt;
+	background-color: #FFFFFF;
+	border-left:1px solid #808080;
+	border-right:1px solid #808080;
+	border-bottom:1px solid #808080;
+	border-top:1px solid #808080;
+	padding:15px;
+}
+
+.flickr-photo { 
+        border: solid 1px #000000; 
+}
+
+.flickr-frame {	
+       float: right; 
+       margin-left: 15px; 
+       margin-bottom: 15px; 
+}
+
+.flickrEmailImage {	
+       float: left;
+       margin-right: 15px;
+       margin-bottom: 15px;
+       border: solid 1px #000000;
+}
+
+.comment {
+	margin-top: 24pt;
+	margin-bottom: 10pt;
+	margin-left: 72pt;
+	margin-right: 72pt;
+	background-color: #FCF7F4;
+	border-left:1px solid #EBD4C8;
+	border-right:1px solid #EBD4C8;
+	border-bottom:1px solid #EBD4C8;
+	border-top:1px solid #EBD4C8;
+	padding:15px;
+}
+
+.commententry{
+	background-color: #FFFFFF;
+	border-left:1px solid #808080;
+	border-right:1px solid #808080;
+	border-bottom:1px solid #808080;
+	border-top:1px solid #808080;
+	padding:15px;
+}
+
+.commententryauthor{
+	background-color: #FFFFFF;
+	border-left:3px solid #900;
+	border-right:1px solid #808080;
+	border-bottom:1px solid #808080;
+	border-top:1px solid #808080;
+	padding:15px;
+}
+
+
+.postlinks{
+	text-align: right;
+	font-size:90%;
+}
+
+.time{
+	font-family: Courier, monospace;
+}
+
+.copyright {
+	font-family: 'trebuchet ms', arial, helvetica, sans-serif;
+	font-size: 11px;
+	margin-top: 5px;
+	text-align:center;
+	color:#999;
+}
+
+.note {
+	font-family: 'trebuchet ms', arial, helvetica, sans-serif;
+	font-size: 12px;
+	color:#900;
+}
+
+/* IDs only occur once per page */
+
+#sidebar{
+	float:right;
+	width : 200px;
+	background-color: #FFFFFF;
+	border-left:1px solid #000000;
+	border-right:1px solid #000000;
+	border-bottom:1px solid #000000;
+	border-top:1px solid #000000;
+	padding:15px;
+	margin-top:60px;
+	margin-left:25px;
+}
+
+#header{
+	margin-top: 24pt;
+	margin-bottom: 10pt;
+	margin-left: 72pt;
+	margin-right: 52pt;
+	padding-top: 1px;
+}
+
+#topnav{
+	font-size: 90%;
+}
+
+#myPic{
+	padding-right:12px;
+	float:left;
+	margin-left: 12pt;
+}
+
+#commentmeta{
+	font-size:85%;
+}
+
+#postdates{
+	text-align: right;
+	font-size:85%;
+}
+
+#edit{
+	text-align: center;
+}
+
+#strike{
+   text-decoration: line-through;
+}
+
+.aboutme {
+	font: normal 10pt Georgia, "Times New Roman", Times, serif;
+	margin-left: 50px; 
+	margin-right: 10px; 
+	padding: 5px 5px 5px 10px;
+}
+
+.right {
+       text-align: right;
+}
+
+#code {
+       font-family: "Courier New", Courier, sans-serif;
+       font-weight: normal;
+       font-size: 10pt;
+       color: #3232cd;
+}
+
+#codeflow {
+       font-family: "Courier New", Courier, sans-serif;
+       font-weight: normal;
+}
+
+.poem {
+        font: italic 1.5em "monotype corsiva", Georgia, Serif;
+	margin-left: 10px; 
+	margin-right: 10px;
+        border: 1px solid  #ff9900;
+        background: #ffffcc;
+        width: 90%;
+        text-align: center;
+} 
+
+.poem h2 {
+        font-family: "monotype corsiva", Georgia, Serif;
+        font-size: 105%;
+        font-weight: bold;  
+	margin-left: 10px; 
+	margin-right: 10px;
+        text-align: center; 
+        border-width: 0 0 0 0;
+}
+
+#marriage-bold {
+        font-family: "monotype corsiva", Georgia, Serif;
+        font-size: 130%;
+        font-weight: normal;
+        color: red;
+}
+
+#marriage {
+        font-family: "monotype corsiva", Georgia, Serif;
+        font-size: 115%;
+        font-weight: normal;
+        color: black;
+}
+
+
+}
+
+.alt {
+        background-color: #FAFAF0 !important;
+}
+
+.small {
+        font-size: 0.9em;
+        color: #999;
+}
+
+ul {
+        padding: 0;
+        margin: 0;
+}
+
+li {
+        list-style: none;
+}
+
+.date {
+	position: absolute;
+	background: url(/images/calendar.png);
+	height: 67px;
+	width: 59px;
+	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+	margin: 0;
+}
+
+.date .month, .date .day {
+	text-align: center;
+	width: 59px;
+}
+.date .month {
+	overflow: hidden;
+	font-size: 13px;
+	position: absolute;
+	margin-top: 42px;
+	text-transform: uppercase;
+}
+
+.date .day {
+	font-weight: bold;
+	font-size: 30px;
+	line-height: 32px;
+	position: absolute;
+	margin-top: 11px;
+}
+
+.date .year {
+	display: none;
+}
+
+/* ── About Me page ─────────────────────────────────────────────────── */
+.aboutme-page {
+	overflow: hidden;   /* clearfix: keeps the box tall enough to contain the float */
+	padding: 20px 20px 24px 20px;
+}
+
+.aboutme-photo {
+	float: left;
+	margin: 4px 18px 12px 0;
+	max-width: 160px;
+}
+
+/* ── Archives page ──────────────────────────────────────────────────── */
+.archives-page h3 {
+	margin-top: 24px;
+	margin-bottom: 4px;
+	padding-bottom: 2px;
+	border-bottom: 1px dashed #ccc;
+}
+
+.archives-page ul {
+	margin: 0 0 0 20px;
+	padding: 0;
+}
+
+.archives-page li {
+	list-style: none;
+	margin: 2px 0;
+	line-height: 1.5;
+}
+
+.aboutme-page .aboutme {
+	font: normal 11pt 'trebuchet ms', arial, helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+/* ── Wide-screen width constraints ───────────────────────────────────────── */
+/* The legacy theme used fixed pt margins which makes content span too wide. */
+@media screen and (min-width: 900px) {
+	body {
+		/* keep the orange top border behavior but center content area below */
+	}
+	#header {
+		margin-left: auto !important;
+		margin-right: auto !important;
+		max-width: 60% !important;
+	}
+	.post {
+		margin-left: auto !important;
+		margin-right: auto !important;
+		max-width: 60% !important;
+	}
+}
+
+/* On narrow screens, fall back to nearly full width. */
+@media screen and (max-width: 899px) {
+	#header, .post {
+		margin-left: 10px !important;
+		margin-right: 10px !important;
+		max-width: none !important;
+	}
+}

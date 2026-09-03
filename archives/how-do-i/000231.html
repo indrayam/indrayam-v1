@@ -1,0 +1,230 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; HOWTO: Installing and running MySQL 4.0.20, 4.1.2-alpha and 5.0.0-alpha on same RH Linux box</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="./js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="/images/./favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="./feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="./feed/atom/" />
+	<link rel="pingback" href="./xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="./xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-231">
+  
+                                <h2><a href="/archives/how-do-i/000231.html" rel="bookmark" title="Permanent link to HOWTO: Installing and running MySQL 4.0.20, 4.1.2-alpha and 5.0.0-alpha on same RH Linux box">HOWTO: Installing and running MySQL 4.0.20, 4.1.2-alpha and 5.0.0-alpha on same RH Linux box</a></h2>
+                                
+                                <h3>Posted : June 1, 2004 at 12:25 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/mysql-install.jpg"></center></p>
+<p>
+Here&#8217;s what I intend to do: </p>
+<blockquote><p>
+1. Install the various MySQL instances from <i>source</i> so that they can happily co-exist in their logically and mutually exclusive world</b><br/><br />
+2. Facilitate easy stopping and starting of the services<br/><br />
+3. Set up the various instances in a way that makes installing newer versions alongside the others is a trivial task<br/>
+</p></blockquote>
+<p>
+The directory structure that I prefer is as follows:</p>
+<p><pre>
+Installation file/folder(s):
+------------------------------
+/usr/local/mysql/4.0.20
+/usr/local/mysql/4.1.2-alpha
+/usr/local/mysql/5.0.0-alpha
+
+Configuration file/folder(s):
+---------------------------------
+/etc/mysql/4.0.20/my.cnf
+/etc/mysql/4.1.2-alpha/my.cnf
+/etc/mysql/5.0.0-alpha/my.cnf
+
+Data and Log file/folder(s):
+--------------------------------
+/dbroot/mysql/4.0.20/data, /dbroot/mysql/4.0.20/logs, /dbroot/mysql/4.0.20/var
+/dbroot/mysql/4.1.2-alpha/data, /dbroot/mysql/4.1.2-alpha/logs, /dbroot/mysql/4.1.2-alpha/var
+/dbroot/mysql/5.0.0-alpha/data, /dbroot/mysql/5.0.0-alpha/logs, /dbroot/mysql/5.0.0-alpha/var
+
+Service startup/shutdown executable(s):
+----------------------------------------------
+/etc/rc.d/init.d/mysql4
+/etc/rc.d/init.d/mysql41
+/etc/rc.d/init.d/mysql5
+</pre>
+<p>
+Before we start with the usual steps of compiling and installing MySQL, let&#8217;s first do a few pre-installation steps:</p>
+<p><pre>
+1. Create a <i>/downloads</i> folder and download the 3 binaries:
+   mysql-4.0.20.tar.gz
+   mysql-4.1.2-alpha.tar.gz
+   mysql-5.0.0-alpha.tar.gz
+
+2. Untar/Unzip it using the following commands:
+   (prompt)&gt;tar -xvzf mysql-x.x.x.tar.gz
+   This step should create 3 seperate folders in <i>/downloads</i> for the 3 different binaries
+
+3. Download and save customized &#8216;configure&#8217; scripts in the path shown below:
+   /downloads/mysql-4.0.20/<a href="./demo/mysql/4.0.20/mysql-configure">mysql-configure</a>
+   /downloads/mysql-4.1.2-alpha/<a href="./demo/mysql/4.1.2-alpha/mysql-configure">mysql-configure</a>
+   /downloads/mysql-5.0.0-alpha/<a href="./demo/mysql/5.0.0-alpha/mysql-configure">mysql-configure</a>
+
+3. Create a unix account called <i>mysql</i>:
+   (root-prompt)&gt;useradd -s /sbin/nologin -r -d /dev/null mysql
+
+   Note:
+   &#8212;&#8212;
+   I tend to use the same unix id for all 3 MySQL instances.
+
+4. Setup the following folders:
+   (root-prompt)&gt;mkdir -p /etc/mysql/4.0.20
+   (root-prompt)&gt;mkdir -p /etc/mysql/4.1.2-alpha
+   (root-prompt)&gt;mkdir -p /etc/mysql/5.0.0-alpha
+
+5. Download and save the service startup/shutdown files in the path shown below:
+   /etc/rc.d/init.d/<a href="./demo/mysql/4.0.20/mysql4">mysql4</a>
+   /etc/rc.d/init.d/<a href="./demo/mysql/4.1.2-alpha/mysql41">mysql41</a>
+   /etc/rc.d/init.d/<a href="./demo/mysql/5.0.0-alpha/mysql5">mysql5</a>
+
+6. Set up the services:
+   (root-prompt)&gt;chkconfig &#8211;level 345 mysql4 on
+   (root-prompt)&gt;chkconfig &#8211;level 345 mysql41 on
+   (root-prompt)&gt;chkconfig &#8211;level 345 mysql5 on
+
+7. Download and save mysql configuration files in the path shown below:
+   /etc/mysql/4.0.20/<a href="./demo/mysql/4.0.20/my.cnf">my.cnf</a>
+   /etc/mysql/4.1.2-alpha/<a href="./demo/mysql/4.1.2-alpha/my.cnf">my.cnf</a>
+   /etc/mysql/5.0.0-alpha/<a href="./demo/mysql/5.0.0-alpha/my.cnf">my.cnf</a>
+</pre>
+<p>
+Here&#8217;s a quick look at the steps (using mysql-4.0.20.tar.gz as an example). You will repeat the same steps for 4.1.2-alpha and 5.0.0-alpha. Just<br />
+replace <i>4.0.20</i> with <i>4.1.2-alpha</i> or <i>5.0.0-alpha</i> in the steps outlined below:</p>
+<p><pre>
+1. (prompt)&gt;wget http://mysql.mirrors.pair.com/Downloads/MySQL-4.0/mysql-4.0.20.tar.gz
+2. (prompt)&gt;cd mysql-4.0.20
+3. (prompt)&gt;./mysql-configure
+4. (prompt)&gt;make
+5. (root-prompt)&gt;make install
+6. (root-prompt)&gt;scripts/mysql_install_db
+7. (root-prompt)&gt;cd /db/mysql/4.0.20/data
+8. (root-prompt)&gt;chown -R mysql.mysql *
+9. (root-prompt)&gt;service mysql4 start
+
+    Note:
+    ------
+    Replace "mysql4" with "mysql41" or "mysql5" depending upon whether you're attempting
+    to start MySQL version 4.1.2-alpha or 5.0.0-alpha instance
+
+10. (prompt)&gt;/usr/local/mysql/4.0.20/bin/mysqladmin -u root password "&lt;root-password&gt;"
+11. If you would like to enable access to root account of your MySQL from other hosts,
+    run the following:
+    (prompt)&gt;/usr/local/mysql/4.0.20/bin/mysql -u root -p
+    (mysql)&gt;use mysql;
+    (mysql)&gt;GRANT ALL ON *.* TO root@"%" IDENTIFIED BY "&lt;root-password&gt;";
+    (mysql)&gt;exit;
+
+    Security Note:
+    ----------------
+    You might want to enable root to access the MySQL instance from
+    'a' host and not 'any' host (%)
+12. To confirm that things actually did work as per plan, you can run the <i>ps -aux</i> command
+    and look for mysql entries. You can also check the /dbroot/mysql/4.0.20/logs/error.log file
+    for startup messages.
+</pre>
+<p>
+After repeating the steps for MySQL 4.1.2-alpha and MySQL-5.0.0-alpha, if you&#8217;re lucky and patient, you should have all three MySQL versions (and the goodies that come with it) ready to serve you <img src="/images/wink.gif" align="middle"></p>
+<div class="note">
+<p>Note:<br/><br />
+The entries with (root-prompt)&gt; next to it signifies that those commands must be run with root privileges. Of course, you could run all these commands logged in as root.
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="./archives/category/how-do-i/" title="View all posts in How do I?" rel="category tag">How do I?</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1607</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		2 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-162">
+            <p>Are you going to have a new version of &#8220;How Do I : Setup a basic Linux Box with Web based Application Support&#8221; sometime in the near future ?</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:devesh@mainex1.asu.edu">Devesh</a> at June 1, 2004 @ <a href="000231.html#comment-162">3:58 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-163">
+            <p> <img src="/images/smilies/icon_smile.gif" alt=':-)' class='wp-smiley' /> </p>
+<p>
+I am not sure if a blog&#8217;s format would encourage such an entry Debu, as it probably would need a few pages worth of content. However, I do plan to keep documenting my HOWTOs in smaller chunks, such as this one.</p>
+<p>
+HTH</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at June 1, 2004 @ <a href="000231.html#comment-163">6:31 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="./disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,129 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; More Eclipse M9 observations</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-69">
+  
+                                <h2><a href="/archives/application-development/000069.html" rel="bookmark" title="Permanent link to More Eclipse M9 observations">More Eclipse M9 observations</a></h2>
+                                
+                                <h3>Posted : May 11, 2004 at 11:53 am [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/eclipse-testing.jpg"></center></p>
+<p>
+Thanks to the posts from <a href="http://www.vasanthdharmaraj.com/PermaLink.aspx?guid=6d23f180-4232-44ab-aa17-e8738d0ea2ef" target="_blank">Vazz</a> and <a href="http://jroller.com/page/BillDudney/20040509#eclipse_m9_less_than_two" target="_blank">Bill</a> on Eclipse M9, I could not resist taking the integration build (I20040506) for a test-drive despite the rather ominous red &#8216;X&#8217; next to WinXP on Eclipse download page. If you&#8217;d rather look at a few screenshots than listen to my blah-blah, click <a href="http://indrayam.com/gallery/tech/eclipse-m9/slides/1.html" target="_blank">here</a>. Don&#8217;t forget to scroll down to view my comments on each of the screenshots.</p>
+<p>If you&#8217;re interested in my blah-blah, I am tickled <img src="/images/smile.gif" align="middle">. Without further ado, here they are:
+<ol>
+<li>I luv the blue shade of the Tabs. In my opinion, it&#8217;s prettier than the one in M8
+<li>I also like the fact that the icons on the Tabs have a transparent background and meshes nicely with the blue background as opposed to being on a white rectangular background. If you&#8217;ve no idea what I am talking about, look at the tab where it says &#8220;Package Explorer&#8221; (provided you have this view opened).
+<li>I was able to install most of my favorite plugins - CSSEditor, XMLBuddy, Colorer, EasyExplorer - without a hitch. However, Spring Eclipse plugin gave <a href="http://indrayam.com/gallery/tech/eclipse-m9/slides/5.html" target="_blank">errors</a> and so I decided to dump the idea of installing it. I did not try MyEclipse.
+<li>In M8 on WinXP, the prompt upon startup to select a workspace really would not turn off when I would select the checkbox saying &#8220;Make this workspace the default&#8221;. It works in this integration build just fine.Infact, there is a nice little menu option under &#8220;Preferences | Startup&#8221; called &#8220;Startup and Shutdown&#8221; which helps you to toggle this setting.
+<li>I noticed that the &#8220;New Search&#8221; and &#8220;Search&#8221; views are now simply &#8220;Search&#8221; and &#8220;Old Search&#8221; respectively
+<li>The Key Bindings for categories &#8220;CVS&#8221; and &#8220;Team&#8221; is pretty puerile. They have just one &#8216;option&#8217; each in the two categories. I sure hope they are planning to add more options like Update, Commit etc.
+<li>Ant support is indeed getting better and better. Here are two cool things that I noticed:
+<ul>
+<li>There is support for Ant templates <a href="http://indrayam.com/gallery/tech/eclipse-m9/slides/1.html" target="_blank">now</a>,<br />
+	   similar to Java templates</p>
+<li>This version fixes the annoying bug where external tasks would be reflected<br />
+	   in the editor as &#8220;warnings&#8221; despite the fact that the ANT_HOME/lib had the necessary<br />
+	   libraries. Since I use Java2Html (and sometimes PMD) Ant tasks, this is huge for me.</ul>
+<li><a href="http://indrayam.com/gallery/tech/eclipse-m9/slides/2.html" target="_blank">Preference | Java | Editor | Folding</a>. Enough said and <a href="http://indrayam.com/gallery/tech/eclipse-m9/slides/3.html" target="_blank">shown</a> <img src="/images/wink.gif" align="middle">
+<li>In M8, if you were creating a &#8220;New Java Project&#8221;, selected the option &#8220;Create Project at External Location&#8221; and clicked on &#8220;Browse&#8221;, you would always end up at the top-most level (with Desktop and stuff) in the browse dialog. Meaning, you would then have to drill down to your project folders. Not any more. Another nice improvement, if you ask me.
+<li>As Bill Dudney pointed out yesterday, it supports this neat little <a href="http://indrayam.com/gallery/tech/eclipse-m9/slides/4.html" target="_blank">green</a> arrow pointing upwards essentially allowing you to navigate to the super implementation of any method. Neat.
+</ol>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>980</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		2 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-119">
+            <p>Great post Anand! I had not noticed the ant templates. I&#8217;ll have to root around in there, looks very cool indeed! TTFN -bd-</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Bill Dudney</a> at May 12, 2004 @ <a href="000069.html#comment-119">4:47 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-120">
+            <p>Thanks Bill and thanks for taking the time to write <a href="http://www.sourcebeat.com/TitleAction.do?id=2" rel="nofollow">Eclipse Live</a>. </p>
+<p>btw, you might want to drop the idea of updating the book with M8 features and jump directly to M9. Just a thought..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 12, 2004 @ <a href="000069.html#comment-120">9:23 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

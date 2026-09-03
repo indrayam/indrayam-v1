@@ -1,0 +1,384 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; How would you build your (Java-based) web applications today?</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-66">
+  
+                                <h2><a href="/archives/application-development/000066.html" rel="bookmark" title="Permanent link to How would you build your (Java-based) web applications today?">How would you build your (Java-based) web applications today?</a></h2>
+                                
+                                <h3>Posted : May 10, 2004 at 8:04 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><img src="/images/frameworks.gif" align="middle"></center></p>
+<p>
+Once you get used to building Java-based web (or any type of) applications a certain way, it takes quite an effort to get over your Pavlovian urges to try something new. So, this morning, I decided to do something about it. The way I see it, every programmer in this space should revisit their &#8220;way&#8221; of doing things every 6 months and make necessary changes hopefully for the better. This exercise should <u>also</u> involve looking at things like your UI design and navigation techniques, use of HTML/XHTML, CSS/CSS2 and Javascript in your applications.</p>
+<p>
+Anyway, so here are some of the permutations and combinations that I came up with:</p>
+<blockquote><p>
+<b>1. Pure JSP solution:</b><br />
+<br />JSP 2.x using the new EL stuff and the <i>core</i> and <i>fmt</i> JSTL tags (View Layer) + POJOs (Service Layer) + iBATIS/DBCP or Hibernate/DBCP (Persistence) + MySQL/Oracle (Data Layer)</p>
+<p>
+<b>2. Pull-MVC approach using VelocityTools:</b><br />
+<br />VelocityViewServlet intercepting all *.vm requests (Controller) + Velocity (View Layer) + Velocity Tools which are basically arbitrary Java classes exposing methods to Velocity templates (Service Layer) + iBATIS/DBCP or Hibernate/DBCP (Persistence) + MySQL/Oracle (Data Layer). I like this Pull-MVC approach and would like to use something like this for smaller-sized apps</p>
+<p>
+<b>3. Springing Struts:</b><br />
+<br />Struts 1.1 (MVC Framework) + JSP, JSTL, Struts Tags/EL and Tiles (View Layer) + Spring (Service Layer) + iBATIS/DBCP or Hibernate/DBCP (Persistence) + MySQL/Oracle (Data Layer)</p>
+<p>
+<b>4. A (Web)working solution..;-):</b><br />
+<br />WW2 (MVC Framework) + Velocity and SiteMesh (View Layer) + Spring (Service Layer ?) + iBATIS/DBCP or Hibernate/DBCP (Persistence) + MySQL/Oracle (Data Layer)</p>
+<p>
+<b>5. Its Springtime fellas:</b><br />
+<br />Spring (MVC + Service Layer) + Velocity/SiteMesh or JSP/Tiles (View Layer) + iBATIS/DBCP or Hibernate/DBCP (Persistence) + MySQL/Oracle (Data Layer)</p>
+<p>
+<b>6. Scripty Apps:</b><br />
+<br />Building MVC applications using Groovy and Jython. I must confess that while I am pretty excited about the opportunities in this area, I know far too little at this time to make any significant strides in this department
+</p></blockquote>
+<p>Ok, I think #2, #3 and #4 sound like something that I would like to dabble with first (pretty much in that order). Create an <a href="/archives/application-development/000027.html">Appfuse Lite</a> type application in these three categories and see which one gives me the most pleasure. </p>
+<p>
+#5 has to be something that I take a stab at after <a href="http://raibledesigns.com/page/rd">Matt</a> comes out with his book (<a href="http://www.sourcebeat.com/TitleAction.do?id=7">Spring Live</a>). </p>
+<p>
+As for #6, the only implementation that I have in this space is Thomas Risberg&#8217;s neat little Jython + Spring + Velocity <a href="http://jroller.com/page/buggybean/20040419#simlify_web_development_with_jython">App</a>. I luv it&#8217;s simplicity. Way too cool. However, this has to be something that I play with the last. May be by that time, there would be some clarity in the &#8220;scripty java apps&#8221; space with all the press Groovy and Jython seem to be getting. </p>
+<p>
+#1 was listed here for reasons I can&#8217;t seem to come up with this second. Oh well <img src="/images/smile.gif" align="middle"></p>
+<p>
+So, what do you think? Is it even worth going thru this exercise? If so, what would be your choices.</p>
+<div class="note">
+<p>Note:
+<ol>
+<li>I don&#8217;t know much about Tapestry to include it in my options.
+<li>The absence of EJBs in this list is <i>by choice</i>. Frankly, I am either not smart enough to &#8220;really&#8221; get why people use and continue to talk about EJBs or some folks are too dumb (and yet very savvy in Marketing) to be pushing something as &#8220;bulky&#8221; as EJB for building web applications. Would EJB as an offering stand a chance if it came from someone like me or you as opposed to &#8220;Sun Microsystems Inc.&#8221;. Probably not.
+<li>I need to get a better handle on XHTML and CSS/CSS2. I am sure a lot has happened since the last time I looked at them seriously.
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3150</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		21 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-98">
+            <p>I would use:</p>
+<p>RIFE (MVC), RIFE (Logic and data flow), RIFE (Service layer), RIFE (View), RIFE (Persistence, db abstraction), RIFE (Language independent Components), RIFE (Continuations), RIFE (Authentication), RIFE (Scheduling), PostgreSQL (Data layer)</p>
+<p>Sorry for the repetition <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:gbevin@uwyn.com">Geert Bevin</a> at May 10, 2004 @ <a href="000066.html#comment-98">11:19 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-99">
+            <p>Sorry to disappoint you Geert, but I have no clue what RIFE is. But then again, why do I feel that you knew that already..;-)</p>
+<p>Will give my &#8220;15-min&#8221; test to RIFE when I get some time. Thx for the pointer.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-99">12:05 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-100">
+            <p>Sure, I saw your comment about Tapestry, but why not check it out in the Betterpetshop, using Tapestry, Spring and Hibernate:</p>
+<p><a href="https://betterpetshop.dev.java.net/" rel="nofollow">https://betterpetshop.dev.java.net/</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:mats@henricson.se">Mats Henricson</a> at May 11, 2004 @ <a href="000066.html#comment-100">2:26 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-101">
+            <p>Anand, it&#8217;s not like it&#8217;s a new framework, it has appeared many times in blogs, been on the java.net frontpage, in development for over 3 years, &#8230; but through the huge amount of technology that&#8217;s available nowadays it&#8217;s difficult to see anything anymore <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /> To start you best use the examples (https://rife.dev.java.net/servlets/ProjectDocumentList) together with the usersguide (http://rifers.org/docs/usersguide/). After that, the jumpstart is great to get you going with new apps (a bit like appfuse which sets up an application structure for you). More about continuations here (http://www.uwyn.com/blog/archives/000057.html) if you&#8217;re interested in that.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:gbevin@uwyn.com">Geert Bevin</a> at May 11, 2004 @ <a href="000066.html#comment-101">3:18 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-102">
+            <p>You forget using one of the better UI technologies, such as Echo or WebOnSwing, etc. They certainly don&#8217;t work out on the &#8220;web&#8221; as such, but make perfect intranet apps. The kind of functionality they give is AMAZING. See it to believe .. I don&#8217;t use them, but they certainly are worth looking at.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:">Ashish Kulkarni</a> at May 11, 2004 @ <a href="000066.html#comment-102">3:22 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-103">
+            <p><a href="http://alexwinston.com/blog/2004/05/04/1083708448000.html" rel="nofollow"></a><a href="http://alexwinston.com/blog/2004/05/04/1083708448000.html" rel="nofollow">http://alexwinston.com/blog/2004/05/04/1083708448000.html</a>  is comparable to number six but in my opinion is a bit cleaner.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:alex@lightsource.com">Alex Winston</a> at May 11, 2004 @ <a href="000066.html#comment-103">5:03 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-104">
+            <p>Implementation of #6: <a href="http://www.jpublish.org/" rel="nofollow">JPublish</a>.  You can use as little or as much scripting as you want since you can freely switch between actions coded in Java or actions coded in any BSF supported scripting language (of which I am currently using BeanShell).</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:me@anthonyeden.com">Anthony Eden</a> at May 11, 2004 @ <a href="000066.html#comment-104">9:14 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-105">
+            <p>Mats: I like your enthusiasm about Tapestry. Let&#8217;s see how much it rubs off on me and forces me to give it a try. I probably will. Thx for the pointer though..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-105">10:06 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-106">
+            <p>Geert: Hmm, I must say that I feel a little dumb reading your reply to my post. I am not sure how I missed out on the coverage of RIFE at the sites you mention. Thanks for all the links and pointers.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-106">10:09 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-107">
+            <p>Ashish: Well, in the Rich Internet Application space, I have little or no experience. The only name that I have heard so far is &#8220;Flex&#8221; and have paid little attention to it. Thanks for adding a few more to my list. Will certainly try to find some time and check it out.</p>
+<p>
+Must say it sounds interesting.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-107">10:12 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-108">
+            <p>Alex: Cool. Sounds fun. As I was alluding to in my post, #6 will probably be something that I look at last. But I am glad I have something else to look at besides the Jython, Spring and Velocity implementation. Thx..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-108">10:15 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-109">
+            <p>Anthony: Actually, I should have mentioned this in my post. I really knew a few things about JPublish, but had never tried it out. btw, sorry for being a bit of a neophyte in this field, but is Groovy or Jython BSF supported scripting language. If yes, cool. If no, do you plan to extend JPublish to support writing actions using these languages. - Thx</p>
+<p>
+p.s. On a side-note, your blog (along with <a href="http://www.russellbeattie.com/notebook/" rel="nofollow">Russell</a> and <a href="http://www.thauvin.net/linkblog/" rel="nofollow">Erik</a>) was one of the first few blogs that got me &#8220;hooked&#8221; on to this blogging mania. Thank you for taking the time to write!</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-109">10:23 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-110">
+            <p>Yes, both Jython and Groovy have BSF interfaces.  In fact the three scripting languages which are automatically included in the JPublish distro are BeanShell, Jython and Groovy.</p>
+<p>I was using Jython quite a bit in JPublish however I switched to BeanShell for practical reasons: first while I had few problems switching back and forth between Python and Java syntax (occasionally leaving out a semi-colon in Java) other developers I was working with had a harder time.  Secondly the classloading in Python was being a bit of a pain in the tail (so much so that JPublish 3.x includes a JythonScriptHandler specifically designed to massage the Jython sys path a bit.  Ultimately though it was just the context switching (from Python to Java and back) which resulted in the switch to BeanShell.</p>
+<p>I haven&#8217;t really done much with Groovy yet, I just added some code to JPublish to make it available using BSF, so I will not pass judgement on whether or not it will suffer from the same context switching, however I believe that it will if the code is written in the Groovy style of coding (which I wager will end up looking more like Python than like Java).</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:me@anthonyeden.com">Anthony Eden</a> at May 11, 2004 @ <a href="000066.html#comment-110">10:37 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententry" id="comment-111">
+            <p>4.  Webwork&#8230;WW2 (MVC Framework) + Velocity and SiteMesh (View Layer) + Spring (Service Layer ?) + iBATIS/DBCP or Hibernate/DBCP (Persistence) + MySQL/Oracle (Data Layer)</p>
+<p>Keep spring just for ioc and transactions.  Its web framework is still too http-ish like struts.  I love how xwork actions are just any no arg methods that returns a string.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:matthew.payne@sutternow.com">Matthew Payne</a> at May 11, 2004 @ <a href="000066.html#comment-111">10:39 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-112">
+            <p>Matt: Could not agree more. Yes, that&#8217;s what I plan to use Spring for. Will post my app once I am done. Do you have an app in mind that I can refer to (which already uses this framework set and is open-source)? Thx for the comment.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-112">6:46 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-113">
+            <p>Anthony: Thx for the clarifications. Will definitely try to take JPublish for a ride when I have some time.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 11, 2004 @ <a href="000066.html#comment-113">6:47 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-114">
+            <p>Anand: Just a little comment, RIFE allows you to implement your actions (elements in RIFE) in BSF languages too and currently ships with Beanshell, Jython, Groovy, Pnuts, Rhino, Jacl and JRuby.<br />
+When it&#8217;s possible it doesn&#8217;t even use BSF, but directly interacts with the scripting language interface instead (like with Groovy). This allows you to write more versalite code in the scripting language (ie. a complete class instead of just a method).<br />
+Additionally, you can write them in plain Java and if your compiler hasn&#8217;t compiled them before, the framework automatically compiles and recompiles/replaces them from Java source code. Apart from the little compilation delay (very minimal with Jikes), this gives some of the benefits from scripting languages to plain Java since you can just edit and reload the page without restarting anything.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:gbevin@uwyn.com">Geert Bevin</a> at May 12, 2004 @ <a href="000066.html#comment-114">2:27 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-115">
+            <p>Nice comment Geert. Do you have a blog or a site where we can get some of these nuggets. Or will I have to dig thru my comments to figure things if and when I am ready to play with RIFE..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 12, 2004 @ <a href="000066.html#comment-115">9:27 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-116">
+            <p>Anand: <a href="http://www.uwyn.com/blog" rel="nofollow">http://www.uwyn.com/blog</a> is my blog, you can always sign up to the RIFE mailinglist for help, there&#8217;s often someone in the #rife IRC channel on Freenode too, and the wiki (http://rifers.org/wiki) and release notes (https://rife.dev.java.net/servlets/ProjectNewsList) contain quite some invaluable info.<br />
+For the rest I suggest you start out with the ready-to-run examples (online demo at <a href="http://rifers.org/examples/" rel="nofollow">http://rifers.org/examples/</a>) and the users guide as said in my initial comment.<br />
+We always like hearing about how the experience of new users, so don&#8217;t be afraid to drop by at the IRC channel, we&#8217;re actually a merry bunch of friends over there <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:gbevin@uwyn.com">Geert Bevin</a> at May 12, 2004 @ <a href="000066.html#comment-116">1:25 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-117">
+            <p>Will do Geert. Just not in the next few weeks as I am really swamped with all the stuff that I have to do in my day job. Gotta keep those bills paid after all..;-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 12, 2004 @ <a href="000066.html#comment-117">2:31 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-118">
+            <p>Dear sir!<br />
+Teach me about Java basic programming.I am very interesting it.<br />
+I attended here but not clear.<br />
+Thanks.</p>
+<p>with regards,<br />
+Myo Thant</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:myothant2005@gmail.com">Myo Thant</a> at August 7, 2005 @ <a href="000066.html#comment-118">2:09 am</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

@@ -1,0 +1,139 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; An interesting, albeit somewhat wierd, use of an RSS feed</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-382">
+  
+                                <h2><a href="/archives/application-development/000382.html" rel="bookmark" title="Permanent link to An interesting, albeit somewhat wierd, use of an RSS feed">An interesting, albeit somewhat wierd, use of an RSS feed</a></h2>
+                                
+                                <h3>Posted : July 11, 2004 at 8:46 pm [America/Los_Angeles]</h3>
+                                
+                                <p>[via <a href="http://www.benhammersley.com/code/listing_installed_perl_modules_in_rss.html" target="_blank">Listing installed Perl modules in RSS</a>]</p>
+<p>
+<center><img src="/images/perl-modules-rss.gif" border=1></center></p>
+<p>
+<b>Objective</b></p>
+<blockquote><p>
+To generate an RSS feed displaying all Perl modules installed on your system
+</p></blockquote>
+<p>
+<b>Pre-requisites</b></p>
+<ul>
+<li>Perl
+<li>XML:RSS Perl module (which in turn was dependant on Test::Manifest). To make it simple, use Perl CPAN module to install XML::RSS as shown below:
+<pre>
+(root-prompt)&gt;perl -MCPAN -e shell
+
+cpan shell -- CPAN exploration and modules installation (v1.61)
+ReadLine support available (try 'install Bundle::CPAN')
+
+cpan&gt; install XML::RSS
+</pre>
+<li>CGI module. It should already be installed as part of your default Perl distribution, unless you&#8217;re using a really old version of Perl.
+</ul>
+<p>
+<b>Code</b></p>
+<p><pre>
+#!/usr/bin/perl -w
+
+# Installed Perl Modules to RSS
+# Ben Hammersley, July 2004
+
+use strict;
+use CGI qw(:standard);
+use XML::RSS;
+use ExtUtils::Installed;
+
+my $installed = ExtUtils::Installed-&gt;new();
+my $machine_name = `uname -n`;
+
+my $rss = new XML::RSS(version =&gt; '2.0');
+$rss -&gt; channel(title =&gt; "Perl Modules on $machine_name");
+$rss -&gt; channel(link =&gt; "http://www.benhammersley.com/tools/");
+
+foreach my $module ($installed-&gt;modules()) {
+my $version = $installed-&gt;version($module) || "???";
+
+$rss -&gt; add_item ( title =&gt; "$module $version",
+description =&gt; "$module $version",
+link =&gt; "http://search.cpan.org/search%3fmodule=$module",
+);
+}
+
+print header('application/rss+xml');
+print $rss-&gt;as_string;
+</pre>
+<p>
+Deploy this code as a CGI on your web server in a folder which has <span id="code">ExecCGI</span> privileges and point your favorite RSS feeds aggregator to this CGI. That&#8217;s it! As a demo, try adding <a href="http://indrayam.com/demo/perlmodules.pl">this</a> feed to your Aggregator.</p>
+<p>
+Interesting stuff, although I am not sure how useful this particular feed really is. However, it sure demonstrates <b>how an RSS feed can be used for something very different from simply displaying blog entries.</b>   </p>
+<p>
+Check out <a href="http://www.benhammersley.com/weblog/index.html" target="_blank">Ben Hammersley&#8217;s</a> blog for more interesting and wierd uses of RSS feeds <img src="/images/wink.gif" align="middle"></p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1092</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

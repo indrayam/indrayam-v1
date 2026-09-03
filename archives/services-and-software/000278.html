@@ -1,0 +1,274 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Advanced Mail Platform using Postfix: Enterprise Email Administrators, I salute you! (Part 2)</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-278">
+  
+                                <h2><a href="/archives/services-and-software/000278.html" rel="bookmark" title="Permanent link to Advanced Mail Platform using Postfix: Enterprise Email Administrators, I salute you! (Part 2)">Advanced Mail Platform using Postfix: Enterprise Email Administrators, I salute you! (Part 2)</a></h2>
+                                
+                                <h3>Posted : June 14, 2004 at 7:26 pm [America/Los_Angeles]</h3>
+                                
+                                <p><center><a href="/images/AdvancedMailServer2.gif" target="_blank"><img src="/images/AdvancedMailServer2-Small.gif" border=1></a><br/></p>
+<div class="note"><p>Click on the image to see an enlarged view</p></div>
+<p></center></p>
+<p>
+The more time I spend on Postfix, the more I seem to respect folks who handle email infrastructure in Enterprises. In fact, here&#8217;s a little suggestion: </p>
+<blockquote><p>
+If you know someone who manages email for any-sized (small, medium, big or huge) enterprise, feel free to bow a few times the next time you see them. I sure would.
+</p></blockquote>
+<p>
+Anyway, after a week of no Java and loads of Postfix time, here&#8217;s where I stand:</p>
+<blockquote>
+<ol>
+<li><a href="http://www.postfix.org/" target="_blank">Postfix 2.x</a> (SMTP server) - <b><font color=green>Installation Complete</font></b>
+<li><a href="http://asg.web.cmu.edu/sasl/" target="_blank">Cyrus SASL</a> over TLS (to support SMTP AUTH)  - <b><font color=green>Installation Complete</font></b>
+<li><a href="https://sourceforge.net/projects/pam-mysql/" target="_blank">pam_mysql</a> (to support authentication against MySQL database)  - <b><font color=green>Installation Complete</font></b>
+<li><a href="http://www.inter7.com/courierimap.html" target="_blank">Courier</a> IMAP/IMAP-SSL, POP3/POP3-SSL (IMAP/POP3 servers)  - <b><font color=green>Installation Complete</font></b>
+<li><a href="http://www.squirrelmail.org/" target="_blank">Squirrel Mail</a> (web-based access to mailboxes) - <b><font color=red>Incomplete</font></b>
+<li><a href="http://www.list.org/" target="_blank">Mailman</a> (Mailing list manager)
+<li><a href="http://www.ijs.si/software/amavisd/" target="_blank">Amavisd-New</a> (A wrapper software that in turn invokes the Virus and SPAM scanners)
+<ul>
+<li><a href="http://www.clamav.net/" target="_blank">ClamAV</a> or <a href="http://www.f-prot.com/products/home_use/linux/">F-Prot</a> (command-line scanners for viruses) - <b><font color=red>Incomplete</font></b>
+<li><a href="http://spamassassin.org/index.html" target="_blank">SpamAssassin</a> (filtering SPAM) - <b><font color=red>Incomplete</font></b>
+   </ul>
+<li><a href="http://dev.mysql.com/" target="_blank">MySQL</a> (relational database storing user credentials and even Postfix details)  - <b><font color=green>Installation Complete</font></b>
+<li><a href="http://httpd.apache.org/" target="_blank">Apache</a> 2.x with <a href="http://us2.php.net/" target="_blank">PHP</a> (4.3.x) (Web server for hosting Squirrel Mail)  - <b><font color=green>Installation Complete</font></b>
+</p></blockquote>
+<p>
+I have also updated the schematic, highlighting the internals of Postfix in more detail than I had the last <a href="/images/AdvancedMailServer.gif" target="_blank">time</a>.</p>
+<p>
+I think I am getting to see things a lot clearly.</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1180</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		7 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-194">
+            <p>Hi Anand,</p>
+<p>
+I&#8217;m running quite similar, though little bit simplier setup (no MySQL, no Squirrel and Exim intead of Postfix). One of the problem I still have, and I can see it on your diagramm too is that checking for viruses/spam performed _before_ MTA (postfix, exim) see that mail message, so most non-trivial check usually completed by MTA is too late to do.
+</p>
+<p>
+For example, email is coming to non-existing user in your domain, if it was seen by MTA first it would have been rejected right away in the same SMTP session and sender would get appropriate error message, but in this configuration that email would (unnecessary) checked for viruses/spam, then delivered to postfix who see that it can&#8217;t deliver, generate error message back to sender (fake address most likely) and that message would be sitting in your outgoing queue for quite some time.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:maxim@md.pp.ru">MaximDim</a> at June 15, 2004 @ <a href="000278.html#comment-194">4:46 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-195">
+            <p>Very good point indeed, Maxim. Must say I did not think of it. Any ideas?</p>
+<p>
+I guess the only way I could see this being done is:
+</p>
+<p>
+1. Integrate spam and virus checks with the rest of the internals of Postfix thereby enabling its invocation at a somewhat later stage.
+</p>
+<p>
+2a. Set up a new dummy Postfix SMTPD daemon before the one shown in the schematic. Make sure that the two Postfix instances are configured similarly, preferably sharing configs wherever possible. The first Postfix instance essentially screens the emails into 2 categories - valid emails (local or virtual) and invalid emails. Invalid ones will be bounced off immediately.
+</p>
+<p>
+2b. All valid ones will get sent to our second SMTP server thanks to an overriding &#8220;transport_map&#8221; entry. I think transport maps is a pretty neat and powerful concept in Postfix.
+</p>
+<p>
+It might be a huge overkill for me, but it sure seems like something that might work. Any thoughts?</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at June 15, 2004 @ <a href="000278.html#comment-195">7:50 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-196">
+            <p>Hello<br />
+I trying to install the rpm pakege of exim4.34 on my server<br />
+but it gives the following error<br />
+<a href="mailto:root@server">root@server</a> [/]# rpm -ivh exim-3.36-25_cpanel_antivirus.i386.rpm<br />
+Preparing&#8230;                ########################################### [100%]<br />
+Segmentation fault (core dumped)</p>
+<p>Please help</p>
+<p>sam</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:sam_jav@yahoo.com">sysadmin</a> at June 25, 2004 @ <a href="000278.html#comment-196">6:45 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-197">
+            <p>Ah, the dreaded Segementation fault, Core dumped problem. </p>
+<p>
+You&#8217;ve a few options:
+</p>
+<p>
+1. Try installing Exim using the source code. I prefer it anyday over installing it using RPM.<br />
+2. Pose this question on Exim&#8217;s Mailing list<br />
+3. Try using tools like strace to see if that tells you where the fault is occuring. Ex: (unix)&gt;strace -o exim-rpm.log rpm -ivh ..<br />
+4. Install a different RPM (any RPM) just to make sure that your RPM repository is not corrupted. Once I had this problem and it had something to do with my screwing up the RPM db itself.
+</p>
+<p>
+Sorry, could not give you any specific help <img src="/images/smilies/icon_sad.gif" alt=':-(' class='wp-smiley' /> If I were you I would definitely try installing the software from source. Here&#8217;s a blog entry that might help <a href="/archives/services-and-software/000262.html" rel="nofollow">http://indrayam.com/archives/services_and_software/000262.php</a>
+</p>
+<p>
+HTH</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at June 25, 2004 @ <a href="000278.html#comment-197">10:05 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-198">
+            <p>Anand,</p>
+<p>
+How&#8217;s progress on this? I have managed to solve &#8220;spam check is too late&#8221; problem by using latest (4.X) version of Exim which has ACL support and excellent <a href="http://duncanthrax.net/exiscan-acl/" rel="nofollow">exiscan-acl</a> patch for Exim. Exiscan-acl basically extends Exim&#8217;s ACL system by introducing content-scanning rules (MIME, antivirus, spam, etc).
+</p>
+<p>
+For example, you can write a rult to check (and reject) messages based on attachments:</p>
+<pre>
+acl_check_mime:
+  # File extension filtering.
+  deny message = Blacklisted file extension detected
+       condition = ${if match 
+                        {${lc:$mime_filename}} 
+                        {N(.exe|.pif|.bat|.scr|.lnk|.com)$N} 
+                     {1}{0}}
+</pre>
+<p>or on charset:</p>
+<pre>
+  # Reject messages that carry chinese character sets.
+  # This is an EXAMPLE.
+  deny message = Sorry, noone speaks chinese here
+       condition = ${if eq{$mime_charset}{gb2312}{1}{0}}
+</pre>
+<p>or on results from SpamAssassin run on the message:</p>
+<pre>
+  deny  message = This message identified as spam and rejected ($spam_score)
+        spam = mail:true
+        condition = ${if >{$spam_score_int}{80}{1}{0}}
+</pre>
+</p>
+<p>The beauty is that all checks happening during SMTP session and if ACL returns &#8220;deny&#8221; message rejected right away with 550 error. All this with only single instance of Exim running! Very nice to see in the logs
+</p>
+<p><pre>
+2005-01-27 22:14:29 XXXXX H=(xxx.xxx.xxx) [999.999.999.999] F= rejected after DATA: This message identified as spam and rejected (20.3)
+</pre>
+<p> <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /> </p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:maxim@md.pp.ru">Dmitri Maximovich</a> at January 27, 2005 @ <a href="000278.html#comment-198">7:26 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-199">
+            <p>Excellent, Dmitri!!</p>
+<p>Frankly, I did sorta drop the ball on the Postfix install. Ofcourse, that does not mean it&#8217;s off my to-do list..;-)</p>
+<p>So, let me ask you this: <b>Do you think I should dump Postfix and try Exim?</b> That will be quite a lot of work, since I already have worked a lot on understanding how Postfix works. Anyway, it would be nice to know what you think/recommend.</p>
+<p>Needless to say, if you figure out how to do something like this in Postfix, I would luv to know about it.</p>
+<p>- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at January 28, 2005 @ <a href="000278.html#comment-199">10:21 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-200">
+            <p>Anand,</p>
+<p>I cannot recommend you to switch from Postfix because I never used it and really cannot judge is it better or worse than Exim. I switched to Exim from sendmail many years ago and never looked back <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' />
+<p>
+Exim works great for me, especially in combination with <a href="http://www.gentoo.org" rel="nofollow">gentoo</a> Linux, it does everything I need - secure SMTP, SMTP AUTH, understands IMAP Maildir format for messages delivery and has a human readable config file. <img src="/images/smilies/icon_wink.gif" alt=';-)' class='wp-smiley' /> </p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:maxim@md.pp.ru">Dmitri Maximovich</a> at January 30, 2005 @ <a href="000278.html#comment-200">4:22 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

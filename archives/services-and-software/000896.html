@@ -1,0 +1,235 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Solving Bookmarks Synchronization problem</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-896">
+  
+                                <h2><a href="/archives/services-and-software/000896.html" rel="bookmark" title="Permanent link to Solving Bookmarks Synchronization problem">Solving Bookmarks Synchronization problem</a></h2>
+                                
+                                <h3>Posted : January 26, 2005 at 1:08 pm [America/Los_Angeles]</h3>
+                                
+                                <p>[via <a href="http://photomatt.net/2005/01/25/synchronize-bookmarks/" target="_blank">Matt: Synchronize Bookmarks</a>]</p>
+<p>
+<center><a href="https://addons.update.mozilla.org/extensions/moreinfo.php?application=firefox&#038;version=1.0+&#038;os=Windows&#038;category=Bookmarks&#038;id=14" target="_blank"><img src="/images/bookmarks.jpg" border="1"></a></center>
+</p>
+<p>
+<b>Assumption:</b>
+</p>
+<p>
+1. You use Firefox to surf the web
+</p>
+<p>
+<b>Problem Statement:</b>
+</p>
+<p>
+If you find yourself using more than one computer to surf the web, you&#8217;ve faced this problem umpteen times - <b>&#8220;How do I synchronize my Bookmarks across various computers that I use?&#8221;</b>. Here&#8217;s is a quick list of features that I want:</p>
+<ul>
+<li>Allow me to download/sync my bookmarks from a central source
+<li>Allow me to upload any changes made to the bookmarks back to the central source. In other words, make me use any computer/browser duo as the source of &#8220;new&#8221; bookmarks.
+<li>Continue to add/edit my bookmarks using the approach natively supported by the browser of my choice (in this case, Firefox)
+<li>Allow me to synchronize my bookmarks as effortlessly as possible
+<li>Provide versioning of my bookmarks
+</ul>
+</p>
+<p>
+<b>The Solution:</b>
+</p>
+<p>
+This morning, I came across <a href="https://addons.update.mozilla.org/extensions/moreinfo.php?application=firefox&#038;version=1.0+&#038;os=Windows&#038;category=Bookmarks&#038;id=14" target="_blank">Firefox Bookmarks Synchronizer</a> plugin. Here&#8217;s what the description of the plugin states:
+</p>
+<blockquote>
+<p>
+Bookmarks Synchronizer is a Mozilla Firefox extension that let you connect to an FTP/WebDAV server and synchronize your bookmarks that are stored in an XML file. Setup is easy; just write in your FTP/WebDAV server address, username, password and a name for the XML file
+</p>
+</blockquote>
+<p>
+Here&#8217;s what I did to setup and test this plugin:
+</p>
+<p>
+1. Since FTP is not enabled on my server and I had no intention of enabling FTP for using this service, I decided to use WebDAV. So, to begin with, I first configured WebDAV support on the Apache instance running on my web server. I had compiled the module as a DSO when I had installed Apache a few years back, but I had not enabled it. So, all I had to do to enable WebDAV support in my Apache instance was to uncomment the following two lines:
+</p>
+<p><pre>
+LoadModule dav_module modules/mod_dav.so
+LoadModule dav_fs_module modules/mod_dav_fs.so
+</pre>
+</p>
+<p>
+The following two web sites were pretty helpful in getting my Apache WebDAV enabled:<br/><br />
+<a href="http://www.serverwatch.com/tutorials/article.php/10825_2176771_1" target="_blank">Enabling WebDAV on Apache</a><br/><br />
+<a href="http://www.informit.com/articles/article.asp?p=30021&#038;seqNum=1" target="_blank">Publishing Extensions with Apache 2</a>
+</p>
+<p>
+2. Created a folder (<span id="code">/usr/local/apache/htdocs/dav</span>) for WebDAV publishing and told Apache about it by adding the following lines in my domain&#8217;s <span id="code">VirtualHost</span> section:
+</p>
+<p><pre>
+DAVLockDB logs/DAVLock
+DAVMinTimeout 600
+
+&lt;Location "/dav/"&gt;
+Options Indexes MultiViews
+AllowOverride None
+DAV On
+AuthName "DAV"
+AuthType Basic
+AuthUserFile /usr/local/apache/conf/password.txt
+AuthGroupFile /usr/local/apache/conf/groups.txt
+Require group dav
+&lt;/Location&gt;
+</pre>
+</p>
+<p>
+3. As a final step, I created a user (&#8221;test&#8221;) and a group (&#8221;dav&#8221;) using Apache&#8217;s <span id="code">htpasswd</span> utility. Here are the steps that I took to accomplish this task:</p>
+<p><pre>
+[root (unix)]&gt;cd /usr/local/apache/conf
+[root (unix)]&gt;touch password.txt groups.txt
+[root (unix)]&gt;../bin/htpasswd -b passwd.txt test test
+[root (unix)]&gt;echo "dav: test" &gt;&gt; groups.txt
+</pre>
+</p>
+<p>
+4. Restart the Apache instance and your web server should now be DAV enabled!
+</p>
+<p>
+5. Install <a href="https://addons.update.mozilla.org/extensions/moreinfo.php?application=firefox&#038;version=1.0+&#038;os=Windows&#038;category=Bookmarks&#038;id=14" target="_blank">Firefox Bookmarks Synchronizer</a> plugin. Restart the browser for the plugin&#8217;s installation to complete.
+</p>
+<p>
+6. Select <span id="code">Bookmarks | Synchronize Bookmarks</span> and enter your Apache WebDAV credentials as shown below:</p>
+<p>
+<center><img src="/images/bookmarks-plugin-prefs.jpg" border="0"></center>
+</p>
+<p>
+7. Click on &#8220;Upload&#8221; button. If you&#8217;ve set things up correctly, it will bring up a small window showing that your bookmarks were successfully uploaded!
+</p>
+<p>
+8. Install <a href="https://addons.update.mozilla.org/extensions/moreinfo.php?application=firefox&#038;version=1.0+&#038;os=Windows&#038;category=Bookmarks&#038;id=14" target="_blank">Firefox Bookmarks Synchronizer</a> plugin on a different computer&#8217;s Firefox instance. Configure it as shown in step 6 above. Click on &#8220;Download&#8221; button to download your exported bookmarks (in step 7 above) into your current Firefox instance.
+</p>
+<p>
+Frankly, I am impressed at the simplicity of this plugin and the fact that it just works. As wonderful as this plugin is, I would like to see the following enhancements to it:
+</p>
+<p>
+1. Support for CVS pserver/ssh protocol (just the check-in/check-out part)<br/><br />
+2. Support for SFTP
+</p>
+<p>HTH</p>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/services-and-software/" title="View all posts in Services and Software" rel="category tag">Services and Software</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>1629</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		4 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-580">
+            <p>Anand, I left some comments in <a href="http://jroller.com/page/maximdim/20050127#mozilla_and_profiles_synchronization" rel="nofollow">my blog</a></p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:maxim@md.pp.ru">Dmitri Maximovich</a> at January 27, 2005 @ <a href="000896.html#comment-580">7:19 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-581">
+            <p>Excellent, Dmitri!! Frankly, I had completely forgotten about the &#8220;Roaming Profiles&#8221; faeture of Netscape. </p>
+<p>Good catch!</p>
+<p>- Anand</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at January 27, 2005 @ <a href="000896.html#comment-581">8:15 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-582">
+            <p><strong>diamonds</strong></p>
+<p><a href="http://t-e-x-a-s-poker.com" rel="nofollow">diamonds</a> Humans ought to preserve for themselves an environment adequate to match their capacity to wonder.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">diamonds</a> at September 2, 2005 @ <a href="000896.html#comment-582">12:59 am</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-583">
+            <p><strong><a href="http://mega.km.ru/search/srch.asp?search=Gambling%20is%20so%20attractive%20%3Cbr%20/%3E%3Ca%20href=%22http://www.emistry.com/Online_poker/%22%3Eonline%20poker%3C/a%3E" rel="nofollow">http://mega.km.ru/search/srch.asp?search=Gambling%20is%20so%20attractive%20%3Cbr%20/%3E%3Ca%20href=%22http://www.emistry.com/Online_poker/%22%3Eonline%20poker%3C/a%3E</a></strong></p>
+<p><a href="http://mega.km.ru/search/srch.asp?search=Gambling%20is%20so%20attractive%20%3Cbr%20/%3E%3Ca%20href=%22http://www.emistry.com/Online_poker/%22%3Eonline%20poker%3C/a%3E" rel="nofollow"></a> Online is</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anonymous</a> at September 21, 2005 @ <a href="000896.html#comment-583">6:43 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+

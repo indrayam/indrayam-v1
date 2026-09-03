@@ -1,0 +1,280 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head profile="http://gmpg.org/xfn/11">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="WordPress 2.1" /> <!-- leave this for stats -->
+        <meta name="feedsteridentity" content="2NCJZLGKJVRTTIXAS"/>
+	<title>Segmentation Fault: Core dumped..;-) &raquo; Can you spot the error in this Ant build.xml file..:-)</title>
+	<style type="text/css" media="screen">
+		@import url(/style.css );
+	</style>
+        <script src="/js/jquery.js" type="text/javascript"></script>
+        <link rel="Shortcut Icon" href="http://indrayam.com/favicon.ico">
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
+	<link rel="pingback" href="http://indrayam.com/xmlrpc.php" />
+		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://indrayam.com/xmlrpc.php?rsd" />
+</head>
+
+<body>
+
+<div id="header">
+	<div id="myPic">
+		<img src="/images/me.gif" alt="A.S" border="1">
+	</div>
+	<h1>Segmentation Fault: Core dumped..;-)</h1>
+	<h3>Anand Sharma&#8217;s weblog: A peek into life through &#8220;my&#8221; bioscope</h3>
+	<p id="topnav">
+        <a href="../../index.html">Home</a> |
+        <a href="../index.html">Archives</a> |
+        <a href="../../aboutme.html">About Me</a>
+    </p>
+</div>
+
+
+			
+
+        
+                        <div class="post" id="post-215">
+  
+                                <h2><a href="/archives/application-development/000215.html" rel="bookmark" title="Permanent link to Can you spot the error in this Ant build.xml file..:-)">Can you spot the error in this Ant build.xml file..:-)</a></h2>
+                                
+                                <h3>Posted : May 27, 2004 at 3:02 pm [America/Los_Angeles]</h3>
+                                
+                                <p>
+I came across an interesting <a href="http://www.onjava.com/pub/a/onjava/2004/05/19/ant.html" target="_blank">article</a> written by Grant Bremer titled &#8220;Flexible User and Environment Ant Configuration&#8221; on the OnJava site the other day. Without caring to look into the sample code that was made available as part of the article, I decided to jump in and try out his suggestions. Here&#8217;s the Ant build file used for a very simple &#8220;HelloWorld&#8221; project of mine. However, there is something fundamentally wrong with the build file. Basically, it does not work. Can you see it?</p>
+<p><pre>
+build.xml file
+---------------
+&lt;?xml version="1.0"?&gt;
+
+&lt;project name="helloworld" basedir="." default="all"&gt;
+
+&lt;target name="start"&gt;
+&lt;tstamp/&gt;
+&lt;available file="${basedir}/local.properties" property="local.properties.available"/&gt;
+&lt;/target&gt;
+
+&lt;target name="properties-local" if="local.properties.available" depends="start"&gt;
+    &lt;echo message="Loading local properties file"/&gt;
+    &lt;property file="${basedir}/local.properties"/&gt;
+&lt;/target&gt;
+
+&lt;target name="properties" depends="properties-local"&gt;
+    &lt;echo message="Loading build properties file"/&gt;
+    &lt;property file="build.properties"/&gt;
+    &lt;echo message="Loading environment variables"/&gt;
+    &lt;property environment="env"/&gt;
+&lt;/target&gt;
+
+&lt;!-- Compile-time classpath --&gt;
+&lt;path id="compile.classpath"&gt;
+    &lt;fileset dir="${project.lib.dir}"&gt;
+      &lt;include name="*.jar" /&gt;
+    &lt;/fileset&gt;
+&lt;/path&gt;
+
+&lt;!-- Runtime classpath --&gt;
+&lt;path id="runtime.classpath"&gt;
+    &lt;fileset dir="${project.lib.dir}"&gt;
+      &lt;include name="*.jar" /&gt;
+    &lt;/fileset&gt;
+&lt;/path&gt;	
+
+&lt;!-- Initialize --&gt;
+&lt;target name="init" description="Prepare build directory" depends="properties"&gt;
+   &lt;mkdir dir="${build.dir}" /&gt;
+   &lt;mkdir dir="${build.classes.dir}" /&gt;
+   &lt;mkdir dir="${build.app.dir}" /&gt;
+   &lt;mkdir dir="${dist.dir}" /&gt;
+&lt;/target&gt;
+
+&lt;!-- Compile --&gt;
+&lt;target name="compile" depends="init" description="Compile source"&gt;
+&lt;javac srcdir="${project.src.dir}"
+	destdir="${build.classes.dir}"
+	debug="${javac.debug}"
+	deprecation="${javac.deprecation}"
+	optimize="${javac.optimize}"
+	verbose="${javac.verbose}"
+	classpathref="compile.classpath" /&gt;
+&lt;/target&gt;	
+
+&lt;!-- Jar things up --&gt;
+&lt;target name="jar"  depends="compile" description="creates the archive"&gt;
+&lt;jar destfile="${dist.dir}/${deploy.app.name}.jar" basedir="${build.classes.dir}"&gt;
+  &lt;manifest&gt;
+    &lt;attribute name="Main-Class" value="${deploy.app.main}" /&gt;
+  &lt;/manifest&gt;
+&lt;/jar&gt;
+&lt;/target&gt;
+
+&lt;!-- Run --&gt;
+&lt;target name="run" depends="jar" description="Execute the app"&gt;
+&lt;java jar="${dist.dir}/${deploy.app.name}.jar" fork="true"&gt;
+  &lt;classpath&gt;
+    &lt;path refid="runtime.classpath" /&gt;
+  &lt;/classpath&gt;
+&lt;/java&gt;
+&lt;/target&gt;	
+
+&lt;!-- clean --&gt;
+&lt;target name="clean" description="cleans the output directories"&gt;
+	&lt;delete dir="${build.dir}"/&gt;
+	&lt;delete dir="${dist.dir}"/&gt;
+&lt;/target&gt;
+
+&lt;target name="all" depends="clean, run" description="Clean and compile all components"/&gt;	
+
+&lt;/project&gt;
+</pre>
+<p>
+The error message that I get is:</p>
+<blockquote><p>
+&#8230;.<br/><br />
+&#8230;.<br/><br />
+compile:<br.><br />
+    [javac] Compiling 3 source files to E:\development-root\java\myapps\helloworld\build\classes<br/><br />
+BUILD FAILED: E:\development-root\java\myapps\helloworld\build.xml:50: E:\development-root\java\myapps\helloworld\${project.lib.dir} not found.<br/><br />
+Total time: 1 second
+</p></blockquote>
+<p>Just to help you out, the error is not because of missing local.properties or build.properties.</p>
+<p>
+Ok, here&#8217;s another teaser. If you run the ant command with the &#8216;verbose&#8217; setting on, this is what you get (only the first few and relevant lines shown):</p>
+<p><pre>
+E:development-rootjavamyappshelloworld&gt;ant -verbose all
+Apache Ant version 1.6.1 compiled on February 12 2004
+Buildfile: build.xml
+Detected Java version: 1.4 in: E:development-roottoolsj2sdk1.4.2_04jre
+Detected OS: Windows XP
+parsing buildfile E:development-rootjavamyappshelloworldbuild.xml
+with URI = file:///E:/development-root/java/myapps/helloworld/build.xml
+Project base dir set to: E:development-rootjavamyappshelloworld
+Property ${project.lib.dir} has not been set
+Property ${project.lib.dir} has not been set
+...
+...
+</pre>
+<p>Notice, the last two lines. Ok, if you&#8217;ve cracked it by now, you&#8217;re more familiar with the way Ant parses it&#8217;s build.xml file than I am. I am not 100% sure how this internally works, but here&#8217;s my theory:</p>
+<p>
+Since my &lt;path&gt; elements that define <i>compile.classpath</i> and <i>runtime.classpath</i> were outside any &lt;target&gt; elements, Ant tried parsing those first. It saw a reference to ${project.lib.dir} twice and realized that no such property existed. At least, not yet. Since the build.properties or local.properties (which are part of a &lt;target&gt;) were not parsed yet, Ant assumed that $project.lib.dir was actually a directory name and set the <i>compile.classpath</i> and <i>runtime.classpath</i> values accordingly. </p>
+<p>
+If you want to test this out, download <a href="http://indrayam.com/demo/helloworld.zip">this</a>, unzip it and then run &#8216;ant all&#8217; at your prompt (assuming you&#8217;ve Ant installed and available in your PATH variable) </p>
+<p>
+I had two ways of fixing the problem:<br/><br />
+1. Move the &lt;path&gt; definitions inside the &lt;properties&gt; target Or <br/><br />
+2. Replace the targets that Grant proposes in his article with two lines that look something like:</p>
+<blockquote><p>
+&lt;property file=&#8221;${basedir}/local.properties&#8221;/&gt;<br/><br />
+&lt;property file=&#8221;${basedir}/build.properties&#8221;/&gt;
+</p></blockquote>
+<p>
+For now, I have taken the first approach as I kind of like the approach which Grant proposes.</p>
+<div class="note">
+<p><u>Note:</u><br/><br />
+To be fair to Grant, while the snippet of the Ant build file in his article misled me somewhat, the sample code had the targets set up correctly so as to include the &lt;path&gt; definitions inside the &lt;properties&gt; target
+</div>
+                                <p>- Anand</p>
+                                
+                                <p class="postlinks">
+                                Category: <b><a href="http://indrayam.com/archives/category/application-development/" title="View all posts in Application Development" rel="category tag">Application Development</a></b>
+</p>
+                                
+                                <div align="right">
+                                <p></p>
+                                <font size=-2 color="#000000">Viewed: <b>3046</b> times</font>
+                                </div>
+
+
+                        </div>
+
+		        
+<!-- You can start editing here. -->
+
+<div class="comment">
+
+
+        <h2 id="comments">
+		4 Comments					
+			</h2>
+	
+	          
+           
+           <div class="commententry" id="comment-158">
+            <p>Anand,</p>
+<p>Your option 2 is the &#8220;right way&#8221;; the properties will be parsed at load time, then, as opposed to run time.<br />
+<br />
+I&#8217;m personally fond of this idiom:</p>
+<pre>
+&lt;project name=... &gt;
+    &lt;property name="user.properties" value="user.properties" /&gt;
+    &lt;property file="${basedir}/${user.properties}" /&gt;
+    &lt;property file="${basedir}/build.properties" /&gt;
+
+    ...
+&lt;/project&gt;
+</pre>
+<p>This lets me have &#8220;sets&#8221; of properties which I can pick between when I launch Ant; this works well with our continuous build environment, for example.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:robertdw@internode.on.net">Robert Watkins</a> at May 27, 2004 @ <a href="000215.html#comment-158">4:45 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-159">
+            <p>See, the only reason I was using the other approach was the fact that it explicitly states which property files were found and processed. The approach which you&#8217;re suggesting (which btw is something I am more used to also) will &#8220;silently&#8221; process (or not) the property files that are listed.</p>
+<p>
+But then again, if I had issues, I could always turn ant&#8217;s verbose mode on and see which property files were being processed.
+</p>
+<p>
+Anyway, thanks for the input Robert..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 27, 2004 @ <a href="000215.html#comment-159">5:10 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+          
+	          
+           
+           <div class="commententry" id="comment-160">
+            <p>An excellent point, Anand, something I believe I should have covered in my article.  In the article sample code, I define a path element for my project libraries, but I do so *after* I have loaded the build.properties and the local.properties within a target element.  I would submit that I have avoided the problem above through habit and because I the existing code that I&#8217;ve written from past projects.</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:gbremer@echonyc.com">Grant Bremer</a> at May 27, 2004 @ <a href="000215.html#comment-160">5:44 pm</a></span></p>
+
+           </div> 
+           <p></p>
+
+
+          
+	          
+           
+           <div class="commententryauthor" id="comment-161">
+            <p>No worries. Great article btw..:-)</p>
+
+           <p><span id="commentmeta">Posted by: <a href="mailto:anand.sharma@indrayam.com">Anand Sharma</a> at May 27, 2004 @ <a href="000215.html#comment-161">8:14 pm</a></span></p>
+
+           </div> 
+           <p></p>
+</div>
+
+				
+	
+<p></p>
+<div class="copyright">
+	<a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2007 Anand Sharma. <a href="http://indrayam.com/disclaimer/">Disclaimer</a>
+</div>
+
+
+</body>
+</html>
+
+
