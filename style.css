@@ -238,6 +238,15 @@ pre
 	padding-top: 1px;
 }
 
+/* Keep the legacy header portrait overlapping the first content panel. */
+#header + .post {
+	margin-top: -10pt;
+}
+
+#header + .post > h2:first-child {
+	clear: both;
+}
+
 #topnav{
 	font-size: 90%;
 }
@@ -394,6 +403,32 @@ li {
 	margin-bottom: 4px;
 	padding-bottom: 2px;
 	border-bottom: 1px dashed #ccc;
+}
+
+.archive-legend {
+	margin: 0 0 20px 0;
+	padding: 8px 12px;
+	border-left: 3px solid #9b8f87;
+	background-color: #f5f2ef;
+	color: #59666a;
+	font-size: 0.9em;
+}
+
+.archive-marker {
+	color: #8a6d5a;
+	font-weight: bold;
+}
+
+.archives-page li.archive-degraded::before {
+	content: "*";
+	color: #8a6d5a;
+	font-weight: bold;
+	display: inline-block;
+	width: 0.8em;
+}
+
+.archives-page li.archive-degraded a {
+	color: #7e4f3a;
 }
 
 .archives-page ul {
