@@ -5,6 +5,70 @@
     <title>Segmentation Fault: Core dumped..;-)</title>
     <style type="text/css" media="screen">
         @import url(/style.css );
+
+        .year-roll {
+            margin: 2em auto;
+            padding: 1em 0;
+            max-width: 28em;
+            text-align: center;
+            background: #fff;
+        }
+
+        .year-counter {
+            color: #e7651a;
+            font: bold clamp(3.5rem, 14vw, 6rem)/1 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            letter-spacing: .04em;
+        }
+
+        .year-counter .fixed {
+            color: #e1e1e1;
+        }
+
+        .year-suffix {
+            display: inline-block;
+            min-width: 2ch;
+            text-align: left;
+            transition: opacity .1s ease, transform .1s ease;
+        }
+
+        .year-suffix.is-changing {
+            opacity: .2;
+            transform: translateY(-.12em);
+        }
+
+        .year-caption {
+            margin: 1em 0;
+            color: #666;
+        }
+
+        .year-replay {
+            display: inline-flex;
+            align-items: center;
+            gap: .3em;
+            padding: .25em .4em;
+            border: 0;
+            background: transparent;
+            color: #999;
+            cursor: pointer;
+            font: inherit;
+            font-size: .85em;
+        }
+
+        .year-replay:hover,
+        .year-replay:focus {
+            color: #e7651a;
+        }
+
+        .year-replay-icon {
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .year-suffix {
+                transition: none;
+            }
+        }
     </style>
     <script src="/js/jquery.js" type="text/javascript"></script>
     <link rel="Shortcut Icon" href="/images/favicon.ico">
@@ -24,6 +88,75 @@
         <a href="aboutme.html">About Me</a>
     </p>
 </div>
+
+<div class="post" id="post-1395">
+                                <h2><a href="archives/personal/001395.html" rel="bookmark" title="Permanent link to 17 Years Later">17 Years Later</a></h2>
+
+                                <h3>Posted : September 3, 2026</h3>
+
+                                <p>
+<em>Life happened.</em> There were plans, detours, work, family&mdash;everything that gathers in the quiet space between one post and the next. Seventeen years have passed, and somehow, through all that time, I am back.
+</p>
+
+<div class="year-roll" aria-label="An animation of the years from 2009 through 2026">
+    <div class="year-counter" aria-live="polite"><span class="fixed">20</span><span id="year-suffix">09</span></div>
+    <p class="year-caption">And then suddenly, it is 2026.</p>
+    <button class="year-replay" id="year-replay" type="button" aria-label="Replay the year animation"><span class="year-replay-icon" aria-hidden="true">&#8635;</span> <span>Replay</span></button>
+</div>
+
+<script type="text/javascript">
+(function () {
+    var suffix = document.getElementById('year-suffix');
+    var replay = document.getElementById('year-replay');
+    var years = [];
+    var timer;
+    var index;
+
+    for (var year = 9; year <= 26; year += 1) {
+        years.push(String(year).padStart(2, '0'));
+    }
+
+    function showYear(value) {
+        suffix.classList.add('is-changing');
+        window.setTimeout(function () {
+            suffix.textContent = value;
+            suffix.classList.remove('is-changing');
+        }, 50);
+    }
+
+    function play() {
+        window.clearInterval(timer);
+        index = 0;
+        suffix.textContent = years[index];
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            suffix.textContent = years[years.length - 1];
+            return;
+        }
+
+        timer = window.setInterval(function () {
+            index += 1;
+
+            if (index === years.length) {
+                window.clearInterval(timer);
+                return;
+            }
+
+            showYear(years[index]);
+        }, 180);
+    }
+
+    replay.addEventListener('click', play);
+    play();
+}());
+</script>
+                                <p>- Anand</p>
+
+                                <p class="postlinks">
+                                Category: <b><a href="archives/index.html" title="View all posts in Personal" rel="category tag">Personal</a></b>
+</p>
+</div>
+<p></p>
 
 <div class="post" id="post-1379">
   
