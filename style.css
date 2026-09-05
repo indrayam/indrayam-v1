@@ -465,6 +465,66 @@ li {
 		max-width: 60% !important;
 	}
 }
+/* ── Collapsible category archive ─────────────────────────────────── */
+.archives-page details.category-group,
+.archives-page details.archive-year-group {
+	margin-top: 24px;
+}
+
+.archives-page details.category-group:first-of-type,
+.archives-page details.archive-year-group:first-of-type {
+	margin-top: 0;
+}
+
+.archives-page details.category-group summary,
+.archives-page details.archive-year-group summary {
+	display: block;
+	position: relative;
+	margin-bottom: 4px;
+	padding: 2px 0 2px 1.2em;
+	border-bottom: 1px dashed #ccc;
+	font-size: 1.17em;
+	font-weight: bold;
+	cursor: pointer;
+	list-style: none;
+}
+
+.archives-page details.category-group summary::-webkit-details-marker,
+.archives-page details.archive-year-group summary::-webkit-details-marker {
+	display: none;
+}
+
+.archives-page details.category-group summary::marker,
+.archives-page details.archive-year-group summary::marker {
+	content: "";
+}
+
+.archives-page details.category-group summary::before,
+.archives-page details.archive-year-group summary::before {
+	content: "";
+	position: absolute;
+	left: 0.25em;
+	top: 0.42em;
+	width: 0.4em;
+	height: 0.4em;
+	border-right: 1px solid #8a6d5a;
+	border-bottom: 1px solid #8a6d5a;
+	transform: rotate(-45deg);
+	transition: transform 0.15s ease;
+}
+
+.archives-page details.category-group[open] summary::before,
+.archives-page details.archive-year-group[open] summary::before {
+	top: 0.3em;
+	transform: rotate(45deg);
+}
+
+.archives-page details.category-group summary .small,
+.archives-page details.archive-year-group summary .small {
+	font-size: 0.77em;
+	font-weight: normal;
+}
+
 
 /* On narrow screens, fall back to nearly full width. */
 @media screen and (max-width: 899px) {

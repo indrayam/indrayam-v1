@@ -20,21 +20,27 @@
     <p id="topnav">
         <a href="../index.html">Home</a> |
         <a href="index.html">Archives</a> |
+        <a href="categories.html">Categories</a> |
         <a href="https://dailydiff.indrayam.com/">Daily Diff</a> |
         <a href="../aboutme.html">About Me</a>
     </p>
 </div>
 <div class="post archives-page"><h2>Archives</h2>
 <p class="archive-legend"><span class="archive-marker" aria-hidden="true">*</span> Asterisked entries bear a small scar from the web&rsquo;s vanished machinery.</p>
-<h3>2026</h3>
+<details class="archive-year-group">
+<summary>2026 <span class="small">(1 entry)</span></summary>
 <ul>
   <li><a href="/archives/personal/001395.html">17 Years Later</a> <span class="small">(Sep 03 &mdash; Personal)</span></li>
 </ul>
-<h3>2009</h3>
+</details>
+<details class="archive-year-group">
+<summary>2009 <span class="small">(1 entry)</span></summary>
 <ul>
   <li class="archive-degraded"><a href="/archives/finance/001394.html">Credit Crisis 101</a> <span class="small">(Feb 20 &mdash; Finance)</span></li>
 </ul>
-<h3>2008</h3>
+</details>
+<details class="archive-year-group">
+<summary>2008 <span class="small">(7 entries)</span></summary>
 <ul>
   <li class="archive-degraded"><a href="/archives/humor/001393.html">The Matrix Runs on Windows</a> <span class="small">(Nov 11 &mdash; Humor)</span></li>
   <li class="archive-degraded"><a href="/archives/personal/001390.html">For what it&#8217;s worth..</a> <span class="small">(Oct 26 &mdash; Personal)</span></li>
@@ -44,7 +50,9 @@
   <li><a href="/archives/us-presidential-elections-2008/001379.html">Are you hungry, Senator Obama?</a> <span class="small">(Mar 05 &mdash; US Presidential Elections 2008)</span></li>
   <li class="archive-degraded"><a href="/archives/humor/001377.html">Humor on a beautiful Friday</a> <span class="small">(Feb 15 &mdash; Humor)</span></li>
 </ul>
-<h3>2007</h3>
+</details>
+<details class="archive-year-group">
+<summary>2007 <span class="small">(103 entries)</span></summary>
 <ul>
   <li class="archive-degraded"><a href="/archives/personal/001373.html">India Trip 2.0</a> <span class="small">(Dec 28 &mdash; Personal)</span></li>
   <li><a href="/archives/chindia/001374.html">Where is the Imran Khan of Pakistani Politics?</a> <span class="small">(Dec 27 &mdash; Chindia)</span></li>
@@ -150,7 +158,9 @@
   <li><a href="/archives/us/001247.html">Exporting Democracy</a> <span class="small">(Jan 02 &mdash; US)</span></li>
   <li class="archive-degraded"><a href="/archives/services-and-software/001246.html">Cool Firefox Ad</a> <span class="small">(Jan 01 &mdash; Services and Software)</span></li>
 </ul>
-<h3>2006</h3>
+</details>
+<details class="archive-year-group">
+<summary>2006 <span class="small">(66 entries)</span></summary>
 <ul>
   <li><a href="/archives/us/001245.html">Iraq</a> <span class="small">(Dec 29 &mdash; US)</span></li>
   <li><a href="/archives/personal/001244.html">Kris Kringle (aka Santa Claus) was very generous to our family.</a> <span class="small">(Dec 25 &mdash; Personal)</span></li>
@@ -219,7 +229,9 @@
   <li><a href="/archives/us/001179.html">Petrolism</a> <span class="small">(Jan 06 &mdash; US)</span></li>
   <li><a href="/archives/us/001178.html">United States - Lion or Elephant of the jungle (read, the World)</a> <span class="small">(Jan 04 &mdash; US)</span></li>
 </ul>
-<h3>2005</h3>
+</details>
+<details class="archive-year-group">
+<summary>2005 <span class="small">(298 entries)</span></summary>
 <ul>
   <li><a href="/archives/personal/001177.html">2006</a> <span class="small">(Dec 31 &mdash; Personal)</span></li>
   <li><a href="/archives/personal/001176.html">Day 6: In Salt Lake City, Utah</a> <span class="small">(Dec 26 &mdash; Personal)</span></li>
@@ -520,7 +532,9 @@
   <li><a href="/archives/it-and-business-trends/000877.html">The State of Blogging</a> <span class="small">(Jan 03 &mdash; IT and Business Trends)</span></li>
   <li><a href="/archives/services-and-software/000874.html">Changing Registrar and Primary/Secondary DNS NameServers. Need your input(s)!</a> <span class="small">(Jan 01 &mdash; Services and Software)</span></li>
 </ul>
-<h3>2004</h3>
+</details>
+<details class="archive-year-group">
+<summary>2004 <span class="small">(600 entries)</span></summary>
 <ul>
   <li><a href="/archives/personal/000871.html">Happy</a> <span class="small">(Dec 31 &mdash; Personal)</span></li>
   <li><a href="/archives/other-stuff/000873.html">Joke of the day..:-)</a> <span class="small">(Dec 31 &mdash; Other stuff)</span></li>
@@ -1123,10 +1137,28 @@
   <li><a href="/archives/it-and-business-trends/000015.html">The Blog as article trend</a> <span class="small">(Apr 27 &mdash; IT and Business Trends)</span></li>
   <li><a href="/archives/education/000016.html">An education for the Future</a> <span class="small">(Apr 27 &mdash; Education)</span></li>
 </ul>
+</details>
 </div>
 <p></p>
 <div class="copyright">
     <a href="http://creativecommons.org/licenses/by-nd-nc/1.0/">Copyright</a> &copy; 2026 Anand Sharma. <a href="/disclaimer.html">Disclaimer</a>
 </div>
+<script type="text/javascript">
+(function () {
+    var groups = document.querySelectorAll('.category-group, .archive-year-group');
+    for (var i = 0; i < groups.length; i += 1) {
+        groups[i].addEventListener('toggle', function () {
+            if (!this.open) {
+                return;
+            }
+            for (var j = 0; j < groups.length; j += 1) {
+                if (groups[j] !== this && groups[j].open) {
+                    groups[j].removeAttribute('open');
+                }
+            }
+        });
+    }
+}());
+</script>
 </body>
 </html>
