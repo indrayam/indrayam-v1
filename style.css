@@ -10,6 +10,40 @@ Author URI: http://indrayam.com/
 
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700;6..72,800;6..72,900&family=PT+Serif:wght@400;700&family=Source+Sans+Pro:wght@400;600;700;900&display=swap');
 
+/* Responsive baseline for the legacy static pages. */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+img,
+svg,
+video,
+canvas {
+	max-width: 100%;
+	height: auto;
+}
+
+iframe,
+object,
+embed {
+	max-width: 100%;
+}
+
+table {
+	max-width: 100%;
+}
+
+body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
 
 
 body {
@@ -145,6 +179,36 @@ pre
 	font-size: 19.2px;
 	line-height: 1.5;
 	color: #1f1f1d;
+	width: auto;
+	max-width: 100%;
+	overflow-wrap: anywhere;
+}
+
+.post pre {
+	max-width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	overflow-wrap: normal;
+	white-space: pre;
+}
+
+.post table {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.post td,
+.post th {
+	overflow-wrap: anywhere;
+}
+
+.post iframe,
+.post object,
+.post embed {
+	display: block;
+	max-width: 100%;
 }
 
 .post > h2 {
@@ -246,6 +310,8 @@ pre
 	margin-left: 72pt;
 	margin-right: 52pt;
 	padding-top: 1px;
+	max-width: 100%;
+	overflow-wrap: anywhere;
 }
 
 /* Keep the legacy header portrait overlapping the first content panel. */
@@ -265,6 +331,13 @@ pre
 	padding-right:12px;
 	float:left;
 	margin-left: 12pt;
+}
+
+#myPic img {
+	display: block;
+	width: 120px;
+	height: auto;
+	max-width: 100%;
 }
 
 #commentmeta{
@@ -558,5 +631,60 @@ li {
 		margin-left: 10px !important;
 		margin-right: 10px !important;
 		max-width: none !important;
+		width: auto !important;
+	}
+
+	#sidebar {
+		float: none;
+		width: auto;
+		max-width: none;
+		margin: 1rem 10px;
+	}
+
+	#myPic {
+		margin-left: 0;
+	}
+
+	.post {
+		padding: 12px;
+	}
+
+	blockquote,
+	.archival-note {
+		margin-left: 0.5rem;
+		margin-right: 0.5rem;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	body {
+		font-size: 16px;
+	}
+
+	#header {
+		margin-top: 16pt;
+	}
+
+	#topnav {
+		line-height: 1.7;
+	}
+
+	.post {
+		padding: 10px;
+	}
+
+	blockquote,
+	.archival-note {
+		margin-left: 0;
+		margin-right: 0;
+		padding: 10px 12px;
+	}
+
+	.aboutme-page {
+		padding: 12px 10px 16px;
+	}
+
+	.aboutme-hero img {
+		width: 100%;
 	}
 }
