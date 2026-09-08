@@ -150,16 +150,22 @@ blockquote cite a {
 	margin: 0;
 }
 
-pre
-{
-	font: normal 9pt courier, sans-serif;
-	margin-left: 10px; 
-	margin-right: 10px; 
-	border: 1px solid #e7651a; 
-	border-left: 1px solid #e7651a; 
-	padding: 5px 5px 5px 10px;
-        background-color: #FFFFCC;
-        overflow: auto;
+pre {
+	box-sizing: border-box;
+	max-width: 100%;
+	margin: 1.4rem 0;
+	padding: 1rem 1.15rem;
+	font: 0.9rem/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	color: #24292f;
+	background: #f6f8fa;
+	border: 1px solid #d0d7de;
+	border-left: 4px solid #e7651a;
+	border-radius: 6px;
+	box-shadow: 0 1px 2px rgba(27, 31, 36, 0.08);
+	overflow-x: auto;
+	overflow-y: hidden;
+	tab-size: 4;
+	-webkit-overflow-scrolling: touch;
 }
 
 /* Classes for items used more than once */
@@ -192,6 +198,72 @@ pre
 	white-space: pre;
 }
 
+pre code.hljs {
+	display: block;
+	padding: 0;
+	color: inherit;
+	background: transparent;
+}
+
+.hljs-comment,
+.hljs-quote {
+	color: #6a737d;
+	font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst,
+.hljs-section {
+	color: #cf222e;
+}
+
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp,
+.hljs-addition {
+	color: #0a7b3e;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+	color: #0550ae;
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.class_.inherited__,
+.hljs-title.function_ {
+	color: #8250df;
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+	color: #953800;
+}
+
+.hljs-built_in,
+.hljs-type,
+.hljs-symbol,
+.hljs-bullet {
+	color: #0a3069;
+}
+
+.hljs-meta,
+.hljs-meta .hljs-keyword {
+	color: #8250df;
+}
+
+.hljs-deletion {
+	color: #82071e;
+}
+
 .post table {
 	display: block;
 	width: 100%;
@@ -215,6 +287,18 @@ pre
 	font-family: "Source Sans Pro", Arial, sans-serif;
 	font-weight: 900;
 	color: #333333;
+}
+
+.featured-kicker {
+	display: block;
+	margin: 0 0 0.35rem;
+	font-family: "Source Sans Pro", Arial, sans-serif;
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.09em;
+	line-height: 1.2;
+	text-transform: uppercase;
+	color: #e7651a;
 }
 
 .flickr-photo { 
@@ -680,6 +764,11 @@ li {
 
 	.post {
 		padding: 10px;
+	}
+
+	pre {
+		padding: 0.85rem 0.9rem;
+		font-size: 0.82rem;
 	}
 
 	blockquote,

@@ -14,6 +14,8 @@
 		@import url(/style.css );
 	</style>
         <script src="/js/jquery.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" type="text/javascript"></script>
+        <script src="/js/syntax-highlight.js" type="text/javascript"></script>
         <link rel="Shortcut Icon" href="/images/favicon.ico">
 	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
 	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
@@ -50,23 +52,32 @@
                                 <h3>Posted : June 2, 2004 at 1:46 pm [America/Los_Angeles]</h3>
                                 
                                 <p><center><img src="/images/rpmlogo-mini.jpg"></center></p>
-<blockquote><p>
-(prompt)&gt;<b>rpm -ivh blah-2.0-4.i386.rpm</b> (install an RPM package)<br/><br />
-(prompt)&gt;<b>rpm -ivh &#8211;nodeps blah-2.0-4.i386.rpm</b> (install an RPM package, ignoring the dependency warnings)<br/><br />
-(prompt)&gt;<b>rpm -ivh *.rpm</b> (if you want to install a bunch of them in one go)<br/><br />
-(prompt)&gt;<b>rpm -e blah-2.0-4.i386.rpm</b> (uninstall an RPM package<br/><br />
-(prompt)&gt;<b>rpm -e &#8211;nodeps blah-2.0.4.i386.rpm</b> (uninstall an RPM package, ignoring the dependency warnings)<br/><br />
-(prompt)&gt;<b>rpm -qa|grep -i blah</b> (search the installed RPM packages and look for the ones which have &#8216;blah&#8217; in the title)<br/><br />
-(prompt)&gt;<b>rpm -qi blah</b> (metadata about the package)<br/><br />
-(prompt)&gt;<b>rpm -qil blah</b> (metadata about the package, including all the files installed as part of the package)
-</p></blockquote>
+<pre>
+(prompt)&gt;rpm -ivh blah-2.0-4.i386.rpm (install an RPM package)
+
+(prompt)&gt;rpm -ivh &#8211;nodeps blah-2.0-4.i386.rpm (install an RPM package, ignoring the dependency warnings)
+
+(prompt)&gt;rpm -ivh *.rpm (if you want to install a bunch of them in one go)
+
+(prompt)&gt;rpm -e blah-2.0-4.i386.rpm (uninstall an RPM package
+
+(prompt)&gt;rpm -e &#8211;nodeps blah-2.0.4.i386.rpm (uninstall an RPM package, ignoring the dependency warnings)
+
+(prompt)&gt;rpm -qa|grep -i blah (search the installed RPM packages and look for the ones which have &#8216;blah&#8217; in the title)
+
+(prompt)&gt;rpm -qi blah (metadata about the package)
+
+(prompt)&gt;rpm -qil blah (metadata about the package, including all the files installed as part of the package)
+</pre>
 <p>
 However, my personal favorite is this sequence:</p>
-<blockquote><p>
-(prompt)&gt;<b>rpm -qf /etc/sysctl.conf</b><br/><br />
-initscripts-7.31.9.EL-1<br/><br />
-(prompt)&gt;<b>rpm -qil initscripts</b><br/>
-</p></blockquote>
+<pre>
+(prompt)&gt;rpm -qf /etc/sysctl.conf
+
+initscripts-7.31.9.EL-1
+
+(prompt)&gt;rpm -qil initscripts
+</pre>
 <p>
 This particular combination helps me learn a whole lot about a &#8216;file&#8217; on my system. The first command (<b>rpm -qf /etc/sysctl.conf</b>) tells me which package the file belongs to and the second (<b>rpm -qil initscripts</b>) tells me everything I ever wanted to know (or not <img src="/images/wink.gif" align="middle">) about the package. It actually is something I am using a lot as I work towards setting up my <a href="/archives/networks/000025.html" target="_blank">ServerMatrix box</a>.</p>
 <p>

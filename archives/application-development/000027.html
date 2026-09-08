@@ -14,6 +14,8 @@
 		@import url(/style.css );
 	</style>
         <script src="/js/jquery.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" type="text/javascript"></script>
+        <script src="/js/syntax-highlight.js" type="text/javascript"></script>
         <link rel="Shortcut Icon" href="/images/favicon.ico">
 	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://indrayam.com/feed/" />
 	<link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="http://indrayam.com/feed/atom/" />
@@ -81,7 +83,7 @@
 </blockquote>
 <p>If you have been on the sidelines &#8220;reading&#8221; more than &#8220;implementing&#8221; or &#8220;using&#8221; some of these tools or APIs, this would appear to a pretty daunting list to work with and can get overwhelming in a hurry.
 <p>And that brings me to this idea of a &#8220;decaf&#8221; Appfuse. Ideally, it would be nice to do have a new ant task in Appfuse which works as follows:</p>
-<blockquote><p>ant new -Dapp.flavor=decaf or 101 or lite|all -Dapp.name=yourApp -Ddb.name=database</p></blockquote>
+<pre>ant new -Dapp.flavor=decaf or 101 or lite|all -Dapp.name=yourApp -Ddb.name=database</pre>
 <p>This will output a folder called &#8216;yourApp&#8217; (or whatever name you chose) which will do all the necessary code generation (via xdoclet) along with the usual dose of Ant &#8216;magic&#8217;. The result will be a directory structure with nothing but the runtime code necessary for core application functionality ready to &#8216;ant war&#8217; up. No white-box or black-box testing or additional tools <u>not</u> directly related to the runtime functionality of the application will be enabled in the decaf option. I worked through Appfuse the hard way and now that I have done it, I realize that it is indeed a nice little implementation to use as a baseline for you next project. Just start with the &#8216;decaf&#8217; version, and then as you get comfortable with Canoo or StrutsTestCase, keep adding them to your portfolio. I am sure Matt must have did it this way himself <img src="/images/smile.gif" align="middle"></p>
 <p>Matt, hope you&#8217;re tuned in and listening <img src="/images/wink.gif"align="middle"> If so, what do you think?</p>
                                 <p>- Anand</p>
