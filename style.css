@@ -657,6 +657,15 @@ li {
 		max-width: 760px !important;
 	}
 }
+
+/* Give large desktop screens a little more breathing room without changing
+   the existing tablet and phone layouts. */
+@media screen and (min-width: 1280px) and (hover: hover) and (pointer: fine) {
+	#header,
+	.post {
+		max-width: 840px !important;
+	}
+}
 /* ── Collapsible category archive ─────────────────────────────────── */
 .archives-page details.category-group,
 .archives-page details.archive-year-group {
