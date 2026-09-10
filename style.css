@@ -10,6 +10,27 @@ Author URI: http://indrayam.com/
 
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700;800;900&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700;6..72,800;6..72,900&family=PT+Serif:wght@400;700&family=Source+Sans+Pro:wght@400;600;700;900&display=swap');
 
+:root {
+	--color-text: #333333;
+	--color-heading: #333333;
+	--color-content: #1f1f1d;
+	--color-muted: #808080;
+	--color-faint: #999999;
+	--color-link: #990000;
+	--color-accent: #e7651a;
+	--color-panel: #ffffff;
+	--color-panel-alt: #fcf7f4;
+	--color-border: #808080;
+	--color-border-light: #cccccc;
+	--color-quote-border: #ebd4c8;
+	--color-archive-border: #cbd5d8;
+	--color-archive-accent: #8fa6ad;
+	--font-site-body: "PT Serif", Georgia, "Times New Roman", serif;
+	--font-content: Newsreader, Georgia, "Times New Roman", serif;
+	--font-heading: Lora, Georgia, "Times New Roman", serif;
+	--font-ui: "Source Sans Pro", Arial, sans-serif;
+}
+
 /* Responsive baseline for the legacy static pages. */
 *,
 *::before,
@@ -43,79 +64,73 @@ table {
 body {
 	max-width: 100%;
 	overflow-x: hidden;
-}
-
-
-body {
-	margin: 0px 0px 5px 0px;
-	color: #333333;
-	font-family: "PT Serif", Georgia, "Times New Roman", serif;
+	margin: 0 0 5px;
+	color: var(--color-text);
+	font-family: var(--font-site-body);
 	font-size: 17px;
 	background-image: url("/images/blue-dash.gif");
-	border-top: 10px solid #e7651a;
+	border-top: 10px solid var(--color-accent);
 }
 
-h1{
-	font-family: Lora, Georgia, "Times New Roman", serif;
+h1 {
+	font-family: var(--font-heading);
+	font-size: 2em;
 	font-weight: 900;
+	line-height: normal;
 	margin-top: 0pt;
 	margin-bottom: 0pt;
 	padding-top: 1pt;
 }
 
-h2{
-	font-family: Lora, Georgia, "Times New Roman", serif;
+h2 {
+	font-family: var(--font-heading);
+	font-size: 1.5em;
 	font-weight: 700;
+	line-height: normal;
 	margin-top: 0pt;
 	margin-bottom: 5pt;
 	padding-top: 0pt;
 	border-style: none none dashed none;
-	border-color: #CCCCCC;
+	border-color: var(--color-border-light);
 	border-width: 0 0 1px 0;
 }
 
-h2 a  {
-	color: #333333;
+h2 a {
+	color: var(--color-heading);
 	text-decoration: none;
 }
 
-h2 a:hover {
-	color: #333333;
-	text-decoration: none;
-}
-
-h3{
+h3 {
+	font-size: 1.17em;
 	font-weight: normal;
-	color: #808080;
+	line-height: normal;
+	color: var(--color-muted);
 	margin-top: 0pt;
 	padding-top: 0pt;
 }
 
-h4{
+h4 {
+	font-size: 1em;
 	font-weight: bold;
-	color: #808080;
+	line-height: normal;
+	color: var(--color-muted);
 	margin-top: 0pt;
 	margin-bottom: 0pt;
 	padding-top: 0pt;
 }
 
 a {
-       color:#900;
+	color: var(--color-link);
 	text-decoration: underline;
 }
 
-a:hover {
-	text-decoration: underline;
-}
-
-blockquote
-{
-	font: normal 17px/1.6 Lora, Georgia, "Times New Roman", serif;
-	margin: 1.2em 45px 1.4em 45px;
-	border: 1px solid #EBD4C8;
-	border-left: 4px solid #e7651a;
+blockquote {
+	font: normal 17px/1.6 var(--font-heading);
+	margin: 1.2em 45px 1.4em;
+	border: 1px solid var(--color-quote-border);
+	border-left: 4px solid var(--color-accent);
 	padding: 12px 16px 10px 16px;
-	background-color: #FCF7F4;
+	background-color: var(--color-panel-alt);
 }
 
 blockquote p {
@@ -125,13 +140,13 @@ blockquote p {
 blockquote cite {
 	display: block;
 	margin-top: 10px;
-	font: italic 14px/1.5 "PT Serif", Georgia, "Times New Roman", serif;
-	color: #666;
+	font: italic 14px/1.5 var(--font-site-body);
+	color: #666666;
 	text-align: right;
 }
 
 blockquote cite a {
-	color: #900;
+	color: var(--color-link);
 }
 
 .archival-note {
@@ -139,8 +154,8 @@ blockquote cite a {
 	line-height: 1.55;
 	text-align: left;
 	margin: 1.2em 45px 1.4em 45px;
-	border: 1px solid #cbd5d8;
-	border-left: 4px solid #8fa6ad;
+	border: 1px solid var(--color-archive-border);
+	border-left: 4px solid var(--color-archive-accent);
 	padding: 12px 16px 10px 16px;
 	background-color: #f4f7f7;
 	color: #59666a;
@@ -159,7 +174,7 @@ pre {
 	color: #24292f;
 	background: #f6f8fa;
 	border: 1px solid #d0d7de;
-	border-left: 4px solid #e7651a;
+	border-left: 4px solid var(--color-accent);
 	border-radius: 6px;
 	box-shadow: 0 1px 2px rgba(27, 31, 36, 0.08);
 	overflow-x: auto;
@@ -168,23 +183,20 @@ pre {
 	-webkit-overflow-scrolling: touch;
 }
 
-/* Classes for items used more than once */
+/* Reusable content components */
 
 .post{
 	margin-top: 24pt;
 	margin-bottom: 10pt;
 	margin-left: 72pt;
 	margin-right: 72pt;
-	background-color: #FFFFFF;
-	border-left:1px solid #808080;
-	border-right:1px solid #808080;
-	border-bottom:1px solid #808080;
-	border-top:1px solid #808080;
+	background-color: var(--color-panel);
+	border: 1px solid var(--color-border);
 	padding:15px;
-	font-family: Newsreader, Georgia, "Times New Roman", serif;
+	font-family: var(--font-content);
 	font-size: 19.2px;
 	line-height: 1.5;
-	color: #1f1f1d;
+	color: var(--color-content);
 	width: auto;
 	max-width: 100%;
 	overflow-wrap: anywhere;
@@ -284,21 +296,21 @@ pre code.hljs {
 }
 
 .post > h2 {
-	font-family: "Source Sans Pro", Arial, sans-serif;
+	font-family: var(--font-ui);
 	font-weight: 900;
-	color: #333333;
+	color: var(--color-heading);
 }
 
 .featured-kicker {
 	display: block;
 	margin: 0 0 0.35rem;
-	font-family: "Source Sans Pro", Arial, sans-serif;
+	font-family: var(--font-ui);
 	font-size: 0.75rem;
 	font-weight: 700;
 	letter-spacing: 0.09em;
 	line-height: 1.2;
 	text-transform: uppercase;
-	color: #e7651a;
+	color: var(--color-accent);
 }
 
 .flickr-photo { 
@@ -323,29 +335,21 @@ pre code.hljs {
 	margin-bottom: 10pt;
 	margin-left: 72pt;
 	margin-right: 72pt;
-	background-color: #FCF7F4;
-	border-left:1px solid #EBD4C8;
-	border-right:1px solid #EBD4C8;
-	border-bottom:1px solid #EBD4C8;
-	border-top:1px solid #EBD4C8;
+	background-color: var(--color-panel-alt);
+	border: 1px solid var(--color-quote-border);
 	padding:15px;
 }
 
 .commententry{
-	background-color: #FFFFFF;
-	border-left:1px solid #808080;
-	border-right:1px solid #808080;
-	border-bottom:1px solid #808080;
-	border-top:1px solid #808080;
+	background-color: var(--color-panel);
+	border: 1px solid var(--color-border);
 	padding:15px;
 }
 
 .commententryauthor{
-	background-color: #FFFFFF;
-	border-left:3px solid #900;
-	border-right:1px solid #808080;
-	border-bottom:1px solid #808080;
-	border-top:1px solid #808080;
+	background-color: var(--color-panel);
+	border: 1px solid var(--color-border);
+	border-left: 3px solid var(--color-link);
 	padding:15px;
 }
 
@@ -360,20 +364,20 @@ pre code.hljs {
 }
 
 .copyright {
-	font-family: "PT Serif", Georgia, "Times New Roman", serif;
+	font-family: var(--font-site-body);
 	font-size: 11px;
 	margin-top: 5px;
 	text-align:center;
-	color:#999;
+	color: var(--color-faint);
 }
 
 .note {
-	font-family: "PT Serif", Georgia, "Times New Roman", serif;
+	font-family: var(--font-site-body);
 	font-size: 12px;
-	color:#900;
+	color: var(--color-link);
 }
 
-/* IDs only occur once per page */
+/* Shared site chrome and legacy page hooks */
 
 #sidebar{
 	float:right;
@@ -484,21 +488,11 @@ pre code.hljs {
         border-width: 0 0 0 0;
 }
 
-#marriage-bold {
-        font-family: "monotype corsiva", Georgia, Serif;
-        font-size: 130%;
-        font-weight: normal;
-        color: red;
-}
-
 #marriage {
         font-family: "monotype corsiva", Georgia, Serif;
         font-size: 115%;
         font-weight: normal;
         color: black;
-}
-
-
 }
 
 .alt {
@@ -510,13 +504,13 @@ pre code.hljs {
         color: #999;
 }
 
-ul {
-        padding: 0;
-        margin: 0;
+.post ul {
+	padding: 0;
+	margin: 0;
 }
 
-li {
-        list-style: none;
+.post li {
+	list-style: none;
 }
 
 .date {
@@ -641,9 +635,6 @@ li {
 /* ── Wide-screen width constraints ───────────────────────────────────────── */
 /* The legacy theme used fixed pt margins which makes content span too wide. */
 @media screen and (min-width: 900px) {
-	body {
-		/* keep the orange top border behavior but center content area below */
-	}
 	#header {
 		box-sizing: border-box;
 		margin-left: auto !important;
