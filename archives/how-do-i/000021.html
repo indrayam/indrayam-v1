@@ -40,7 +40,7 @@
 
 <div id="header">
 	<div id="myPic">
-		<img src="/images/me.gif" alt="A.S" border="1">
+		<img src="/images/me.gif" alt="Portrait of Anand Sharma" border="1" loading="eager" decoding="async"
 	</div>
 	<h1>Segmentation Fault: Core Dumped</h1>
 	<h3>Anand Sharma's Blog</h3>
@@ -64,12 +64,12 @@
                                 
                                 <h3>Posted : April 29, 2004 at 9:04 am [America/Los_Angeles]</h3>
                                 
-                                <p>You have a working directory of a CVS module. You want to de-CVSify it so that you can a) use folders in another CVS project you&#8217;re about to import or b)package it up for someone without all the CVS clutter. How would you do it natively in WinXP and Unix . No Cygwin hacks in Windows or some Windows util on Unix allowed (if something like that even exists..<img src="/images/wink.gif" align="middle">).
+                                <p>You have a working directory of a CVS module. You want to de-CVSify it so that you can a) use folders in another CVS project you&#8217;re about to import or b)package it up for someone without all the CVS clutter. How would you do it natively in WinXP and Unix . No Cygwin hacks in Windows or some Windows util on Unix allowed (if something like that even exists..<img src="/images/wink.gif" align="middle" alt="" aria-hidden="true" loading="lazy" decoding="async").
 <p>In Unix, thanks to &#8216;find&#8217; and &#8216;xargs&#8217; this thing is fairly simple in Unix:
 <p>Assuming name of the folder is &#8216;cvsapp&#8217;, the command would look something like:<br />
 <pre>(unix prompt)&gt;find /foldername | xargs rm -r</pre>
 <p>In Windows, it&#8217;s not too bad either:<br />
-<center><img src="/images/howto-windows-find.gif" border="0"></center><br />
+<center><img src="/images/howto-windows-find.gif" border="0" alt="Screenshot: howto windows find" loading="lazy" decoding="async"</center><br />
 Go to the folder in Windows explorer, click on &#8216;Search&#8217;. A window such as the one shown above would open up. Enter CVS and hit &#8216;Search&#8217;. Then select all and &#8216;delete&#8217; it.
 <p>Needless to say, each of the approaches can be tweaked for your specific needs (which might have nothing to do with CVS folders). Here&#8217;s an exercise for you (and me) and maybe I will talk about it my next HOWTO assignment:<br />
 <blockquote>What if you wanted to search for all files or folders starting (or ending) with &#8216;evil&#8217; and wanted to trash those?</p></blockquote>
@@ -100,7 +100,7 @@ Go to the folder in Windows explorer, click on &#8216;Search&#8217;. A window su
 	          
            
            <div class="commententry" id="comment-8">
-            <p>I&#8217;d use &#8216;cvs export&#8217; <img src="/images/smilies/icon_wink.gif" alt=';)' class='wp-smiley' /> Not too shabby for me. Why mess around with stuff, when there&#8217;s already a solution built in.</p>
+            <p>I&#8217;d use &#8216;cvs export&#8217; <img src="/images/smilies/icon_wink.gif" alt=';)' class='wp-smiley' loading="lazy" decoding="async" Not too shabby for me. Why mess around with stuff, when there&#8217;s already a solution built in.</p>
 <p>Regards, Mathias</p>
 
            <p><span id="commentmeta">Posted by: <a href="mailto:">Mathias Meyer</a> at April 29, 2004 @ <a href="000021.html#comment-8">10:38 am</a></span></p>

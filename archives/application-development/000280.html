@@ -38,7 +38,7 @@
 
 <div id="header">
 	<div id="myPic">
-		<img src="/images/me.gif" alt="A.S" border="1">
+		<img src="/images/me.gif" alt="Portrait of Anand Sharma" border="1" loading="eager" decoding="async"
 	</div>
 	<h1>Segmentation Fault: Core Dumped</h1>
 	<h3>Anand Sharma's Blog</h3>
@@ -62,7 +62,7 @@
                                 
                                 <h3>Posted : June 15, 2004 at 1:59 pm [America/Los_Angeles]</h3>
                                 
-                                <p><center><img src="/images/appdevelopment.gif"></center><br />
+                                <p><center><img src="/images/appdevelopment.gif" alt="Archived image: appdevelopment" loading="lazy" decoding="async"</center><br />
 A day of perusing through the most popular entries on <a href="http://www.javablogs.com/Welcome.action" target="_blank">Java.blogs</a> or <a href="http://www.thauvin.net/linkblog/" target="_blank">Erik&#8217;s</a> linkblog or your own RSS feeds of the cr&#232;me de la cr&#232;me tech bloggers, and you will most likely walk away with the <i>i-need-to-learn-so-many-things-it&#8217;s-not-even-funny</i> type feeling.</p>
 <p>
 However, too often I see perfectly capable web application developers building perfectly functioning web-based business applications using Struts 1.0 (for example) and being fairly content about it. Yes, they use <b>MVC</b> or at least they think they do. The <b>M</b> is almost always the place where you see folks being really creative (or not). Forget &#8220;<i>always code to interfaces and not to classes</i>&#8220;. Here, classes are written with nothing but a slew of static methods. These methods are in turn called from Struts Actions and that&#8217;s it. That&#8217;s your <b>M</b>. Yes, they know and use connection pooling. Yes, they hide their DB calls (so to speak) by putting these in a <i>separate static method of a different class</i>. Frankly, you could call this layer <b>N</b> or an <b>O</b> and they could care less. As for using O/R mapping apis like Hibernate or iBatis, well, the argument seems to be something like &#8220;What&#8217;s wrong with my static methods (and my own wrapper APIs hiding DB details) calling Oracle procedures. It&#8217;s fast and it works. And I can use tools like <i>sqlplus</i> to figure out issues much faster&#8221;. As for the <b>V</b>, don&#8217;t even start with Velocity Vs. JSP or SiteMesh vs. Tiles. As far as they are concerned, they could care less.</p>
@@ -79,7 +79,7 @@ Which brings me to this:</p>
 <p>
 2. Let&#8217;s say you work in an organization in an IT team comprising of 5 developers, a PM and the rest of the chain that goes way up. Your friend works in a different IT silo, perhaps under the same organizational unit. Your organization has a slew of web apps that your team maintains. Your friend has a slightly different slice of apps to digest. Needless to say, chances of flexing your bleeding edge muscles under these circumstances is pretty much out of question. Any attempts to refactor or rewrite these will probably be met with: &#8220;Why should we? If it ain&#8217;t broken, why fix it?&#8221;. Ok, fair enough. A few new projects come along. Your team gets a crack at one. Your friend&#8217;s team is given some as well. </p>
 <p>
-You&#8217;ve been waiting to unleash your cool geeko ideas upon applications. Let&#8217;s assume that you&#8217;re lucky and your other team members let you drive the show. You finally get to do it your way, the <b>RIGHT</b> way, of course <img src="/images/wink.gif" align="middle">. Your friend is a bit unlucky. He has to follow along as per the directions of his tech lead. Things are not as <i>hip</i> in his backyard, so to speak. You both finish, in time and on budget. Is there any reason why you should be awarded more for taking the pains to implement all this bleeding-edge stuff? I mean, assuming that the other team built the application using the same level of competency, how does it matter that you used WebWork 2.x with Spring and Hibernate while your friend used Struts 1.0 with loads of JDBC calls hidden behind the tech lead&#8217;s own pet DB API. Are you serving your company&#8217;s business needs and ROI any more than the other tech lead. Is their a way to tangibly measure the benefit your efforts and initiative brought to your company?
+You&#8217;ve been waiting to unleash your cool geeko ideas upon applications. Let&#8217;s assume that you&#8217;re lucky and your other team members let you drive the show. You finally get to do it your way, the <b>RIGHT</b> way, of course <img src="/images/wink.gif" align="middle" alt="" aria-hidden="true" loading="lazy" decoding="async". Your friend is a bit unlucky. He has to follow along as per the directions of his tech lead. Things are not as <i>hip</i> in his backyard, so to speak. You both finish, in time and on budget. Is there any reason why you should be awarded more for taking the pains to implement all this bleeding-edge stuff? I mean, assuming that the other team built the application using the same level of competency, how does it matter that you used WebWork 2.x with Spring and Hibernate while your friend used Struts 1.0 with loads of JDBC calls hidden behind the tech lead&#8217;s own pet DB API. Are you serving your company&#8217;s business needs and ROI any more than the other tech lead. Is their a way to tangibly measure the benefit your efforts and initiative brought to your company?
 </p></blockquote>
 <p>
 Frankly, if you really ask me, here&#8217;s what I would probably do if I had a shot at running my own IT development team within an organization: </p>
@@ -94,7 +94,7 @@ Form a virtual team of tech lead(s), preferably across our entire organizational
 <p>
 It might be a very simplistic view of the world and I might be way off. But the idea here is simple: There really is nothing called &#8220;Best Practices&#8221;. It&#8217;s all best in your own <i>context</i> (in this case, your organization). Using the least common denominator approach, assimilate your findings into an &#8220;application&#8221;, and not some stupid &#8220;Best Practices&#8221; MS Word document. This way, you can make the developers (off or onshore) focus on understanding and implementing the <i>business functionality</i>, and not fight the battle that has been won over many many times.</p>
 <p>
-What do you think? In case you totally disagree, no worries. May be that&#8217;s why I don&#8217;t get to run my own IT development team after all <img src="/images/smile.gif" align="middle">. At least, not yet.</p>
+What do you think? In case you totally disagree, no worries. May be that&#8217;s why I don&#8217;t get to run my own IT development team after all <img src="/images/smile.gif" align="middle" alt="" aria-hidden="true" loading="lazy" decoding="async". At least, not yet.</p>
                                 <p>- Anand</p>
                                 
                                 <p class="postlinks">

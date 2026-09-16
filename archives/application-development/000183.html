@@ -40,7 +40,7 @@
 
 <div id="header">
 	<div id="myPic">
-		<img src="/images/me.gif" alt="A.S" border="1">
+		<img src="/images/me.gif" alt="Portrait of Anand Sharma" border="1" loading="eager" decoding="async"
 	</div>
 	<h1>Segmentation Fault: Core Dumped</h1>
 	<h3>Anand Sharma's Blog</h3>
@@ -64,7 +64,7 @@
                                 
                                 <h3>Posted : May 20, 2004 at 5:22 pm [America/Los_Angeles]</h3>
                                 
-                                <p><center><img src="/images/scratchpad.jpg"></center></p>
+                                <p><center><img src="/images/scratchpad.jpg" alt="Archived image: scratchpad" loading="lazy" decoding="async"</center></p>
 <p>
 I started blogging the easy way - installed Movable Type, tinkered with it for a few hours and I had my blog up. And while I did customize the default MT template, played with and used a <a href="http://www.staggernation.com/mtplugins/#Compare" target="_blank">few</a> <a href="http://bradchoate.com/weblog/2002/07/11/sql-plugin" target="_blank">MT</a> plugins here and there, converted to using PHP (and it&#8217;s include feature) as opposed to plain HTML as my default blog pages and continue to use rich blogging client like <a href="http://wbloggar.com/" target="_blank">w.bloggar</a> to do blog posting (thanks to XML-RPC and support of Blogger API in MT), somehow I never really took a minute to understand some of the internals of the whole process. </p>
 <p>
@@ -83,7 +83,7 @@ However, Erik&#8217;s <a href="http://www.thauvin.net/blog/news.jsp?date=2004-05
 ..Less than 15 minutes later, I had successfully made my first blog entry via the NewzCrawler Blog Client.
 </p></blockquote>
 <p>
-From these lines, it seemed like writing an XML-RPC endpoint which was also Blogger API-compatible was really not that big a deal. I don&#8217;t know why, but I was making this thing out to be <i>a really big deal</i>. Something which would probably need a Blogging engine to provide for me <img src="/images/smile.gif" align="middle"></p>
+From these lines, it seemed like writing an XML-RPC endpoint which was also Blogger API-compatible was really not that big a deal. I don&#8217;t know why, but I was making this thing out to be <i>a really big deal</i>. Something which would probably need a Blogging engine to provide for me <img src="/images/smile.gif" align="middle" alt="" aria-hidden="true" loading="lazy" decoding="async"</p>
 <p>
 I dumped all my project work, and decided to go figure out what these APIs/Protocol stacks were and how they really worked their magic. After some research, I wrote my first Java based <a href="http://indrayam.com/demo/xmlrpc.zip">standalone application</a> (using Apache&#8217;s XML-RPC) which successfully interacted with my Movable Type&#8217;s XML-RPC end-point (/mt/mt-xmlrpc.cgi, by default). While it felt good, I had already done this with Perl, so it really was no big deal. That&#8217;s when it struck me: </p>
 <blockquote><p>
@@ -178,15 +178,15 @@ Web Application 2.2//EN" "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd"&gt;
 <p>
 That&#8217;s it. Deployed the application, fired up Tomcat and pointed XMLPad.exe to the local XML-RPC end point. The results are below for you to see:</p>
 <p>
-<center><img src="/images/xmlpad-input.jpg"></center></p>
+<center><img src="/images/xmlpad-input.jpg" alt="Archived image: xmlpad input" loading="lazy" decoding="async"</center></p>
 <p>
-<center><img src="/images/xmlpad-output.jpg"></center></p>
+<center><img src="/images/xmlpad-output.jpg" alt="Archived image: xmlpad output" loading="lazy" decoding="async"</center></p>
 <p>
-<center><img src="/images/xmlpad-dos.jpg"></center></p>
+<center><img src="/images/xmlpad-dos.jpg" alt="Archived image: xmlpad dos" loading="lazy" decoding="async"</center></p>
 <p>
 I obviously cannot say for sure if Erik&#8217;s <i>&#8220;&#8230;I grabbed a copy of Apache&#8217;s XML-RPC to handle the remote procedure calls thru a Servlet&#8230;&#8221;</i> is basically a more elaborate version of something like this or it&#8217;s just some blogging engine acting as his &#8220;ScratchPad&#8221; area. </p>
 <p>
-In any case, it sure was fun trying to create your very own servlet acting as an XML-RPC HTTP end point which rich clients like NewzCrawler could directly &#8220;post&#8221; to. And come to think of it, it really was not that bad <img src="/images/wink.gif" align="middle"></p>
+In any case, it sure was fun trying to create your very own servlet acting as an XML-RPC HTTP end point which rich clients like NewzCrawler could directly &#8220;post&#8221; to. And come to think of it, it really was not that bad <img src="/images/wink.gif" align="middle" alt="" aria-hidden="true" loading="lazy" decoding="async"</p>
                                 <p>- Anand</p>
                                 
                                 <p class="postlinks">
@@ -214,7 +214,7 @@ In any case, it sure was fun trying to create your very own servlet acting as an
 	          
            
            <div class="commententry" id="comment-149">
-            <p>Hey Anand - Great blog entry and thanks for the tip on XMLPad.  I wish I had that utiltiy a few weeks ago <img src="/images/smilies/icon_smile.gif" alt=':)' class='wp-smiley' />
+            <p>Hey Anand - Great blog entry and thanks for the tip on XMLPad.  I wish I had that utiltiy a few weeks ago <img src="/images/smilies/icon_smile.gif" alt=':)' class='wp-smiley' loading="lazy" decoding="async"
 <p />
 &#8211;Vinny<br />
 <br />
