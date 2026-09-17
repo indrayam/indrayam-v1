@@ -413,6 +413,8 @@ pre code.hljs {
 
 #topnav{
 	font-size: 90%;
+	min-width: 0;
+	overflow-wrap: anywhere;
 }
 
 #myPic{
